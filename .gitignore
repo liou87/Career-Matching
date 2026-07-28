@@ -1,0 +1,16 @@
+# Python
+backend/__pycache__/
+backend/**/__pycache__/
+*.pyc
+backend/venv/
+backend/.venv/
+
+# Secrets
+backend/.env
+
+# Database
+backend/job_helper.db
+
+# Node
+frontend/node_modules/
+frontend/dist/

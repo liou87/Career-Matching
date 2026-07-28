@@ -1,0 +1,53 @@
+from sqlalchemy import Column, Integer, String, Text, DateTime, JSON
+from sqlalchemy.sql import func
+from database import Base
+
+
+class Profile(Base):
+    __tablename__ = "profiles"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(100))
+    education = Column(JSON)       # [{degree, school, major, year}]
+    skills = Column(JSON)          # ["Python", "SQL", ...]
+    experiences = Column(JSON)     # [{title, company, duration, description}]
+    projects = Column(JSON)        # [{name, description, tech_stack}]
+    target_roles = Column(JSON)    # ["数据分析师", "后端工程师"]
+    target_cities = Column(JSON)   # ["北京", "上海"]
+    target_companies = Column(JSON)  # ["字节跳动", "外企在华"]
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+
+
+class Job(Base):
+    __tablename__ = "jobs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    raw_jd = Column(Text)          # 原始粘贴文本
+    title = Column(String(200))
+    company = Column(String(200))
+    city = Column(String(100))
+    salary_min = Column(Integer)   # 单位：千元/月
+    salary_max = Column(Integer)
+    required_skills = Column(JSON)
+    preferred_skills = Column(JSON)
+    experience_required = Column(String(100))
+    education_required = Column(String(100))
+    responsibilities = Column(JSON)
+    parsed_at = Column(DateTime, server_default=func.now())
+    source_url = Column(String(500))
+    status = Column(String(50), default="active")  # active / archived
+
+
+class Analysis(Base):
+    __tablename__ = "analyses"
+
+    id = Column(Integer, primary_key=True, index=True)
+    job_id = Column(Integer)
+    match_score = Column(Integer)       # 0-100
+    matched_skills = Column(JSON)
+    missing_skills = Column(JSON)
+    strengths = Column(JSON)
+    gaps = Column(JSON)
+    suggestions = Column(JSON)          # [{item, priority, resource}]
+    summary = Column(Text)
+    created_at = Column(DateTime, server_default=func.now())
