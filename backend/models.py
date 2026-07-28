@@ -47,7 +47,18 @@ class Analysis(Base):
     matched_skills = Column(JSON)
     missing_skills = Column(JSON)
     strengths = Column(JSON)
-    gaps = Column(JSON)
-    suggestions = Column(JSON)          # [{item, priority, resource}]
+    gaps = Column(JSON)                 # [{gap, importance, suggestion}]
+    action_items = Column(JSON)         # [{item, priority, resource}]
     summary = Column(Text)
+    created_at = Column(DateTime, server_default=func.now())
+
+
+class Checklist(Base):
+    __tablename__ = "checklist"
+
+    id = Column(Integer, primary_key=True, index=True)
+    content = Column(Text)
+    importance = Column(String(10))     # 高/中/低
+    suggestion = Column(Text)
+    status = Column(String(10), default="todo")   # todo / done
     created_at = Column(DateTime, server_default=func.now())

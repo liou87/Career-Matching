@@ -84,7 +84,7 @@ export default function JobsPage() {
       {jobs.length === 0 && <p className="empty">还没有岗位，粘贴第一条 JD 开始吧</p>}
 
       {jobs.map(job => (
-        <div key={job.id} className="job-card">
+        <div key={job.id} className="job-card" onClick={() => navigate(`/jobs/${job.id}`)} style={{ cursor: "pointer" }}>
           <div className="job-card-body">
             <div className="job-title">{job.title || "未知职位"}</div>
             <div className="job-meta">
@@ -101,10 +101,10 @@ export default function JobsPage() {
               )}
             </div>
             <div className="job-actions">
-              <button className="btn btn-primary" onClick={() => navigate(`/analysis?job=${job.id}`)}>
+              <button className="btn btn-primary" onClick={e => { e.stopPropagation(); navigate(`/analysis?job=${job.id}`); }}>
                 匹配分析
               </button>
-              <button className="btn btn-danger" onClick={() => deleteJob(job.id)}>删除</button>
+              <button className="btn btn-danger" onClick={e => { e.stopPropagation(); deleteJob(job.id); }}>删除</button>
             </div>
           </div>
         </div>

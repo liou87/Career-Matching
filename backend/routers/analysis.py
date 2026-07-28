@@ -54,7 +54,7 @@ def run_analysis(job_id: int, db: Session = Depends(get_db)):
         missing_skills=result.get("missing_skills", []),
         strengths=result.get("strengths", []),
         gaps=result.get("gaps", []),
-        suggestions=result.get("suggestions", []),
+        action_items=result.get("action_items", []),
         summary=result.get("summary", ""),
     )
     db.add(analysis)

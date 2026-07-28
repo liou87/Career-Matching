@@ -69,7 +69,12 @@ class JobOut(BaseModel):
 
 # ---------- Analysis ----------
 
-class Suggestion(BaseModel):
+class Gap(BaseModel):
+    gap: str
+    importance: str   # 高 / 中 / 低
+    suggestion: str
+
+class ActionItem(BaseModel):
     item: str
     priority: str   # high / medium / low
     resource: Optional[str] = None
@@ -81,9 +86,35 @@ class AnalysisOut(BaseModel):
     matched_skills: list[str] = []
     missing_skills: list[str] = []
     strengths: list[str] = []
-    gaps: list[str] = []
-    suggestions: list[Suggestion] = []
+    gaps: list[Gap] = []
+    action_items: list[ActionItem] = []
     summary: str
+    created_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
+
+# ---------- Checklist ----------
+
+class ChecklistItemCreate(BaseModel):
+    content: str
+    importance: Optional[str] = None
+    suggestion: Optional[str] = None
+
+class ChecklistCreate(BaseModel):
+    items: list[ChecklistItemCreate]
+
+class ChecklistUpdate(BaseModel):
+    content: Optional[str] = None
+    status: Optional[str] = None   # todo / done
+
+class ChecklistOut(BaseModel):
+    id: int
+    content: str
+    importance: Optional[str] = None
+    suggestion: Optional[str] = None
+    status: str
     created_at: Optional[datetime] = None
 
     class Config:

@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import engine
 import models
-from routers import profile, jobs, analysis
+from routers import profile, jobs, analysis, checklist
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -18,6 +18,7 @@ app.add_middleware(
 app.include_router(profile.router)
 app.include_router(jobs.router)
 app.include_router(analysis.router)
+app.include_router(checklist.router)
 
 
 @app.get("/")

@@ -3,7 +3,8 @@ import { useSearchParams } from "react-router-dom";
 import api from "../api";
 
 interface Job { id: number; title: string; company: string; city: string; }
-interface Suggestion { item: string; priority: string; resource?: string; }
+interface Gap { gap: string; importance: string; suggestion: string; }
+interface ActionItem { item: string; priority: string; resource?: string; }
 interface Analysis {
   id: number;
   job_id: number;
@@ -11,8 +12,8 @@ interface Analysis {
   matched_skills: string[];
   missing_skills: string[];
   strengths: string[];
-  gaps: string[];
-  suggestions: Suggestion[];
+  gaps: Gap[];
+  action_items: ActionItem[];
   summary: string;
 }
 
@@ -26,6 +27,11 @@ function PriorityDot({ p }: { p: string }) {
   return <div className={`priority-dot ${cls}`} />;
 }
 
+function ImportanceDot({ level }: { level: string }) {
+  const cls = level === "高" ? "dot-high" : level === "中" ? "dot-mid" : "dot-low";
+  return <div className={`priority-dot ${cls}`} />;
+}
+
 export default function AnalysisPage() {
   const [searchParams] = useSearchParams();
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -33,6 +39,9 @@ export default function AnalysisPage() {
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
   const [running, setRunning] = useState(false);
   const [error, setError] = useState("");
+  const [checkedGaps, setCheckedGaps] = useState<Set<number>>(new Set());
+  const [savingChecklist, setSavingChecklist] = useState(false);
+  const [checklistMsg, setChecklistMsg] = useState("");
 
   useEffect(() => {
     api.get("/jobs").then(r => {
@@ -47,6 +56,8 @@ export default function AnalysisPage() {
   }, []);
 
   const loadLatest = (id: number) => {
+    setCheckedGaps(new Set());
+    setChecklistMsg("");
     api.get(`/analysis/${id}/latest`).then(r => setAnalysis(r.data)).catch(() => setAnalysis(null));
   };
 
@@ -61,6 +72,8 @@ export default function AnalysisPage() {
     if (!selectedJob) return;
     setRunning(true);
     setError("");
+    setCheckedGaps(new Set());
+    setChecklistMsg("");
     try {
       const r = await api.post(`/analysis/${selectedJob}`);
       setAnalysis(r.data);
@@ -68,6 +81,32 @@ export default function AnalysisPage() {
       setError(e.response?.data?.detail || "分析失败，请先完善个人画像并检查API Key");
     }
     setRunning(false);
+  };
+
+  const toggleGap = (i: number) => {
+    setCheckedGaps(prev => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i); else next.add(i);
+      return next;
+    });
+  };
+
+  const saveToChecklist = async () => {
+    if (!analysis || checkedGaps.size === 0) return;
+    setSavingChecklist(true);
+    setChecklistMsg("");
+    try {
+      const items = [...checkedGaps].map(i => {
+        const g = analysis.gaps[i];
+        return { content: g.gap, importance: g.importance, suggestion: g.suggestion };
+      });
+      await api.post("/checklist", { items });
+      setChecklistMsg(`已保存 ${items.length} 条到提升清单`);
+      setCheckedGaps(new Set());
+    } catch {
+      setChecklistMsg("保存失败，请重试");
+    }
+    setSavingChecklist(false);
   };
 
   const job = jobs.find(j => j.id === selectedJob);
@@ -130,24 +169,47 @@ export default function AnalysisPage() {
             </div>
           </div>
 
-          <div className="two-col">
-            <div className="card">
-              <div className="section-title">你的优势</div>
-              <ul style={{ paddingLeft: 18, lineHeight: 2, fontSize: 14 }}>
-                {analysis.strengths.map((s, i) => <li key={i}>{s}</li>)}
-              </ul>
-            </div>
-            <div className="card">
-              <div className="section-title">主要差距</div>
-              <ul style={{ paddingLeft: 18, lineHeight: 2, fontSize: 14 }}>
-                {analysis.gaps.map((g, i) => <li key={i}>{g}</li>)}
-              </ul>
+          <div className="card">
+            <div className="section-title">你的优势</div>
+            <ul style={{ paddingLeft: 18, lineHeight: 2, fontSize: 14 }}>
+              {analysis.strengths.map((s, i) => <li key={i}>{s}</li>)}
+            </ul>
+          </div>
+
+          <div className="card">
+            <div className="section-title">主要差距</div>
+            {analysis.gaps.map((g, i) => (
+              <div key={i} className="suggestion-item">
+                <input
+                  type="checkbox"
+                  style={{ width: "auto", marginTop: 4 }}
+                  checked={checkedGaps.has(i)}
+                  onChange={() => toggleGap(i)}
+                />
+                <ImportanceDot level={g.importance} />
+                <div>
+                  <div style={{ fontWeight: 500, fontSize: 14, marginBottom: 2 }}>{g.gap}</div>
+                  <div style={{ fontSize: 13, color: "#6b7280" }}>{g.suggestion}</div>
+                </div>
+                <span className="tag" style={{ marginLeft: "auto", flexShrink: 0,
+                  background: g.importance === "高" ? "#fee2e2" : g.importance === "中" ? "#fef9c3" : "#dcfce7",
+                  color: g.importance === "高" ? "#dc2626" : g.importance === "中" ? "#b45309" : "#16a34a"
+                }}>
+                  {g.importance}
+                </span>
+              </div>
+            ))}
+            <div className="btn-row">
+              <button className="btn btn-primary" onClick={saveToChecklist} disabled={checkedGaps.size === 0 || savingChecklist}>
+                {savingChecklist ? "保存中..." : `保存到提升清单 (${checkedGaps.size})`}
+              </button>
+              {checklistMsg && <span className={checklistMsg.includes("失败") ? "error-msg" : "success-msg"} style={{ alignSelf: "center" }}>{checklistMsg}</span>}
             </div>
           </div>
 
           <div className="card">
-            <div className="section-title">提升建议</div>
-            {analysis.suggestions.map((s, i) => (
+            <div className="section-title">行动建议</div>
+            {analysis.action_items.map((s, i) => (
               <div key={i} className="suggestion-item">
                 <PriorityDot p={s.priority} />
                 <div>

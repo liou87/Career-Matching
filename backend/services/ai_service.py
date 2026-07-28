@@ -54,18 +54,28 @@ def analyze_match(profile: dict, job: dict) -> dict:
 目标岗位：
 {json.dumps(job, ensure_ascii=False, indent=2)}
 
-请返回严格的JSON格式，不要有任何多余文字：
+请返回严格的JSON格式，不要有任何多余文字。字段要求：
+- strengths：候选人优势亮点，必须正好3条
+- gaps：候选人与岗位的差距，必须正好5条，每条要具体、落到点上（缺什么技能/经验/背景），按importance从高到低排序
+- action_items：提升行动建议，必须正好3条，每条要具体可执行，按priority从高到低排序（high在前）
+
 {{
   "match_score": 0到100的整数（综合匹配分）,
   "matched_skills": ["已具备的匹配技能"],
   "missing_skills": ["缺失的必要技能"],
-  "strengths": ["候选人的优势亮点（2-4条）"],
-  "gaps": ["主要差距（2-4条）"],
-  "suggestions": [
+  "strengths": ["优势1", "优势2", "优势3"],
+  "gaps": [
     {{
-      "item": "具体提升建议",
+      "gap": "具体差距描述",
+      "importance": "高/中/低",
+      "suggestion": "针对这条差距的一句话提升建议"
+    }}
+  ],
+  "action_items": [
+    {{
+      "item": "具体的行动建议，比如做什么项目/学什么/怎么准备面试",
       "priority": "high/medium/low",
-      "resource": "推荐学习资源或行动（可选）"
+      "resource": "推荐的具体学习资源或行动步骤（可选）"
     }}
   ],
   "summary": "100字以内的整体评估总结"

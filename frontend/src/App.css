@@ -82,6 +82,7 @@ input, textarea, select {
   font-family: inherit;
 }
 input:focus, textarea:focus { border-color: #4f46e5; }
+input[type="checkbox"] { width: auto; }
 
 label { display: block; font-size: 13px; font-weight: 500; color: #6b7280; margin-bottom: 6px; }
 .form-group { margin-bottom: 16px; }
