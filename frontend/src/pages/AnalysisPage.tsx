@@ -1,35 +1,38 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import api from "../api";
-
-interface Job { id: number; title: string; company: string; city: string; }
-interface Gap { gap: string; importance: string; suggestion: string; }
-interface ActionItem { item: string; priority: string; resource?: string; }
-interface Analysis {
-  id: number;
-  job_id: number;
-  match_score: number;
-  matched_skills: string[];
-  missing_skills: string[];
-  strengths: string[];
-  gaps: Gap[];
-  action_items: ActionItem[];
-  summary: string;
-}
+import type { Job, Analysis, ScoreBreakdown } from "../types";
+import { LevelDot, LevelTag } from "../components/LevelIndicator";
 
 function ScoreRing({ score }: { score: number }) {
   const cls = score >= 70 ? "score-high" : score >= 45 ? "score-mid" : "score-low";
   return <div className={`score-ring ${cls}`}>{score}</div>;
 }
 
-function PriorityDot({ p }: { p: string }) {
-  const cls = p === "high" ? "dot-high" : p === "medium" ? "dot-mid" : "dot-low";
-  return <div className={`priority-dot ${cls}`} />;
+function priorityLabel(p: string) {
+  return p === "high" ? "优先" : p === "medium" ? "中等" : "可选";
 }
 
-function ImportanceDot({ level }: { level: string }) {
-  const cls = level === "高" ? "dot-high" : level === "中" ? "dot-mid" : "dot-low";
-  return <div className={`priority-dot ${cls}`} />;
+function ScoreBreakdownBars({ breakdown }: { breakdown: ScoreBreakdown }) {
+  const rows = [
+    { label: "技能匹配", value: breakdown.skills },
+    { label: "经验匹配", value: breakdown.experience },
+    { label: "学历匹配", value: breakdown.education },
+    { label: "其他契合", value: breakdown.other },
+  ];
+  return (
+    <div className="score-breakdown">
+      {rows.map(r => (
+        <div key={r.label} className="score-breakdown-row">
+          <span className="score-breakdown-label">{r.label}</span>
+          <div className="score-breakdown-track">
+            <div className="score-breakdown-fill" style={{ width: `${r.value}%` }} />
+          </div>
+          <span className="score-breakdown-value">{r.value}</span>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export default function AnalysisPage() {
@@ -144,7 +147,7 @@ export default function AnalysisPage() {
                 强制重新分析
               </button>
             )}
-            {running && <span style={{ alignSelf: "center", color: "#6b7280", fontSize: 13 }}>DeepSeek 正在分析，约 10-15 秒...</span>}
+            {running && <span style={{ alignSelf: "center", color: "var(--text-muted)", fontSize: 13 }}>DeepSeek 正在分析，约 10-15 秒...</span>}
           </div>
         )}
         {error && <p className="error-msg" style={{ marginTop: 8 }}>{error}</p>}
@@ -159,24 +162,25 @@ export default function AnalysisPage() {
               <div className="analysis-title">
                 <h2>{job.title} · {job.company}</h2>
                 <p>匹配分：{analysis.match_score} / 100 · {job.city}</p>
-                <p style={{ color: "#9ca3af", fontSize: 12, marginTop: 2 }}>AI 估算，仅供参考</p>
+                <p style={{ color: "var(--text-faint)", fontSize: 12, marginTop: 2 }}>AI 估算，仅供参考</p>
               </div>
             </div>
-            <p style={{ color: "#374151", lineHeight: 1.7 }}>{analysis.summary}</p>
+            <p style={{ color: "var(--text)", lineHeight: 1.7 }}>{analysis.summary}</p>
+            {analysis.score_breakdown && <ScoreBreakdownBars breakdown={analysis.score_breakdown} />}
           </div>
 
           <div className="two-col">
             <div className="card">
               <div className="section-title">已匹配技能</div>
               {analysis.matched_skills.length === 0
-                ? <p style={{ color: "#9ca3af", fontSize: 14 }}>暂无</p>
+                ? <p style={{ color: "var(--text-faint)", fontSize: 14 }}>暂无</p>
                 : analysis.matched_skills.map((s, i) => <span key={i} className="tag tag-green">{s}</span>)
               }
             </div>
             <div className="card">
               <div className="section-title">缺失技能</div>
               {analysis.missing_skills.length === 0
-                ? <p style={{ color: "#9ca3af", fontSize: 14 }}>暂无</p>
+                ? <p style={{ color: "var(--text-faint)", fontSize: 14 }}>暂无</p>
                 : analysis.missing_skills.map((s, i) => <span key={i} className="tag tag-red">{s}</span>)
               }
             </div>
@@ -199,16 +203,13 @@ export default function AnalysisPage() {
                   checked={checkedGaps.has(i)}
                   onChange={() => toggleGap(i)}
                 />
-                <ImportanceDot level={g.importance} />
+                <LevelDot value={g.importance} />
                 <div>
                   <div style={{ fontWeight: 500, fontSize: 14, marginBottom: 2 }}>{g.gap}</div>
-                  <div style={{ fontSize: 13, color: "#6b7280" }}>{g.suggestion}</div>
+                  <div style={{ fontSize: 13, color: "var(--text-muted)" }}>{g.suggestion}</div>
                 </div>
-                <span className="tag" style={{ marginLeft: "auto", flexShrink: 0,
-                  background: g.importance === "高" ? "#fee2e2" : g.importance === "中" ? "#fef9c3" : "#dcfce7",
-                  color: g.importance === "高" ? "#dc2626" : g.importance === "中" ? "#b45309" : "#16a34a"
-                }}>
-                  {g.importance}
+                <span style={{ marginLeft: "auto", flexShrink: 0 }}>
+                  <LevelTag value={g.importance} />
                 </span>
               </div>
             ))}
@@ -224,16 +225,13 @@ export default function AnalysisPage() {
             <div className="section-title">行动建议</div>
             {analysis.action_items.map((s, i) => (
               <div key={i} className="suggestion-item">
-                <PriorityDot p={s.priority} />
+                <LevelDot value={s.priority} />
                 <div>
                   <div style={{ fontWeight: 500, fontSize: 14, marginBottom: 2 }}>{s.item}</div>
-                  {s.resource && <div style={{ fontSize: 13, color: "#6b7280" }}>{s.resource}</div>}
+                  {s.resource && <div style={{ fontSize: 13, color: "var(--text-muted)" }}>{s.resource}</div>}
                 </div>
-                <span className="tag" style={{ marginLeft: "auto", flexShrink: 0,
-                  background: s.priority === "high" ? "#fee2e2" : s.priority === "medium" ? "#fef9c3" : "#dcfce7",
-                  color: s.priority === "high" ? "#dc2626" : s.priority === "medium" ? "#b45309" : "#16a34a"
-                }}>
-                  {s.priority === "high" ? "优先" : s.priority === "medium" ? "中等" : "可选"}
+                <span style={{ marginLeft: "auto", flexShrink: 0 }}>
+                  <LevelTag value={s.priority} label={priorityLabel(s.priority)} />
                 </span>
               </div>
             ))}

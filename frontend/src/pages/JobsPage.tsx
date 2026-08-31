@@ -1,25 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
-
-interface Job {
-  id: number;
-  title: string;
-  company: string;
-  city: string;
-  salary_min: number | null;
-  salary_max: number | null;
-  required_skills: string[];
-  experience_required: string;
-  education_required: string;
-  parsed_at: string;
-}
-
-function salaryLabel(min: number | null, max: number | null) {
-  if (!min && !max) return "薪资面议";
-  if (min && max) return `${min}k - ${max}k`;
-  return `${min || max}k`;
-}
+import type { Job } from "../types";
+import { salaryLabel } from "../lib/format";
 
 export default function JobsPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -29,7 +12,7 @@ export default function JobsPage() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const load = () => api.get("/jobs").then(r => setJobs(r.data));
+  const load = () => api.get("/jobs").then(r => setJobs(r.data)).catch(() => setError("加载岗位列表失败，请检查后端是否在运行"));
 
   useEffect(() => { load(); }, []);
 
@@ -49,6 +32,7 @@ export default function JobsPage() {
   };
 
   const deleteJob = async (id: number) => {
+    if (!window.confirm("确定要删除这个岗位吗？删除后无法恢复。")) return;
     await api.delete(`/jobs/${id}`);
     setJobs(j => j.filter(x => x.id !== id));
   };
@@ -76,7 +60,7 @@ export default function JobsPage() {
         <button className="btn btn-primary" onClick={addJob} disabled={adding}>
           {adding ? "AI 解析中..." : "解析并添加"}
         </button>
-        {adding && <p style={{ color: "#6b7280", fontSize: 13, marginTop: 8 }}>正在调用 Claude 解析 JD，通常需要 5-10 秒...</p>}
+        {adding && <p style={{ color: "var(--text-muted)", fontSize: 13, marginTop: 8 }}>正在调用 DeepSeek 解析 JD，通常需要 5-10 秒...</p>}
       </div>
 
       <h2>已收录岗位（{jobs.length}）</h2>

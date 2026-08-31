@@ -1,19 +1,7 @@
 import { useEffect, useState, type KeyboardEvent } from "react";
 import api from "../api";
-
-interface ChecklistItem {
-  id: number;
-  content: string;
-  importance: string | null;
-  suggestion: string | null;
-  status: "todo" | "done";
-  created_at: string;
-}
-
-function ImportanceDot({ level }: { level: string | null }) {
-  const cls = level === "高" ? "dot-high" : level === "中" ? "dot-mid" : "dot-low";
-  return <div className={`priority-dot ${cls}`} />;
-}
+import type { ChecklistItem } from "../types";
+import { LevelDot, LevelTag } from "../components/LevelIndicator";
 
 export default function ChecklistPage() {
   const [items, setItems] = useState<ChecklistItem[]>([]);
@@ -50,6 +38,7 @@ export default function ChecklistPage() {
   };
 
   const remove = async (id: number) => {
+    if (!window.confirm("确定要删除这条清单吗？")) return;
     setItems(list => list.filter(i => i.id !== id));
     await api.delete(`/checklist/${id}`);
   };
@@ -66,7 +55,7 @@ export default function ChecklistPage() {
         onChange={() => toggleStatus(item)}
         title="标记完成/未完成"
       />
-      <ImportanceDot level={item.importance} />
+      {item.importance && <LevelDot value={item.importance} />}
       <div style={{ flex: 1 }}>
         {editingId === item.id ? (
           <input
@@ -82,21 +71,18 @@ export default function ChecklistPage() {
             style={{
               fontWeight: 500, fontSize: 14, marginBottom: 2, cursor: "text",
               textDecoration: item.status === "done" ? "line-through" : "none",
-              color: item.status === "done" ? "#9ca3af" : "inherit",
+              color: item.status === "done" ? "var(--text-faint)" : "inherit",
             }}
             title="点击编辑"
           >
             {item.content}
           </div>
         )}
-        {item.suggestion && <div style={{ fontSize: 13, color: "#6b7280" }}>{item.suggestion}</div>}
+        {item.suggestion && <div style={{ fontSize: 13, color: "var(--text-muted)" }}>{item.suggestion}</div>}
       </div>
       {item.importance && (
-        <span className="tag" style={{ flexShrink: 0,
-          background: item.importance === "高" ? "#fee2e2" : item.importance === "中" ? "#fef9c3" : "#dcfce7",
-          color: item.importance === "高" ? "#dc2626" : item.importance === "中" ? "#b45309" : "#16a34a"
-        }}>
-          {item.importance}
+        <span style={{ flexShrink: 0 }}>
+          <LevelTag value={item.importance} />
         </span>
       )}
       <button className="btn btn-danger" onClick={() => remove(item.id)}>删除</button>
@@ -118,7 +104,7 @@ export default function ChecklistPage() {
           <div className="card">
             <div className="section-title">待提升（{todoItems.length}）</div>
             {todoItems.length === 0
-              ? <p style={{ color: "#9ca3af", fontSize: 14 }}>暂无</p>
+              ? <p style={{ color: "var(--text-faint)", fontSize: 14 }}>暂无</p>
               : todoItems.map(renderItem)}
           </div>
 

@@ -94,8 +94,10 @@ def analyze_match(profile: dict, job: dict) -> dict:
 }}"""
 
     result = _ask_json(prompt, 2048)
-    result.pop("skills_score", None)
-    result.pop("experience_score", None)
-    result.pop("education_score", None)
-    result.pop("other_score", None)
+    result["score_breakdown"] = {
+        "skills": result.pop("skills_score", 0),
+        "experience": result.pop("experience_score", 0),
+        "education": result.pop("education_score", 0),
+        "other": result.pop("other_score", 0),
+    }
     return result

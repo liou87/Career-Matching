@@ -1,32 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../api";
-
-interface JobDetail {
-  id: number;
-  raw_jd: string;
-  title: string | null;
-  company: string | null;
-  city: string | null;
-  salary_min: number | null;
-  salary_max: number | null;
-  required_skills: string[];
-  preferred_skills: string[];
-  experience_required: string | null;
-  education_required: string | null;
-  responsibilities: string[];
-}
-
-function salaryLabel(min: number | null, max: number | null) {
-  if (!min && !max) return "薪资面议";
-  if (min && max) return `${min}k - ${max}k`;
-  return `${min || max}k`;
-}
+import type { Job } from "../types";
+import { salaryLabel } from "../lib/format";
 
 export default function JobDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [job, setJob] = useState<JobDetail | null>(null);
+  const [job, setJob] = useState<Job | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -55,25 +36,25 @@ export default function JobDetailPage() {
           {job.education_required && ` · ${job.education_required}`}
         </div>
 
-        {job.required_skills?.length > 0 && (
+        {(job.required_skills || []).length > 0 && (
           <div style={{ marginBottom: 8 }}>
             <div className="section-title">必备技能</div>
             {job.required_skills.map((s, i) => <span key={i} className="tag tag-blue">{s}</span>)}
           </div>
         )}
 
-        {job.preferred_skills?.length > 0 && (
+        {(job.preferred_skills || []).length > 0 && (
           <div style={{ marginBottom: 8 }}>
             <div className="section-title">加分技能</div>
-            {job.preferred_skills.map((s, i) => <span key={i} className="tag tag-gray">{s}</span>)}
+            {job.preferred_skills!.map((s, i) => <span key={i} className="tag tag-gray">{s}</span>)}
           </div>
         )}
 
-        {job.responsibilities?.length > 0 && (
+        {(job.responsibilities || []).length > 0 && (
           <div style={{ marginTop: 12 }}>
             <div className="section-title">主要职责</div>
             <ul style={{ paddingLeft: 18, lineHeight: 2, fontSize: 14 }}>
-              {job.responsibilities.map((r, i) => <li key={i}>{r}</li>)}
+              {job.responsibilities!.map((r, i) => <li key={i}>{r}</li>)}
             </ul>
           </div>
         )}
@@ -85,7 +66,7 @@ export default function JobDetailPage() {
 
       <div className="card">
         <div className="section-title">JD 原文</div>
-        <pre style={{ whiteSpace: "pre-wrap", fontFamily: "inherit", fontSize: 14, lineHeight: 1.7, color: "#374151" }}>
+        <pre style={{ whiteSpace: "pre-wrap", fontFamily: "inherit", fontSize: 14, lineHeight: 1.7, color: "var(--text)" }}>
           {job.raw_jd}
         </pre>
       </div>

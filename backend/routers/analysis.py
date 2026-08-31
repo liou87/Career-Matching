@@ -23,6 +23,21 @@ def _clamp_score(value) -> int:
     return max(0, min(100, v))
 
 
+def _clamp_breakdown(value) -> dict | None:
+    if not isinstance(value, dict):
+        return None
+    return {k: _clamp_score(value.get(k)) for k in ("skills", "experience", "education", "other")}
+
+
+def _weighted_score(breakdown: dict) -> int:
+    return _clamp_score(
+        breakdown["skills"] * 0.4
+        + breakdown["experience"] * 0.3
+        + breakdown["education"] * 0.15
+        + breakdown["other"] * 0.15
+    )
+
+
 def _profile_to_dict(profile: models.Profile) -> dict:
     return {
         "name": profile.name,
@@ -76,10 +91,14 @@ def run_analysis(job_id: int, force: bool = False, db: Session = Depends(get_db)
 
     result = analyze_match(profile_dict, job_dict)
 
+    breakdown = _clamp_breakdown(result.get("score_breakdown"))
+    match_score = _weighted_score(breakdown) if breakdown else _clamp_score(result.get("match_score"))
+
     analysis = models.Analysis(
         job_id=job_id,
         content_hash=content_hash,
-        match_score=_clamp_score(result.get("match_score")),
+        match_score=match_score,
+        score_breakdown=breakdown,
         matched_skills=result.get("matched_skills", []),
         missing_skills=result.get("missing_skills", []),
         strengths=result.get("strengths", []),

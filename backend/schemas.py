@@ -79,10 +79,17 @@ class ActionItem(BaseModel):
     priority: str   # high / medium / low
     resource: Optional[str] = None
 
+class ScoreBreakdown(BaseModel):
+    skills: int
+    experience: int
+    education: int
+    other: int
+
 class AnalysisOut(BaseModel):
     id: int
     job_id: int
     match_score: int
+    score_breakdown: Optional[ScoreBreakdown] = None
     matched_skills: list[str] = []
     missing_skills: list[str] = []
     strengths: list[str] = []
