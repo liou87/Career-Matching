@@ -42,6 +42,7 @@ export default function AnalysisPage() {
   const [checkedGaps, setCheckedGaps] = useState<Set<number>>(new Set());
   const [savingChecklist, setSavingChecklist] = useState(false);
   const [checklistMsg, setChecklistMsg] = useState("");
+  const [reuseMsg, setReuseMsg] = useState("");
 
   useEffect(() => {
     api.get("/jobs").then(r => {
@@ -68,15 +69,20 @@ export default function AnalysisPage() {
     loadLatest(id);
   };
 
-  const runAnalysis = async () => {
+  const runAnalysis = async (force = false) => {
     if (!selectedJob) return;
+    const previousId = analysis?.id;
     setRunning(true);
     setError("");
     setCheckedGaps(new Set());
     setChecklistMsg("");
+    setReuseMsg("");
     try {
-      const r = await api.post(`/analysis/${selectedJob}`);
+      const r = await api.post(`/analysis/${selectedJob}`, null, { params: force ? { force: true } : {} });
       setAnalysis(r.data);
+      if (!force && previousId !== undefined && r.data.id === previousId) {
+        setReuseMsg("内容没有变化，已复用上次的分析结果");
+      }
     } catch (e: any) {
       setError(e.response?.data?.detail || "分析失败，请先完善个人画像并检查API Key");
     }
@@ -130,13 +136,19 @@ export default function AnalysisPage() {
         }
         {selectedJob && (
           <div className="btn-row">
-            <button className="btn btn-primary" onClick={runAnalysis} disabled={running}>
+            <button className="btn btn-primary" onClick={() => runAnalysis(false)} disabled={running}>
               {running ? "AI 分析中..." : analysis ? "重新分析" : "开始匹配分析"}
             </button>
-            {running && <span style={{ alignSelf: "center", color: "#6b7280", fontSize: 13 }}>Claude 正在分析，约 10-15 秒...</span>}
+            {analysis && (
+              <button className="btn btn-secondary" onClick={() => runAnalysis(true)} disabled={running} title="不管内容变没变，都强制让 AI 重新判断一次">
+                强制重新分析
+              </button>
+            )}
+            {running && <span style={{ alignSelf: "center", color: "#6b7280", fontSize: 13 }}>DeepSeek 正在分析，约 10-15 秒...</span>}
           </div>
         )}
         {error && <p className="error-msg" style={{ marginTop: 8 }}>{error}</p>}
+        {reuseMsg && <p className="success-msg" style={{ marginTop: 8 }}>{reuseMsg}</p>}
       </div>
 
       {analysis && job && (
@@ -147,6 +159,7 @@ export default function AnalysisPage() {
               <div className="analysis-title">
                 <h2>{job.title} · {job.company}</h2>
                 <p>匹配分：{analysis.match_score} / 100 · {job.city}</p>
+                <p style={{ color: "#9ca3af", fontSize: 12, marginTop: 2 }}>AI 估算，仅供参考</p>
               </div>
             </div>
             <p style={{ color: "#374151", lineHeight: 1.7 }}>{analysis.summary}</p>

@@ -1,3 +1,6 @@
+import hashlib
+import json
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db
@@ -5,6 +8,19 @@ from services.ai_service import analyze_match
 import models, schemas
 
 router = APIRouter(prefix="/analysis", tags=["analysis"])
+
+
+def _content_hash(profile: dict, job: dict) -> str:
+    payload = json.dumps({"profile": profile, "job": job}, sort_keys=True, ensure_ascii=False)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def _clamp_score(value) -> int:
+    try:
+        v = int(round(float(value)))
+    except (TypeError, ValueError):
+        v = 0
+    return max(0, min(100, v))
 
 
 def _profile_to_dict(profile: models.Profile) -> dict:
@@ -36,7 +52,7 @@ def _job_to_dict(job: models.Job) -> dict:
 
 
 @router.post("/{job_id}", response_model=schemas.AnalysisOut)
-def run_analysis(job_id: int, db: Session = Depends(get_db)):
+def run_analysis(job_id: int, force: bool = False, db: Session = Depends(get_db)):
     profile = db.query(models.Profile).first()
     if not profile:
         raise HTTPException(status_code=400, detail="请先完善个人画像")
@@ -45,11 +61,25 @@ def run_analysis(job_id: int, db: Session = Depends(get_db)):
     if not job:
         raise HTTPException(status_code=404, detail="Job not found")
 
-    result = analyze_match(_profile_to_dict(profile), _job_to_dict(job))
+    profile_dict, job_dict = _profile_to_dict(profile), _job_to_dict(job)
+    content_hash = _content_hash(profile_dict, job_dict)
+
+    if not force:
+        existing = (
+            db.query(models.Analysis)
+            .filter(models.Analysis.job_id == job_id, models.Analysis.content_hash == content_hash)
+            .order_by(models.Analysis.created_at.desc())
+            .first()
+        )
+        if existing:
+            return existing
+
+    result = analyze_match(profile_dict, job_dict)
 
     analysis = models.Analysis(
         job_id=job_id,
-        match_score=result["match_score"],
+        content_hash=content_hash,
+        match_score=_clamp_score(result.get("match_score")),
         matched_skills=result.get("matched_skills", []),
         missing_skills=result.get("missing_skills", []),
         strengths=result.get("strengths", []),

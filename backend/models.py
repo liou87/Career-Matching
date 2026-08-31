@@ -43,6 +43,7 @@ class Analysis(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     job_id = Column(Integer)
+    content_hash = Column(String(64), index=True)   # sha256(profile + job)，用于判断能否复用上次结果
     match_score = Column(Integer)       # 0-100
     matched_skills = Column(JSON)
     missing_skills = Column(JSON)
