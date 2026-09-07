@@ -32,7 +32,7 @@ export interface Job {
 }
 
 export interface Gap { gap: string; importance: string; suggestion: string; }
-export interface ActionItem { item: string; priority: string; resource?: string; }
+export interface ActionItem { item: string; why_valuable?: string; priority: string; resource?: string; }
 export interface ScoreBreakdown { skills: number; experience: number; education: number; other: number; }
 
 export interface Analysis {

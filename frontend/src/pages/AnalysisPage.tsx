@@ -228,6 +228,11 @@ export default function AnalysisPage() {
                 <LevelDot value={s.priority} />
                 <div>
                   <div style={{ fontWeight: 500, fontSize: 14, marginBottom: 2 }}>{s.item}</div>
+                  {s.why_valuable && (
+                    <div style={{ fontSize: 13, color: "var(--text)", marginBottom: 2 }}>
+                      <span style={{ fontWeight: 500 }}>为什么重要：</span>{s.why_valuable}
+                    </div>
+                  )}
                   {s.resource && <div style={{ fontSize: 13, color: "var(--text-muted)" }}>{s.resource}</div>}
                 </div>
                 <span style={{ marginLeft: "auto", flexShrink: 0 }}>
