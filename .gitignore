@@ -14,3 +14,9 @@ backend/job_helper.db
 # Node
 frontend/node_modules/
 frontend/dist/
+
+# Editor (machine-specific)
+.vscode/
+
+# Sandbox (local experiments, not part of the app)
+backend/sandbox/
