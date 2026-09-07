@@ -1,0 +1,857 @@
+[
+  {
+    "job_id": 1,
+    "title": "AlAgent 算法工程师",
+    "match_score": 67,
+    "expected_score": 66,
+    "mismatch": true,
+    "score_breakdown": {
+      "skills": 72,
+      "experience": 45,
+      "education": 90,
+      "other": 70
+    },
+    "gaps": [
+      {
+        "gap": "缺乏Agent框架（LangChain/LangGraph）的实际使用经验，岗位核心是AI Agent开发，这是最关键的技能缺口",
+        "importance": "高",
+        "suggestion": "系统学习LangGraph，用其重构现有AI Chat项目，加入Tool-calling和状态机管理"
+      },
+      {
+        "gap": "大语言模型基本原理缺乏系统性学习，仅停留在API调用层面，难以深入优化Agent推理策略",
+        "importance": "高",
+        "suggestion": "系统学习Transformer架构、注意力机制、RLHF等核心原理，建议通过吴恩达LLM课程或《动手学深度学习》补充"
+      },
+      {
+        "gap": "缺少Benchmark评测数据集构建和Agent效果量化评估的经验，岗位明确要求定义评估指标并持续改进",
+        "importance": "高",
+        "suggestion": "为CareerMatch项目设计一套评测集和评估指标（如准确率、鲁棒性），形成量化报告"
+      },
+      {
+        "gap": "无RAG/知识库问答或结构化数据分析经验，属于岗位偏好技能，影响竞争力",
+        "importance": "中",
+        "suggestion": "在现有项目中加入RAG模块，用向量数据库（如Chroma/FAISS）实现文档问答功能"
+      },
+      {
+        "gap": "工作经历仅3个月前端开发，缺乏算法/Agent方向的正式实习经验，应届生身份下项目深度是弥补关键",
+        "importance": "中",
+        "suggestion": "争取AI创业公司或大厂LLM方向的实习，将Agent项目做到可展示的深度和完整度"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "系统学习LangChain/LangGraph框架，用LangGraph重构AI Chat项目，加入Tool-calling、多Agent协作和状态管理，形成完整的Agent应用Demo",
+        "priority": "high",
+        "resource": "LangGraph官方文档 + DeepLearning.AI的LangChain/LangGraph课程"
+      },
+      {
+        "item": "为CareerMatch项目构建评测数据集和评估指标体系，定义准确率、鲁棒性等指标，量化Agent效果并输出改进报告，作为面试展示的核心项目",
+        "priority": "high",
+        "resource": "参考OpenAI Evals框架或LangSmith的评测功能，设计自己的评测Pipeline"
+      },
+      {
+        "item": "补充大语言模型原理的系统知识，并学习RAG技术栈（向量数据库+Embedding），在项目中加入知识库问答功能",
+        "priority": "medium",
+        "resource": "吴恩达《ChatGPT Prompt Engineering for Developers》+ 《Building and Evaluating Advanced RAG》课程，以及HuggingFace的RAG教程"
+      }
+    ]
+  },
+  {
+    "job_id": 2,
+    "title": "Agent 开发工程师-校招",
+    "match_score": 48,
+    "expected_score": 48,
+    "mismatch": false,
+    "score_breakdown": {
+      "skills": 45,
+      "experience": 30,
+      "education": 85,
+      "other": 55
+    },
+    "gaps": [
+      {
+        "gap": "缺乏微服务架构和分布式系统的实际经验，而岗位核心职责是Agent系统的工程化落地，需要处理任务调度、状态管理、容错机制等分布式场景",
+        "importance": "高",
+        "suggestion": "系统学习微服务设计模式（如事件驱动、Saga模式），并动手搭建一个基于Docker Compose的多服务Demo项目"
+      },
+      {
+        "gap": "未使用过主流AI Agent框架（如LangChain、LangGraph、AutoGen等），缺少Agent编排、工具调用、多Agent协作的工程实践",
+        "importance": "高",
+        "suggestion": "使用LangGraph或AutoGen搭建一个多Agent协作项目，实现Agent间通信与任务分配"
+      },
+      {
+        "gap": "缺少容器化与云原生技术经验（Docker/Kubernetes），岗位要求Agent基础设施搭建与高可用保障",
+        "importance": "高",
+        "suggestion": "学习Docker容器化部署，将现有AI Chat项目容器化并部署到K8s集群（可用minikube练习）"
+      },
+      {
+        "gap": "后端开发经验仅3个月前端实习，且无ToB SaaS或用研/调研行业实习经历，与岗位偏好的后端工程化和行业背景不匹配",
+        "importance": "中",
+        "suggestion": "争取一段后端或AI方向的实习，或参与开源Agent项目积累后端工程化经验"
+      },
+      {
+        "gap": "GitHub活跃度不足，缺少可展示的工程化项目（如测试体系、日志系统、链路追踪等质量保障实践）",
+        "importance": "中",
+        "suggestion": "将CareerMatch项目完善为生产级质量（补充单元测试、CI/CD、日志监控），并保持GitHub持续提交记录"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "深入学习并实践主流AI Agent框架（LangGraph/AutoGen），搭建一个多Agent协作的完整项目，覆盖Agent通信、工具调用、状态管理等核心能力，并部署上线",
+        "priority": "high",
+        "resource": "LangGraph官方文档 + DeepLearning.AI的LangGraph课程；参考GitHub上开源的多Agent项目架构"
+      },
+      {
+        "item": "系统学习微服务与云原生技术栈（Docker、Kubernetes、消息队列），将现有AI Chat或CareerMatch项目重构为微服务架构并容器化部署，补充CI/CD流水线",
+        "priority": "high",
+        "resource": "《微服务架构设计模式》（Chris Richardson）+ Docker/K8s官方教程；用minikube搭建本地K8s环境练习"
+      },
+      {
+        "item": "完善CareerMatch项目的工程质量（单元测试、日志系统、链路追踪、监控告警），并积极投递AI Agent方向的实习岗位，积累ToB场景的工程化经验",
+        "priority": "medium",
+        "resource": "Pytest测试框架 + Prometheus/Grafana监控栈；关注上海AI创业公司的实习机会，主动联系目标公司"
+      }
+    ]
+  },
+  {
+    "job_id": 3,
+    "title": "大模型应用开发工程师",
+    "match_score": 44,
+    "expected_score": 45,
+    "mismatch": true,
+    "score_breakdown": {
+      "skills": 45,
+      "experience": 20,
+      "education": 85,
+      "other": 55
+    },
+    "gaps": [
+      {
+        "gap": "工作经验严重不足：仅3个月前端实习经历，而岗位要求3-5年大模型应用开发经验，差距巨大",
+        "importance": "高",
+        "suggestion": "通过参与高质量开源AI项目或实习积累实际工作经验，弥补年限差距"
+      },
+      {
+        "gap": "缺乏Agent系统设计能力：未掌握LangGraph/Google ADK等主流Agent框架，缺少多Agent协作、状态管理和技能封装的实际经验",
+        "importance": "高",
+        "suggestion": "系统学习LangGraph框架，动手搭建一个多Agent协作的完整项目"
+      },
+      {
+        "gap": "缺乏大数据处理能力：未掌握Spark等分布式计算框架，而岗位明确要求Python/Java/Scala+Spark",
+        "importance": "高",
+        "suggestion": "学习Spark基础并完成一个基于Spark的数据处理实战项目"
+      },
+      {
+        "gap": "缺少工程化部署与生产级经验：虽有Railway/Vercel部署经验，但缺乏自动化评测体系、自动化测试、推理成本优化等生产级工程能力",
+        "importance": "中",
+        "suggestion": "学习CI/CD流程和自动化测试框架，为AI应用建立评测与监控体系"
+      },
+      {
+        "gap": "缺少领域相关项目经验：岗位涉及文本匹配、评论摘要、Text2SQL等具体业务场景，候选人项目偏通用对话应用，缺乏垂直领域落地经验",
+        "importance": "中",
+        "suggestion": "针对ShopeeFood的评论摘要、文本匹配等场景开发一个垂直Demo项目"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "系统学习LangGraph框架并搭建一个多Agent协作的完整项目（如自动研究+报告生成的Agent工作流），弥补Agent系统设计核心能力缺口",
+        "priority": "high",
+        "resource": "LangGraph官方文档 + DeepLearning.AI的LangGraph课程"
+      },
+      {
+        "item": "学习Spark基础（PySpark），完成一个基于Spark的数据处理实战项目，满足岗位对大数据处理能力的要求",
+        "priority": "high",
+        "resource": "Apache Spark官方教程 + Udemy《Spark and Python for Big Data》"
+      },
+      {
+        "item": "针对ShopeeFood业务场景（评论摘要、文本匹配、Agent工作流）开发一个垂直Demo项目并部署上线，同时补充自动化测试和评测体系，作为面试展示作品",
+        "priority": "medium",
+        "resource": "参考ShopeeFood公开评论数据，用FastAPI+LangGraph构建评论摘要Agent并部署到Vercel/Railway"
+      }
+    ]
+  },
+  {
+    "job_id": 4,
+    "title": "AI应用开发工程师",
+    "match_score": 66,
+    "expected_score": 66,
+    "mismatch": false,
+    "score_breakdown": {
+      "skills": 72,
+      "experience": 45,
+      "education": 85,
+      "other": 70
+    },
+    "gaps": [
+      {
+        "gap": "缺乏Agent核心组件（Chains、Agents、Memory、Tools）的系统性知识，目前项目停留在单轮/多轮对话层面，未涉及复杂Agent架构设计",
+        "importance": "高",
+        "suggestion": "系统学习LangChain/LlamaIndex框架，动手搭建一个包含Memory和Tool调用链的Agent项目"
+      },
+      {
+        "gap": "无Multi-Agent系统开发经验，岗位明确要求开发生产场景的Multi-Agent系统",
+        "importance": "高",
+        "suggestion": "基于现有CareerMatch项目扩展为多Agent协作架构，如引入规划Agent+执行Agent分工"
+      },
+      {
+        "gap": "缺乏RAG优化和工具调用链路设计的实践经验，岗位要求探索这些前沿方向",
+        "importance": "高",
+        "suggestion": "为AI Chat项目增加RAG检索增强功能，并实践向量数据库（如Chroma/Pinecone）集成"
+      },
+      {
+        "gap": "实习经历仅3个月前端开发，无互联网大厂或AI方向实习经历，与岗位偏好的'AI相关项目经验或互联网实习经历'存在差距",
+        "importance": "中",
+        "suggestion": "争取在毕业前获得一段AI方向的实习，或参与开源AI项目积累可展示的贡献记录"
+      },
+      {
+        "gap": "数据结构与算法基础未在简历中体现，快手等大厂面试通常包含算法考核环节",
+        "importance": "中",
+        "suggestion": "系统刷LeetCode高频题（重点：数组、链表、树、动态规划），并准备系统设计基础"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "系统学习Agent架构与LangChain框架，将CareerMatch项目升级为包含Memory、Tool调用和Multi-Agent协作的完整Agent系统，作为面试核心展示项目",
+        "priority": "high",
+        "resource": "LangChain官方文档 + DeepLearning.AI的《Building Systems with the ChatGPT API》和《LangChain for LLM Application Development》课程"
+      },
+      {
+        "item": "为AI Chat项目增加RAG检索增强功能，集成向量数据库，并补充上下文工程（Context Engineering）实践，覆盖岗位要求的RAG优化方向",
+        "priority": "high",
+        "resource": "学习Pinecone/Chroma向量数据库 + 阅读Anthropic发布的Context Engineering最佳实践博客"
+      },
+      {
+        "item": "系统复习数据结构和算法，刷LeetCode高频题（Top 100），同时准备快手面试中可能涉及的AI产品理解和Prompt Engineering深度问题",
+        "priority": "medium",
+        "resource": "LeetCode Hot 100 + 《代码随想录》算法刷题指南 + 整理个人AI项目的Prompt设计思路和效果对比"
+      }
+    ]
+  },
+  {
+    "job_id": 5,
+    "title": "ai应用开发工程师",
+    "match_score": 53,
+    "expected_score": 54,
+    "mismatch": true,
+    "score_breakdown": {
+      "skills": 55,
+      "experience": 30,
+      "education": 90,
+      "other": 60
+    },
+    "gaps": [
+      {
+        "gap": "缺少Agent开发经验，未涉及Agent架构设计、工具调用（Function Calling/Tool Calling）等核心技能，而这是岗位职责中明确要求的重点方向",
+        "importance": "高",
+        "suggestion": "系统学习Agent框架（如LangChain、LlamaIndex），动手实现一个带工具调用的Agent项目"
+      },
+      {
+        "gap": "缺少RAG（检索增强生成）相关经验，岗位明确要求RAG在客服场景中的工程落地，候选人目前无向量数据库、Embedding、检索优化等实践",
+        "importance": "高",
+        "suggestion": "学习向量数据库（如Chroma/Pinecone）和Embedding技术，构建一个基于RAG的知识库问答Demo"
+      },
+      {
+        "gap": "缺少Java和TypeScript技能，岗位required_skills明确列出这两项，候选人目前仅掌握JavaScript和Python",
+        "importance": "高",
+        "suggestion": "补充TypeScript基础（与现有JS技能衔接快），Java可先掌握基础语法和Spring Boot入门"
+      },
+      {
+        "gap": "工作经验严重不足：仅有一段3个月的前端实习经历，且与AI应用开发方向关联度低，远未达到岗位要求的1-3年经验门槛",
+        "importance": "高",
+        "suggestion": "通过在校期间参与AI相关科研项目或开源贡献来弥补经验短板，在简历中突出AI项目深度"
+      },
+      {
+        "gap": "缺少智能客服/客服场景相关背景，岗位明确偏好智能客服从业经验，且核心业务场景就是客服系统AI化",
+        "importance": "中",
+        "suggestion": "主动了解去哪儿等OTA平台的客服痛点，做一个针对旅游/出行场景的智能客服Demo作为项目亮点"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "深入学习Agent与RAG技术栈，用LangChain或LlamaIndex构建一个集成Function Calling和RAG检索的完整Agent项目，并部署上线展示",
+        "priority": "high",
+        "resource": "LangChain官方文档 + DeepLearning.AI的《Building Systems with the ChatGPT API》和《LangChain for LLM Application Development》课程"
+      },
+      {
+        "item": "补充TypeScript和Java基础技能，至少达到能读懂和修改代码的水平，同时学习LLM评测方法论（如RAGAS、BLEU等指标）",
+        "priority": "high",
+        "resource": "TypeScript官方Handbook + Java基础教程（如Head First Java）+ RAGAS开源评测框架文档"
+      },
+      {
+        "item": "针对去哪儿/OTA行业场景，开发一个旅游智能客服Demo（结合RAG+多轮对话+工具调用），模拟机票/酒店查询场景，作为面试核心展示项目",
+        "priority": "medium",
+        "resource": "参考去哪儿/携程客服场景，使用FastAPI+React+DeepSeek API搭建，部署到Railway/Vercel"
+      }
+    ]
+  },
+  {
+    "job_id": 6,
+    "title": "后端开发工程师-番茄/红果/漫剧",
+    "match_score": 43,
+    "expected_score": 42,
+    "mismatch": true,
+    "score_breakdown": {
+      "skills": 35,
+      "experience": 30,
+      "education": 85,
+      "other": 45
+    },
+    "gaps": [
+      {
+        "gap": "岗位核心要求Golang/Java/C/C++/Go等后端语言，候选人仅掌握Python，缺少主流服务端语言经验",
+        "importance": "高",
+        "suggestion": "系统学习Go语言并完成一个高并发服务端项目，弥补后端语言短板"
+      },
+      {
+        "gap": "缺少MySQL、Kafka、Redis等生产级中间件实战经验，仅了解SQLite和PostgreSQL基础，难以支撑亿级用户高并发场景",
+        "importance": "高",
+        "suggestion": "深入学习MySQL索引与事务、Redis缓存、Kafka消息队列，并搭建一个包含这些组件的完整后端项目"
+      },
+      {
+        "gap": "数据结构、算法、操作系统等计算机基础能力未在技能中体现，字节跳动后端面试对算法和系统设计考察严格",
+        "importance": "高",
+        "suggestion": "系统刷LeetCode高频题（重点数组、链表、树、动态规划），复习操作系统进程/内存/并发核心知识"
+      },
+      {
+        "gap": "仅有3个月前端实习经历，缺乏后端服务端开发的实际工作经验，未参与过高并发、分布式系统开发",
+        "importance": "中",
+        "suggestion": "寻找后端开发实习机会，或参与开源后端项目积累真实服务端开发经验"
+      },
+      {
+        "gap": "候选人目标城市包含北京，但目标公司偏向AI创业公司/中型互联网/外企，字节跳动属于大型互联网公司，需调整求职定位",
+        "importance": "低",
+        "suggestion": "将字节跳动等大厂纳入目标公司范围，并针对大厂面试流程做专项准备"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "系统学习Go语言并完成一个高并发后端项目（如简易IM或短链服务），使用MySQL+Redis+Kafka构建完整技术栈，弥补后端语言和中间件短板",
+        "priority": "high",
+        "resource": "推荐《Go语言圣经》+ Go by Example教程，项目参考GitHub开源项目如tinode"
+      },
+      {
+        "item": "针对字节跳动面试风格，系统刷LeetCode高频题（重点：数组、链表、二叉树、动态规划、图），并复习操作系统、计算机网络核心知识",
+        "priority": "high",
+        "resource": "LeetCode Hot 100 + 代码随想录 + 《深入理解计算机系统》重点章节"
+      },
+      {
+        "item": "将现有AI Chat和CareerMatch项目深化为Agent方向，尝试构建多Agent协作的智能创作流程，与岗位中智能创作Agent方向对齐，并整理成可展示的技术方案",
+        "priority": "medium",
+        "resource": "学习LangChain/LlamaIndex多Agent框架，参考AutoGen多Agent协作模式"
+      }
+    ]
+  },
+  {
+    "job_id": 7,
+    "title": "代码质量Agent开发工程师一开发者服务",
+    "match_score": 43,
+    "expected_score": 42,
+    "mismatch": true,
+    "score_breakdown": {
+      "skills": 35,
+      "experience": 30,
+      "education": 85,
+      "other": 45
+    },
+    "gaps": [
+      {
+        "gap": "后端技术栈严重不匹配：岗位要求Golang/Java/Spring/MyBatis等主流后端技术，候选人仅有Python/FastAPI经验，缺少Java/Golang生态开发能力",
+        "importance": "高",
+        "suggestion": "系统学习Java或Golang，重点掌握Spring Boot框架及MyBatis持久层开发"
+      },
+      {
+        "gap": "缺少数据库中间件经验：岗位要求MySQL、Redis、Elasticsearch、SQL Server等，候选人仅有SQLite和PostgreSQL基础，未涉及高并发场景下的数据库与缓存架构",
+        "importance": "高",
+        "suggestion": "深入学习MySQL索引优化与事务机制，掌握Redis缓存策略和Elasticsearch搜索原理"
+      },
+      {
+        "gap": "后端工程经验不足：仅有一段3个月前端实习经历，缺乏大规模后端系统研发经验，与岗位要求的架构设计、技术攻坚能力差距明显",
+        "importance": "高",
+        "suggestion": "参与或自建一个使用Java/Golang的完整后端项目，积累架构设计和性能优化经验"
+      },
+      {
+        "gap": "缺少大规模系统架构经验：岗位偏好具备大规模系统架构经验的候选人，候选人项目均为个人级小规模应用",
+        "importance": "中",
+        "suggestion": "学习分布式系统设计，了解微服务架构、消息队列、负载均衡等大规模系统核心组件"
+      },
+      {
+        "gap": "目标城市与岗位地点匹配度一般：候选人目标城市包含上海但优先级不明确，且字节跳动不在其目标公司列表中（目标为AI创业公司/中型互联网/外企）",
+        "importance": "低",
+        "suggestion": "明确对字节跳动及上海工作的意向，在面试中展现对开发者服务方向的热情"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "系统学习Java后端技术栈（Spring Boot + MyBatis + MySQL），并完成一个完整的后端服务项目，弥补核心技能缺口",
+        "priority": "high",
+        "resource": "推荐《Spring Boot实战》+ 尚硅谷Java后端全套课程，用3-4周完成一个电商或内容管理系统的后端开发"
+      },
+      {
+        "item": "深入学习Redis和Elasticsearch，理解缓存穿透/击穿/雪崩解决方案及ES搜索原理，并在现有AI Chat项目中引入Redis缓存和ES搜索功能",
+        "priority": "high",
+        "resource": "Redis官方文档 + 《Elasticsearch权威指南》，在CareerMatch项目中实践集成"
+      },
+      {
+        "item": "针对字节跳动开发者服务方向，研究代码质量Agent相关技术（如静态分析、代码评审、CI/CD集成），准备相关技术方案和Demo",
+        "priority": "medium",
+        "resource": "研究SonarQube、CodeQL等代码质量工具原理，结合LLM能力设计一个代码审查Agent原型"
+      }
+    ]
+  },
+  {
+    "job_id": 8,
+    "title": "AI Agent开发",
+    "match_score": 40,
+    "expected_score": 40,
+    "mismatch": false,
+    "score_breakdown": {
+      "skills": 35,
+      "experience": 20,
+      "education": 85,
+      "other": 45
+    },
+    "gaps": [
+      {
+        "gap": "后端基础设施技能严重缺失：不掌握Go、MySQL、Redis、消息队列、Docker、Kubernetes、DevOps等岗位核心必备技能，无法胜任高可用后端服务开发",
+        "importance": "高",
+        "suggestion": "系统学习Go语言及MySQL/Redis等中间件，并通过Docker/K8s部署个人项目来补齐后端工程能力"
+      },
+      {
+        "gap": "工作经验严重不足：仅3个月前端实习经历，而岗位要求3-5年后端开发经验，差距巨大",
+        "importance": "高",
+        "suggestion": "在硕士期间争取后端/AI方向的实习机会，积累至少1-2段高质量实习经历"
+      },
+      {
+        "gap": "缺乏AI Agent专项经验：未涉及Agent工具链、多Agent架构、多模型工作流搭建等岗位偏好技能",
+        "importance": "高",
+        "suggestion": "深入研究LangChain/LlamaIndex等Agent框架，动手搭建多Agent协作项目并开源"
+      },
+      {
+        "gap": "缺乏海外业务场景经验：岗位要求推动AI能力在海外业务落地，候选人无相关国际化业务经验",
+        "importance": "中",
+        "suggestion": "利用海外留学背景，参与或发起面向海外用户的AI产品项目，积累国际化业务理解"
+      },
+      {
+        "gap": "技术社区活跃度与开源贡献不足：岗位偏好开源项目贡献和技术社区活跃，候选人无相关记录",
+        "importance": "中",
+        "suggestion": "将个人AI项目开源并持续维护，在GitHub/技术社区输出技术文章建立影响力"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "系统补齐后端基础设施技能栈：学习Go语言、MySQL、Redis、消息队列（如Kafka/RabbitMQ）、Docker和Kubernetes，并通过实际项目（如将AI Chat重构为Go后端+MySQL+Redis架构）来巩固",
+        "priority": "high",
+        "resource": "推荐学习路径：Go官方文档+《Go语言圣经》、MySQL/Redis官方教程、Docker/K8s可通过KodeKloud或Udemy实战课程学习"
+      },
+      {
+        "item": "深入AI Agent方向：学习LangChain/LlamaIndex/CrewAI等Agent框架，搭建一个多Agent协作或多模型工作流的完整项目并部署上线，最好开源到GitHub",
+        "priority": "high",
+        "resource": "LangChain官方文档、Anthropic的Agent构建指南、Hugging Face Agent课程"
+      },
+      {
+        "item": "争取高质量实习机会：在悉尼大学硕士期间，积极投递AI应用开发/后端开发方向的实习（优先海外公司或外企在华），积累与岗位匹配的实战经验",
+        "priority": "medium",
+        "resource": "利用学校Career Center资源、LinkedIn投递、关注AI创业公司实习机会"
+      }
+    ]
+  },
+  {
+    "job_id": 9,
+    "title": "AIAgent开发工程师",
+    "match_score": 68,
+    "expected_score": 68,
+    "mismatch": false,
+    "score_breakdown": {
+      "skills": 72,
+      "experience": 55,
+      "education": 90,
+      "other": 60
+    },
+    "gaps": [
+      {
+        "gap": "缺少LangChain及主流Agent框架（如AutoGen、CrewAI等）的实际使用经验，岗位核心要求是Agent开发",
+        "importance": "高",
+        "suggestion": "系统学习LangChain/LangGraph，并动手搭建一个多Agent协作的Demo项目"
+      },
+      {
+        "gap": "完全没有量化投研、金融科技相关背景，岗位核心场景是量化智能体研发，需要理解研报分析、因子处理等业务",
+        "importance": "高",
+        "suggestion": "学习量化投研基础知识，了解因子模型、研报分析流程，尝试用LLM做研报摘要或因子提取的小项目"
+      },
+      {
+        "gap": "缺乏RAG（检索增强生成）的实际落地经验，岗位明确要求落地RAG场景",
+        "importance": "高",
+        "suggestion": "基于现有AI Chat项目扩展RAG功能，接入向量数据库（如Chroma/Pinecone）实现知识库问答"
+      },
+      {
+        "gap": "实习经验仅3个月前端开发，缺少AI/大模型方向的正式实习或项目落地经历，经验深度不足",
+        "importance": "中",
+        "suggestion": "争取AI创业公司或大模型方向的实习机会，积累Agent/LLM应用的工程化经验"
+      },
+      {
+        "gap": "未在ClawHub等平台发布过skills，岗位preferred skills中明确提到此项",
+        "importance": "低",
+        "suggestion": "将已开发的AI工具封装为ClawHub skill并发布，展示Agent工具开发能力"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "系统学习LangChain/LangGraph框架，搭建一个包含工具调用、多Agent协作的完整Demo项目（如量化研报分析Agent），并部署上线",
+        "priority": "high",
+        "resource": "LangChain官方文档 + LangGraph教程 + HuggingFace Agent课程"
+      },
+      {
+        "item": "补充量化投研领域知识，用LLM+Agent做一个研报摘要/因子提取的实战项目，同时学习RAG技术栈（向量数据库+Embedding）",
+        "priority": "high",
+        "resource": "《Python金融大数据分析》+ Chroma/Pinecone官方文档 + 量化研报公开数据集"
+      },
+      {
+        "item": "将现有AI Chat或CareerMatch项目封装为ClawHub skill并发布，同时积极投递AI创业公司/金融科技方向的实习岗位，积累Agent工程化经验",
+        "priority": "medium",
+        "resource": "ClawHub官方发布指南 + 实习僧/牛客网AI方向实习岗位"
+      }
+    ]
+  },
+  {
+    "job_id": 10,
+    "title": "资深Python开发(AI Agent方向)",
+    "match_score": 40,
+    "expected_score": 40,
+    "mismatch": false,
+    "score_breakdown": {
+      "skills": 35,
+      "experience": 20,
+      "education": 85,
+      "other": 45
+    },
+    "gaps": [
+      {
+        "gap": "完全缺乏分布式搜索引擎开发经验，不熟悉Solr/Elasticsearch、索引设计、分片策略、查询优化等核心技能，这是该岗位最核心的技术要求",
+        "importance": "高",
+        "suggestion": "系统学习Elasticsearch，搭建一个包含索引设计、分片配置和查询优化的实战项目"
+      },
+      {
+        "gap": "无AWS云架构经验，不熟悉Terraform/CloudFormation等IaC工具，无法满足基础设施管理与安全合规要求",
+        "importance": "高",
+        "suggestion": "学习AWS核心服务（EC2/S3/Lambda等）并通过Terraform部署一个完整环境"
+      },
+      {
+        "gap": "仅3个月前端实习经验，无AI Agent核心开发经验，不熟悉Agent推理引擎、任务规划、记忆机制、工具调用及多Agent协作架构",
+        "importance": "高",
+        "suggestion": "深入研究LangChain/LlamaIndex等Agent框架，动手实现一个多Agent协作的完整项目"
+      },
+      {
+        "gap": "缺乏多语言AI应用开发经验，未涉及跨语言检索与语义一致性优化",
+        "importance": "中",
+        "suggestion": "在现有AI Chat项目中增加中英双语输入输出与跨语言检索功能"
+      },
+      {
+        "gap": "无企业级软件安全与合规意识，未接触安全开发生命周期、数据隐私保护及开源合规流程",
+        "importance": "中",
+        "suggestion": "学习OWASP Top 10安全规范，并在项目中实践数据脱敏与安全编码实践"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "系统学习Elasticsearch并构建一个包含索引设计、分片策略、查询优化和性能调优的实战项目，最好结合RAG场景做混合检索",
+        "priority": "high",
+        "resource": "Elasticsearch官方文档 + 《Elasticsearch in Action》 + 在Railway/Vercel上部署一个ES+RAG检索Demo"
+      },
+      {
+        "item": "学习AWS核心服务与Terraform IaC，搭建一个可复用的云基础设施环境，同时研究AI Agent框架（LangChain/LlamaIndex）实现多Agent协作项目",
+        "priority": "high",
+        "resource": "AWS Free Tier + Terraform官方教程 + LangChain/LlamaIndex官方文档与示例代码"
+      },
+      {
+        "item": "在现有AI Chat项目中增加多语言支持（中英双语输入输出）和Agent工具调用能力，并补充安全合规实践（数据脱敏、输入过滤）",
+        "priority": "medium",
+        "resource": "参考OpenAI/DeepSeek多语言最佳实践 + OWASP LLM Top 10安全指南"
+      }
+    ]
+  },
+  {
+    "job_id": 11,
+    "title": "AIAgent开发工程师",
+    "match_score": 55,
+    "expected_score": 56,
+    "mismatch": true,
+    "score_breakdown": {
+      "skills": 62,
+      "experience": 35,
+      "education": 85,
+      "other": 55
+    },
+    "gaps": [
+      {
+        "gap": "完全缺失Agent开发核心技能，包括Function Calling、Agent工作流编排、工具调用等，这是岗位最核心的要求",
+        "importance": "高",
+        "suggestion": "系统学习OpenAI Function Calling和Agent架构，动手实现一个带工具调用的多步骤Agent项目"
+      },
+      {
+        "gap": "缺少TypeScript和Node.js技能，而岗位明确要求这两项作为主要开发语言",
+        "importance": "高",
+        "suggestion": "通过Node.js + TypeScript重写一个现有项目或完成一个TypeScript全栈小项目来补齐"
+      },
+      {
+        "gap": "未接触过LangChain、OpenAI Agents SDK、MCP等主流Agent开发框架，与岗位preferred_skills完全不匹配",
+        "importance": "高",
+        "suggestion": "学习LangChain和OpenAI Agents SDK官方文档，用这些框架各搭建一个Agent demo"
+      },
+      {
+        "gap": "工作经历仅有一段3个月的前端实习，缺乏正式的AI/Agent相关工作经验，与岗位要求的1-3年经验差距明显",
+        "importance": "中",
+        "suggestion": "在求职前通过开源贡献或独立项目积累可量化的Agent开发成果，弥补经验不足"
+      },
+      {
+        "gap": "目标城市为西安/北京/上海/深圳/杭州/广州，岗位在上海，城市匹配但需确认是否愿意长期定居上海；同时目标公司偏好AI创业公司，与菲玲科技类型基本契合",
+        "importance": "低",
+        "suggestion": "明确上海定居意愿，并在面试中突出对AI创业公司节奏的适应能力"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "系统学习并实践Agent开发核心技能：掌握Function Calling机制，用Python + OpenAI API或DeepSeek API实现一个带工具调用的多步骤Agent（如自动查天气+订日程），并尝试接入MCP协议",
+        "priority": "high",
+        "resource": "OpenAI Function Calling官方文档、LangChain Agents教程、MCP官方文档（modelcontextprotocol.io）"
+      },
+      {
+        "item": "补齐TypeScript和Node.js技能栈：用Node.js + TypeScript重构CareerMatch项目或开发一个新的Agent管理后台，熟悉Express/NestJS框架和类型系统",
+        "priority": "high",
+        "resource": "TypeScript官方Handbook、Node.js官方文档、NestJS或Express教程"
+      },
+      {
+        "item": "深入学习LangChain和OpenAI Agents SDK，各搭建一个完整的Agent demo并部署上线，在简历中展示对主流Agent框架的实际掌握程度",
+        "priority": "medium",
+        "resource": "LangChain官方文档（python.langchain.com）、OpenAI Agents SDK GitHub仓库及教程"
+      }
+    ]
+  },
+  {
+    "job_id": 12,
+    "title": "AIAgent开发上程帅",
+    "match_score": 33,
+    "expected_score": 34,
+    "mismatch": true,
+    "score_breakdown": {
+      "skills": 25,
+      "experience": 15,
+      "education": 85,
+      "other": 45
+    },
+    "gaps": [
+      {
+        "gap": "完全没有AIAgent商用项目经验，岗位明确要求具备商用级Agent落地经验，这是最核心的硬性门槛",
+        "importance": "高",
+        "suggestion": "尽快将CareerMatch项目升级为多Agent协作架构并部署上线，积累可展示的商用级Agent案例"
+      },
+      {
+        "gap": "不熟悉主流Agent框架（如LangChain、LangGraph、AutoGen、CrewAI等），也未掌握Function Calling、RAG、SKILL、MCP等Agent核心技术",
+        "importance": "高",
+        "suggestion": "系统学习LangChain/LangGraph框架，并动手实现Function Calling和RAG的完整Demo"
+      },
+      {
+        "gap": "缺乏多Agent系统设计、任务拆解、反思自纠错闭环等复杂系统架构经验，与岗位核心职责（设计多Agent协作机制）差距大",
+        "importance": "高",
+        "suggestion": "在CareerMatch项目中引入多Agent协作（如规划Agent+执行Agent+反思Agent），实践任务拆解与自纠错机制"
+      },
+      {
+        "gap": "无RPA或自动化流程编排相关经验，岗位偏好AI编排自动工作流或RPA背景，且核心职责包含类RPA流程编排系统开发",
+        "importance": "中",
+        "suggestion": "学习RPA基础概念，尝试用Python+Playwright/Selenium做一个浏览器自动化Agent小项目"
+      },
+      {
+        "gap": "仅有3个月前端实习经验，无企业级后端或AI系统开发经历，工作经验积累严重不足",
+        "importance": "中",
+        "suggestion": "在硕士期间争取AI相关实习，优先选择Agent开发方向的岗位积累真实项目经验"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "系统学习主流Agent框架（LangChain/LangGraph/CrewAI），并动手实现一个包含Function Calling、RAG、MCP的完整Agent项目，将CareerMatch升级为多Agent协作架构并部署上线",
+        "priority": "high",
+        "resource": "LangChain官方文档、LangGraph教程、DeepLearning.AI的Agent课程、HuggingFace Agent课程"
+      },
+      {
+        "item": "开发一个基于大模型的浏览器/桌面自动化Agent（类RPA）Demo项目，使用Python+Playwright或Claude Code实现自动化操作，弥补RPA和自动化编排经验空白",
+        "priority": "high",
+        "resource": "Playwright官方文档、Claude Code文档、GitHub上开源的Browser Agent项目（如browser-use）"
+      },
+      {
+        "item": "在硕士期间积极投递AI Agent方向的实习岗位（优先上海），争取在真实企业环境中积累Agent商用落地经验，同时深入学习多Agent调度、系统稳定性与成本优化等工程实践",
+        "priority": "medium",
+        "resource": "关注上海AI创业公司实习机会、参加Agent相关开源社区（如Dify、Coze生态）贡献代码"
+      }
+    ]
+  },
+  {
+    "job_id": 13,
+    "title": "Agent开发工程师(腾讯云产品交互方向)",
+    "match_score": 57,
+    "expected_score": 56,
+    "mismatch": true,
+    "score_breakdown": {
+      "skills": 55,
+      "experience": 45,
+      "education": 85,
+      "other": 50
+    },
+    "gaps": [
+      {
+        "gap": "完全缺乏Agent核心能力开发经验，包括Function Calling、RAG、上下文管理、Agent工作流编排等关键技术，这是岗位的核心要求",
+        "importance": "高",
+        "suggestion": "系统学习LangChain/LlamaIndex等Agent框架，动手实现一个带工具调用和RAG检索的完整Agent项目"
+      },
+      {
+        "gap": "缺少腾讯云产品开发经验，不了解云控制台、云API、云产品交互逻辑，无法直接对接岗位的核心业务场景",
+        "importance": "高",
+        "suggestion": "注册腾讯云账号，熟悉云产品API文档，尝试用Python调用腾讯云SDK构建一个自动化运维Demo"
+      },
+      {
+        "gap": "编程语言覆盖不足，岗位要求Java/Go/TypeScript，候选人仅掌握Python和JavaScript，缺少后端主流语言能力",
+        "importance": "中",
+        "suggestion": "优先补充TypeScript（与现有JS基础衔接快），再学习Go或Java中的至少一门"
+      },
+      {
+        "gap": "实习经验仅3个月且为前端页面编写，缺乏后端开发、系统设计、Agent相关项目的深度工程实践",
+        "importance": "中",
+        "suggestion": "在硕士期间争取一份AI/Agent方向的实习，或深度参与开源Agent项目积累工程经验"
+      },
+      {
+        "gap": "目标城市为西安/北京/上海/深圳/杭州/广州，岗位在深圳，城市匹配但候选人未明确表达对腾讯或深圳的强烈意向",
+        "importance": "低",
+        "suggestion": "在简历和面试中明确表达对深圳和腾讯云方向的兴趣与职业规划"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "在硕士毕业前完成一个完整的Agent项目，集成Function Calling、RAG、多轮上下文管理，并部署上线展示效果",
+        "priority": "high",
+        "resource": "学习LangChain/LlamaIndex官方文档，参考OpenAI Function Calling教程，用DeepSeek API实现工具调用Agent"
+      },
+      {
+        "item": "系统学习腾讯云产品体系，用Python/TypeScript调用腾讯云SDK构建一个云资源管理或自动化运维Demo项目",
+        "priority": "high",
+        "resource": "腾讯云开发者社区、腾讯云API Explorer、腾讯云SDK文档，注册免费账号实操"
+      },
+      {
+        "item": "补充TypeScript和至少一门后端语言（Go或Java），并深入学习RAG、MCP、Agent工作流编排等前沿技术",
+        "priority": "medium",
+        "resource": "TypeScript官方文档、Go by Example、LangGraph文档、MCP协议官方文档"
+      }
+    ]
+  },
+  {
+    "job_id": 14,
+    "title": "LLM应用开发(Al agent)",
+    "match_score": 42,
+    "expected_score": 42,
+    "mismatch": false,
+    "score_breakdown": {
+      "skills": 35,
+      "experience": 20,
+      "education": 90,
+      "other": 55
+    },
+    "gaps": [
+      {
+        "gap": "完全缺失LangChain和LangGraph框架经验，这是岗位最核心的技术栈，无法支撑Multi-Agent系统开发",
+        "importance": "高",
+        "suggestion": "系统学习LangChain/LangGraph官方文档，用LangGraph搭建一个StateGraph多Agent工作流Demo"
+      },
+      {
+        "gap": "缺乏MCP协议、RAG、向量数据库等企业级Agent开发必备技术经验",
+        "importance": "高",
+        "suggestion": "学习MCP协议规范并实践工具封装，搭建一个基于向量数据库（如Chroma/Milvus）的RAG检索链路项目"
+      },
+      {
+        "gap": "仅有3个月前端实习经验，无企业级后端/Agent系统开发经验，与岗位要求的1-3年经验差距明显",
+        "importance": "高",
+        "suggestion": "在硕士期间争取AI公司实习，积累真实企业级Agent项目落地经验"
+      },
+      {
+        "gap": "缺乏高可用工程化经验，包括超时控制、重试、幂等设计、可观测性（LangSmith/Langfuse）等生产级能力",
+        "importance": "中",
+        "suggestion": "学习LangSmith/Langfuse等可观测性工具，在个人项目中实践日志追踪与错误处理机制"
+      },
+      {
+        "gap": "无Multi-Agent复杂编排项目落地经验，也无开源贡献或技术博客，缺少差异化竞争力",
+        "importance": "中",
+        "suggestion": "将CareerMatch项目升级为Multi-Agent架构并开源，同时撰写技术博客记录Agent开发实践"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "系统学习LangChain和LangGraph，用LangGraph搭建一个包含StateGraph状态管理、条件路由、并行执行的Multi-Agent Demo项目并部署上线",
+        "priority": "high",
+        "resource": "LangChain/LangGraph官方文档、DeepLearning.AI的LangChain课程、GitHub上的LangGraph examples"
+      },
+      {
+        "item": "深入学习MCP协议和RAG技术栈，搭建一个完整的RAG知识库项目（文档解析→分块→Embedding→向量检索→重排序），并尝试用MCP封装外部API为Tool",
+        "priority": "high",
+        "resource": "MCP官方协议文档、LangChain RAG教程、Chroma/Milvus向量数据库文档"
+      },
+      {
+        "item": "将CareerMatch项目重构为Multi-Agent架构并开源到GitHub，同时撰写技术博客记录Agent开发中的工程化实践（超时控制、重试、可观测性），积累差异化竞争力",
+        "priority": "medium",
+        "resource": "LangSmith/Langfuse可观测性工具、GitHub开源社区、掘金/CSDN技术博客平台"
+      }
+    ]
+  },
+  {
+    "job_id": 15,
+    "title": "AI Agent开发工程师",
+    "match_score": 50,
+    "expected_score": 50,
+    "mismatch": false,
+    "score_breakdown": {
+      "skills": 55,
+      "experience": 25,
+      "education": 85,
+      "other": 50
+    },
+    "gaps": [
+      {
+        "gap": "缺乏Agent架构设计经验，未接触过OpenClaw/Agent框架，不了解SOUL/AGENTS/USER/MEMORY/TOOLS等Bootstrap文件体系设计",
+        "importance": "高",
+        "suggestion": "系统学习OpenClaw框架，动手搭建一个基于OpenClaw的Agent项目并实践Skill编写与Bootstrap文件配置"
+      },
+      {
+        "gap": "无记忆系统设计经验，不了解短期/长期/语义/情景记忆架构及Dream/Consolidation/Atomization等记忆整理机制",
+        "importance": "高",
+        "suggestion": "研究MemGPT、Letta等开源记忆框架，在个人项目中实现一套简单的记忆分层与整理机制"
+      },
+      {
+        "gap": "缺少Node.js/TypeScript技能，岗位要求该语言栈用于Agent开发与工具集成",
+        "importance": "高",
+        "suggestion": "系统学习TypeScript与Node.js，至少完成一个Node.js后端API项目以掌握基本开发能力"
+      },
+      {
+        "gap": "无MCP Server开发经验，未接触过MCP协议及Server/Client架构",
+        "importance": "中",
+        "suggestion": "学习MCP协议规范，尝试用Python或TypeScript开发一个简单的MCP Server并接入现有工具"
+      },
+      {
+        "gap": "工作年限严重不足，仅3个月前端实习经验，远低于岗位要求的3-5年经验",
+        "importance": "高",
+        "suggestion": "通过在校期间积累更多AI Agent相关项目经验，并考虑先进入AI创业公司实习积累实战履历"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "深入学习OpenClaw框架并动手实践：搭建一个完整的Agent项目，编写Skills、配置Bootstrap文件体系（SOUL/AGENTS/USER/MEMORY/TOOLS），并尝试接入飞书或企微开放平台",
+        "priority": "high",
+        "resource": "OpenClaw官方文档与GitHub仓库、飞书开放平台开发者文档"
+      },
+      {
+        "item": "系统学习Agent记忆架构与检索技术：研究MemGPT/Letta等记忆框架，实现短期/长期记忆分层，并构建一个向量+BM25的hybrid search检索管线",
+        "priority": "high",
+        "resource": "MemGPT论文与代码、LangChain/LlamaIndex混合检索教程、Qdrant/Weaviate向量数据库文档"
+      },
+      {
+        "item": "补充Node.js/TypeScript技能并开发MCP Server：完成TypeScript基础学习后，用Python或TS开发一个MCP Server，对接SQLite或内部API，作为个人作品展示",
+        "priority": "medium",
+        "resource": "TypeScript官方文档、MCP协议规范文档、Node.js实战教程"
+      }
+    ]
+  }
+]
