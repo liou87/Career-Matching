@@ -76,6 +76,7 @@ class Gap(BaseModel):
 
 class ActionItem(BaseModel):
     item: str
+    why_valuable: Optional[str] = None
     priority: str   # high / medium / low
     resource: Optional[str] = None
 
