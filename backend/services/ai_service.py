@@ -3,8 +3,13 @@ import json
 from openai import OpenAI
 from dotenv import load_dotenv
 
+from langchain_deepseek import ChatDeepSeek
+from langchain_core.prompts import ChatPromptTemplate
+from .schemas import MatchResult, AnalysisResult, SuggestionResult
+
 load_dotenv()
 
+#  SDK
 client = OpenAI(
     api_key=os.getenv("DEEPSEEK_API_KEY"),
     base_url="https://api.deepseek.com",
@@ -47,57 +52,127 @@ JD原文：
     return _ask_json(prompt, 1024)
 
 
-def analyze_match(profile: dict, job: dict) -> dict:
-    prompt = f"""你是一个专业的求职顾问，请分析以下候选人与岗位的匹配情况。
+#  LangChain
+llm = ChatDeepSeek(model="deepseek-chat", max_tokens=2048, temperature=0)
 
-候选人信息：
-{json.dumps(profile, ensure_ascii=False, indent=2)}
+MATCH_PROMPT = ChatPromptTemplate.from_messages([
+    ("system", "你是一个专业的求职顾问，分析候选人与岗位的匹配情况。"),
+    ("user", """候选人信息：
+{profile}
 
 目标岗位：
-{json.dumps(job, ensure_ascii=False, indent=2)}
+{job}
 
-请返回严格的JSON格式，不要有任何多余文字。字段要求：
-- match_score 必须按以下四个维度分别打分并加权求和，不要直接给出一个整体印象分：
-  - skills_score（技能匹配度，0-100，权重40%）：基于 required_skills/preferred_skills 与候选人 skills 的重合与深度
-  - experience_score（经验匹配度，0-100，权重30%）：基于 experience_required 与候选人 experiences 的年限/相关度
-  - education_score（学历匹配度，0-100，权重15%）：基于 education_required 与候选人 education
-  - other_score（其他匹配度，0-100，权重15%）：项目、目标城市/公司等其他契合因素
-  - match_score = round(skills_score*0.4 + experience_score*0.3 + education_score*0.15 + other_score*0.15)
-- strengths：候选人优势亮点，必须正好3条
-- gaps：候选人与岗位的差距，必须正好5条，每条要具体、落到点上（缺什么技能/经验/背景），按importance从高到低排序
-- action_items：提升行动建议，必须正好3条，每条要具体可执行，按priority从高到低排序（high在前）
+评分要求：四个维度分别打分，不要直接给整体印象分。
+match_score = round(skills_score*0.4 + experience_score*0.3 + education_score*0.15 + other_score*0.15)
+gaps 每条要具体、落到点上（缺什么技能/经验/背景）。
+action_items 每条要具体可执行。"""),
+])
 
-{{
-  "skills_score": 0到100的整数,
-  "experience_score": 0到100的整数,
-  "education_score": 0到100的整数,
-  "other_score": 0到100的整数,
-  "match_score": 0到100的整数（按上述加权公式计算的综合匹配分）,
-  "matched_skills": ["已具备的匹配技能"],
-  "missing_skills": ["缺失的必要技能"],
-  "strengths": ["优势1", "优势2", "优势3"],
-  "gaps": [
-    {{
-      "gap": "具体差距描述",
-      "importance": "高/中/低",
-      "suggestion": "针对这条差距的一句话提升建议"
-    }}
-  ],
-  "action_items": [
-    {{
-      "item": "具体的行动建议，比如做什么项目/学什么/怎么准备面试",
-      "priority": "high/medium/low",
-      "resource": "推荐的具体学习资源或行动步骤（可选）"
-    }}
-  ],
-  "summary": "100字以内的整体评估总结"
-}}"""
+match_chain = MATCH_PROMPT | llm.with_structured_output(MatchResult)
 
-    result = _ask_json(prompt, 2048)
-    result["score_breakdown"] = {
-        "skills": result.pop("skills_score", 0),
-        "experience": result.pop("experience_score", 0),
-        "education": result.pop("education_score", 0),
-        "other": result.pop("other_score", 0),
+
+def analyze_match_v1(profile: dict, job: dict) -> dict:
+    payload = {
+        "profile": json.dumps(profile, ensure_ascii=False, indent=2),
+        "job": json.dumps(job, ensure_ascii=False, indent=2),
     }
-    return result
+
+    result = match_chain.invoke(payload)
+    if result is None:
+        # DeepSeek 偶尔不会触发 tool call，with_structured_output 这时返回 None，重试一次
+        result = match_chain.invoke(payload)
+    if result is None:
+        raise RuntimeError("DeepSeek 未能返回结构化的匹配结果（重试一次后仍失败），请稍后再试")
+
+    data = result.model_dump()
+    data["score_breakdown"] = {
+        "skills": data.pop("skills_score", 0),
+        "experience": data.pop("experience_score", 0),
+        "education": data.pop("education_score", 0),
+        "other": data.pop("other_score", 0),
+    }
+    return data
+
+
+# ---------- B2: 两步拆分（节点1 客观比对 -> 节点2 生成建议） ----------
+
+ANALYSIS_PROMPT = ChatPromptTemplate.from_messages([
+    ("system", "你是求职顾问，负责客观比对候选人与岗位。只做分析和打分，不要给任何建议。"),
+    ("user", """候选人信息：
+{profile}
+
+目标岗位：
+{job}
+
+四个维度分别打分（0-100），不要给整体印象分。
+gaps 要具体、落到点上，按 importance 从高到低排序。"""),
+])
+
+analysis_chain = ANALYSIS_PROMPT | llm.with_structured_output(AnalysisResult)
+
+SUGGESTION_PROMPT = ChatPromptTemplate.from_messages([
+    ("system", "你是求职顾问，基于已经分析好的差距，给出可执行的提升建议。"),
+    ("user", """候选人已有项目和经历：
+{profile}
+
+目标岗位：
+{job}
+
+已识别的差距（原样保留 gap 和 importance，只补充 suggestion）：
+{gaps}
+
+要求：
+- action_items 要说清"做什么"和"为什么这件事对这个岗位有含金量"。
+- item 必须有可验证的产出物：代码、数据、上线地址、性能数字。
+  反例："系统学习LangGraph"（无法验证做没做完）
+  正例："用LangGraph重构匹配流程为状态图，并给出重构前后失败率的对比数据"
+- why_valuable 要对应到JD里的具体要求，或说明这能证明什么能力，
+  不要写"这是行业趋势"这类空话。
+- 优先考虑能改造候选人已有项目的方向（成本低、能快速产出）；
+  如果已有项目确实承载不了，可以提出新建，但要说明为什么必须新开。
+- 只给真正有价值的建议。如果只有1条值得说，就只给1条。
+- 不要写"争取实习""开源到GitHub""刷LeetCode"这类通用建议。"""),
+])
+
+suggestion_chain = SUGGESTION_PROMPT | llm.with_structured_output(SuggestionResult)
+
+
+def analyze_match_v2(profile: dict, job: dict) -> dict:
+    p = json.dumps(profile, ensure_ascii=False, indent=2)
+    j = json.dumps(job, ensure_ascii=False, indent=2)
+
+    a = analysis_chain.invoke({"profile": p, "job": j})
+
+    suggestion_payload = {
+        "profile": p,
+        "job": j,
+        "gaps": json.dumps([g.model_dump() for g in a.gaps], ensure_ascii=False, indent=2),
+    }
+    try:
+        s = suggestion_chain.invoke(suggestion_payload)
+    except Exception:
+        # 结构化输出偶尔缺字段导致校验失败（见 job 11 复现），重试一次
+        s = suggestion_chain.invoke(suggestion_payload)
+
+    # 加权分在 Python 算，避开银行家舍入
+    breakdown = {
+        "skills": a.skills_score,
+        "experience": a.experience_score,
+        "education": a.education_score,
+        "other": a.other_score,
+    }
+    exact = (breakdown["skills"] * 0.4 + breakdown["experience"] * 0.3
+             + breakdown["education"] * 0.15 + breakdown["other"] * 0.15)
+    match_score = int(exact + 0.5)      # 四舍五入，不用 round()
+
+    return {
+        "match_score": match_score,
+        "score_breakdown": breakdown,
+        "matched_skills": a.matched_skills,
+        "missing_skills": a.missing_skills,
+        "strengths": a.strengths,
+        "gaps": [g.model_dump() for g in s.gaps],
+        "action_items": [x.model_dump() for x in s.action_items],
+        "summary": s.summary,
+    }

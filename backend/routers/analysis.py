@@ -4,7 +4,7 @@ import json
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db
-from services.ai_service import analyze_match
+from services.ai_service import analyze_match_v2
 import models, schemas
 
 router = APIRouter(prefix="/analysis", tags=["analysis"])
@@ -89,7 +89,7 @@ def run_analysis(job_id: int, force: bool = False, db: Session = Depends(get_db)
         if existing:
             return existing
 
-    result = analyze_match(profile_dict, job_dict)
+    result = analyze_match_v2(profile_dict, job_dict)
 
     breakdown = _clamp_breakdown(result.get("score_breakdown"))
     match_score = _weighted_score(breakdown) if breakdown else _clamp_score(result.get("match_score"))
