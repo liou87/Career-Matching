@@ -223,6 +223,9 @@ export default function AnalysisPage() {
 
           <div className="card">
             <div className="section-title">行动建议</div>
+            {analysis.action_items.length === 0 && (
+              <p style={{ color: "var(--text-faint)", fontSize: 14 }}>该岗位技术栈与你的求职方向不符，未生成提升建议。</p>
+            )}
             {analysis.action_items.map((s, i) => (
               <div key={i} className="suggestion-item">
                 <LevelDot value={s.priority} />
