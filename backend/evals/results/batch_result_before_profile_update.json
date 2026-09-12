@@ -1,0 +1,1233 @@
+[
+  {
+    "match_score": 65,
+    "score_breakdown": {
+      "skills": 72,
+      "experience": 45,
+      "education": 88,
+      "other": 62
+    },
+    "matched_skills": [
+      "Python",
+      "LLM API (DeepSeek API)",
+      "Prompt Engineering",
+      "LangChain",
+      "LangGraph",
+      "Claude Code",
+      "FastAPI",
+      "SQL",
+      "PostgreSQL基础",
+      "SQLite",
+      "Git",
+      "Linux"
+    ],
+    "missing_skills": [
+      "大语言模型基本原理（模型结构、训练/微调、推理机制等系统性知识）",
+      "OpenAI / Claude / Gemini 等主流 LLM API 使用经验（仅体现 DeepSeek）",
+      "多模态模型（VLM）项目经验",
+      "RAG / 知识库问答 / 结构化数据分析经验",
+      "评测数据集（Benchmark）构建与评估指标定义能力"
+    ],
+    "strengths": [
+      "技术栈与岗位高度重合：Python + LLM API + Prompt Engineering + LangChain/LangGraph 全部命中，且已用 Claude Code 等 AI 辅助开发工具",
+      "有已上线的 LLM 应用（AI Chat，React + FastAPI + DeepSeek + SQLite），具备从开发到部署的完整链路经验（Railway、Vercel）",
+      "学历背景匹配：悉尼大学计算机科学硕士（2026年12月毕业），符合“硕士及以上、应届生可”的硬性门槛"
+    ],
+    "gaps": [
+      {
+        "gap": "缺乏 Agent 效果评测体系经验：无构建 Benchmark、定义评估指标、量化分析 Agent 准确率/鲁棒性的经历，而这是岗位核心职责之一",
+        "importance": "高",
+        "suggestion": "在 CareerMatch 里建一个 50-100 条人工标注的匹配/诊断测试集，定义准确率、字段抽取 F1、多轮一致性等指标，写一个可复跑的 eval 脚本，输出每次 Prompt 改动前后的分数对比表。"
+      },
+      {
+        "gap": "缺少大语言模型基本原理的系统性掌握：技能列表与项目均为 API 调用层面，未体现模型结构、训练/微调、推理机制等底层理解",
+        "importance": "高",
+        "suggestion": "在 AI Chat 上做一次 LoRA 微调实验（如用 Qwen/Llama 小模型微调对话风格），记录训练配置、loss 曲线与微调前后在自建测试集上的对比，把“会调 API”升级为“懂模型行为”。"
+      },
+      {
+        "gap": "无 RAG / 知识库问答 / 结构化数据分析项目经验，而这是岗位明确列出的优先项，且与“特定领域诊断/分析 Agent”直接相关",
+        "importance": "高",
+        "suggestion": "把 CareerMatch 从纯 Prompt 匹配升级为 RAG 架构：把岗位 JD 与简历切片入库（pgvector/Chroma），检索后再让 Agent 做诊断，并给出检索命中率与无 RAG 版本的准确率对比。"
+      },
+      {
+        "gap": "LLM API 经验单一：仅 DeepSeek，缺少 OpenAI、Claude、Gemini 等主流 API 的实操，岗位要求中明确列举",
+        "importance": "中",
+        "suggestion": "在 AI Chat 里加一层模型适配器，同时接入 OpenAI 与 Claude，用同一套测试集跑三家模型的准确率/延迟/成本对比表，直接证明多模型工程能力。"
+      },
+      {
+        "gap": "正式工作经验薄弱：仅 3 个月前端口实习（2023年，北京九章科技，仅页面编写），无算法/Agent 方向的工程或研究经历，且无多模态（VLM）项目经验",
+        "importance": "中",
+        "suggestion": "在 CareerMatch 中加一个 VLM 入口：上传简历截图或 JD 图片，用多模态模型直接解析成结构化字段，与 OCR+文本链路做准确率对比，补上多模态项目这一栏。"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "把 CareerMatch 改造成带评测闭环的 RAG Agent：JD/简历切片入向量库（pgvector 或 Chroma），LangGraph 编排“检索→诊断→多轮追问”状态图，并交付一个 eval 脚本 + 100 条标注测试集，产出检索命中率、诊断准确率、加入 RAG 前后对比数字，以及线上可访问地址。",
+        "why_valuable": "一次性覆盖 JD 三条硬要求：RAG/知识库问答（优先项）、LangGraph Agent 框架（优先项）、以及“构建 Benchmark、定义评估指标、量化分析 Agent 效果”这一核心职责。有对比数字的评测报告是应届生最难伪造、也最能证明算法工程能力的产出。",
+        "priority": "high",
+        "resource": "LangGraph 官方 multi-agent/RAG 教程 + RAGAS 或自写 eval 脚本；向量库用 pgvector（复用已有 PostgreSQL 基础）或 Chroma；部署沿用现有 Railway/Vercel 链路。"
+      },
+      {
+        "item": "在 AI Chat 上做多模型 + 微调双实验：加一层 provider 适配器接入 OpenAI 与 Claude，用同一测试集输出三家模型的准确率/延迟/成本对比表；再用 LoRA 微调一个开源小模型（Qwen2.5-7B 级别），记录训练配置、loss 曲线与微调前后测试集得分。",
+        "why_valuable": "对应 JD 明确列举的“LLM API（OpenAI、Claude、Gemini）”与“大语言模型基本原理”。多模型对比证明工程适配能力，LoRA 实验证明你理解训练/微调与推理机制，而不只是会写 Prompt——这是“算法工程师”与“应用调用者”的分界线。",
+        "priority": "high",
+        "resource": "OpenAI/Anthropic 官方 SDK；微调用 LLaMA-Factory 或 PEFT+transformers，租用单卡 A10/4090 按小时计费即可，成本可控。"
+      },
+      {
+        "item": "在 CareerMatch 增加 VLM 解析入口：支持上传简历/JD 截图，用多模态模型直接输出结构化字段，与 OCR+文本链路做字段级准确率对比，并把两条链路的失败案例整理成分析文档。",
+        "why_valuable": "补齐 JD 优先项中的“多模态模型（VLM）项目经验”，同时失败案例分析本身就是 JD 要求的“量化分析 Agent 效果并持续改进”的证据，让简历从“前端+调 API”转向“Agent 算法方向”。",
+        "priority": "medium",
+        "resource": "Claude/Gemini 或 Qwen-VL 的多模态接口；对比基线可用 PaddleOCR/Tesseract + 现有文本链路。"
+      }
+    ],
+    "summary": "候选人技术栈与岗位方向高度对口（Python/FastAPI/LangGraph/LLM 应用），但停留在 API 调用层，缺三块硬通货：Agent 评测体系、RAG 项目、模型底层与多模型实操。建议不新开项目，直接改造 CareerMatch 与 AI Chat，产出带对比数字的评测报告、RAG 架构与微调实验，即可把“应用开发者”包装成“Agent 算法工程师”。",
+    "job_id": 1
+  },
+  {
+    "match_score": 56,
+    "score_breakdown": {
+      "skills": 58,
+      "experience": 35,
+      "education": 85,
+      "other": 62
+    },
+    "matched_skills": [
+      "Python",
+      "FastAPI",
+      "LLM应用开发",
+      "LangGraph",
+      "Langchain",
+      "DeepSeek API",
+      "Prompt Engineering",
+      "SQL",
+      "PostgreSQL基础",
+      "SQLite",
+      "Git",
+      "Linux",
+      "React",
+      "Vue",
+      "JavaScript",
+      "Claude Code",
+      "Railway",
+      "Vercel"
+    ],
+    "missing_skills": [
+      "微服务架构",
+      "分布式系统",
+      "容器化与云原生技术（Docker/K8s）",
+      "任务调度/状态管理/监控告警等基础设施能力",
+      "Multi-Agent 协作工程化经验"
+    ],
+    "strengths": [
+      "学历背景匹配：悉尼大学计算机科学硕士 + 四川大学计算机科学本科，满足本科及以上要求且专业对口",
+      "AI Agent 技术栈方向对口：具备 LangGraph、LangChain、LLM 应用开发、Prompt Engineering、DeepSeek API 等与岗位直接相关的技能",
+      "有已上线的 AI 应用项目（AI Chat）及开发中的 Agent 类项目（CareerMatch），体现从原型到落地的实践意愿"
+    ],
+    "gaps": [
+      {
+        "gap": "缺乏后端工程化经验：仅有 3 个月前端的实习/工作经历，无生产级后端系统开发经历，与岗位要求的后端语言、微服务架构、分布式系统能力不匹配",
+        "importance": "高",
+        "suggestion": "把 CareerMatch 的 FastAPI 后端从单体脚本重构成分层服务（API 层/领域层/任务层），补上鉴权、限流、错误码规范、结构化日志与 pytest 覆盖率报告，用真实代码量证明后端工程能力而非前端背景。"
+      },
+      {
+        "gap": "缺少分布式系统与微服务架构的实践：技能列表中无相关项目或经验支撑，而这是岗位核心要求",
+        "importance": "高",
+        "suggestion": "在 CareerMatch 中把「简历解析」「岗位匹配」「报告生成」拆成两个独立服务，用 Redis 做任务队列、Postgres 做状态存储，并给出并发 50 请求下的 P95 延迟与失败重试数据。"
+      },
+      {
+        "gap": "缺少 Agent 基础设施能力：任务调度、状态管理、监控告警、容错机制、高可用设计等岗位核心职责无对应经验",
+        "importance": "高",
+        "suggestion": "给 CareerMatch 的 LangGraph 流程加上 checkpoint 持久化、节点级重试与超时熔断，并接入 Prometheus 指标 + 一次真实故障注入实验（如杀掉 LLM 调用），输出恢复时间与成功率对比。"
+      },
+      {
+        "gap": "缺少容器化与云原生技术：无 Docker/K8s 等技能，仅有 Railway、Vercel 等托管平台部署经验，未体现云原生工程能力",
+        "importance": "中",
+        "suggestion": "为 AI Chat 和 CareerMatch 编写 Dockerfile 与 docker-compose，把后端从 Railway 迁到自建 K8s（可用 k3s 单节点），产出镜像体积、冷启动时间、滚动更新零中断的实测记录。"
+      },
+      {
+        "gap": "缺少 Multi-Agent 协作与工具链/插件系统的工程化实现经验，且无 ToB SaaS 或用研/调研行业实习背景，GitHub 活跃项目未体现",
+        "importance": "中",
+        "suggestion": "在 CareerMatch 中实现 2-3 个角色 Agent（简历分析/岗位检索/匹配打分）通过共享状态协作，并把工具调用抽象成注册式插件接口，附上 Agent 间冲突处理与调用链追踪截图。"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "把 CareerMatch 从单体 FastAPI 改造成「网关 + 简历解析服务 + 匹配服务」三进程架构：Redis 做任务队列与状态缓存，Postgres 存任务状态，Docker Compose 一键起全栈，并压测输出并发 50 下的 P95 延迟、失败重试成功率、以及一次服务宕机后的任务恢复数据。",
+        "why_valuable": "直接对应 JD 的「后端语言、微服务架构、分布式系统」硬性要求，以及「任务调度、状态管理、容错机制、高可用」职责；用可复现的压测数字替代「无后端经验」的空白，是这份简历最缺的一块。",
+        "priority": "high",
+        "resource": "复用现有 CareerMatch 代码；Redis + Postgres 用 Docker Compose 本地起；压测用 locust 或 k6，把报告写进 README。"
+      },
+      {
+        "item": "在 CareerMatch 的 LangGraph 流程上补齐 Agent 基础设施：节点级 checkpoint 持久化、超时熔断、指数退避重试，接入 Prometheus + Grafana 暴露 token 消耗/节点耗时/失败率指标，并做一次故障注入实验（模拟 LLM API 超时与返回非法 JSON），记录注入前后的任务成功率与平均恢复耗时。",
+        "why_valuable": "对应 JD 的「监控告警、容错机制、质量与可观测性、链路追踪」职责，证明候选人理解 Agent 从原型到生产级的差距，而不只是会调 API。",
+        "priority": "high",
+        "resource": "LangGraph 自带 checkpointer（SqliteSaver/PostgresSaver）；指标用 prometheus-fastapi-instrumentator；故障注入可用环境变量开关模拟。"
+      },
+      {
+        "item": "在 CareerMatch 中实现 Multi-Agent 协作：拆出「简历解析 Agent」「岗位检索 Agent」「匹配打分 Agent」，通过共享状态与消息传递协作，工具调用抽象为注册式插件接口（新增一个工具只需注册无需改主流程），并输出一次 Agent 间结论冲突的仲裁日志与完整调用链 trace。",
+        "why_valuable": "对应 JD 的「Multi-Agent 协作实现」与「工具链/插件系统开发」两条核心职责，同时把「GitHub 活跃项目」从空话变成有 commit 记录、有架构图的真实工程产出。",
+        "priority": "medium",
+        "resource": "基于现有 LangGraph + LangChain 改造；trace 可用 LangSmith 免费额度或自建 OpenTelemetry。"
+      }
+    ],
+    "summary": "候选人 LLM 应用与前端能力扎实，但后端工程化、分布式与 Agent 基础设施是硬缺口。建议集中改造已有的 CareerMatch：拆微服务 + 加队列与状态存储、补 Agent 容错与可观测性、实现 Multi-Agent 与插件化工具链，用压测数字和故障恢复数据把「会做 Demo」升级为「能做生产级 Agent 系统」。",
+    "job_id": 2
+  },
+  {
+    "match_score": 55,
+    "score_breakdown": {
+      "skills": 62,
+      "experience": 30,
+      "education": 85,
+      "other": 55
+    },
+    "matched_skills": [
+      "Python",
+      "LangGraph",
+      "Langchain",
+      "大模型API调用（DeepSeek API）",
+      "Prompt Engineering",
+      "LLM应用开发",
+      "FastAPI",
+      "SQL/SQLite/PostgreSQL基础",
+      "Git",
+      "Linux",
+      "Claude Code",
+      "Vercel/Railway 部署"
+    ],
+    "missing_skills": [
+      "Spark",
+      "Java/Scala",
+      "Google ADK",
+      "Agent系统设计（多Agent协作、状态管理、技能封装）",
+      "自动化评测体系搭建",
+      "Text2SQL",
+      "DeepResearch",
+      "AIOps",
+      "生成式UI",
+      "长上下文处理",
+      "推理成本优化",
+      "自动化测试"
+    ],
+    "strengths": [
+      "技术栈与岗位方向高度对口：具备 Python + FastAPI + LangGraph/LangChain + 大模型API 的完整链路，且有两个 LLM 应用项目（AI Chat 已上线、CareerMatch 开发中）",
+      "学历背景达标且优质：悉尼大学计算机硕士 + 四川大学计算机本科，满足本科及以上要求",
+      "目标城市与岗位城市一致（上海在目标城市列表内），且目标公司类型（AI创业公司/中型互联网/外企在华）与 ShopeeFood 属性契合"
+    ],
+    "gaps": [
+      {
+        "gap": "工作经验严重不足：仅 3 个月前端实习（北京九章科技，2023年），无正式全职经历，与岗位要求的 3-5 年经验差距约 3 年以上",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺乏 Agent 系统设计实战：岗位要求多Agent协作、状态管理、技能封装，候选人仅在 CareerMatch 中接触 LangGraph/LangChain，且项目仍在开发中，无落地成果",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺少大数据/工程化栈：岗位要求 Spark 及 Java/Scala，候选人仅有 Python 与前端技术栈，无 Spark、无 JVM 系语言经验",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺少自动化评测体系与自动化测试经验：岗位核心职责包含建立自动化评测体系并持续迭代，候选人无相关经历",
+        "importance": "中",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺少岗位偏好项中的高价值加分能力：Text2SQL、DeepResearch、AIOps、生成式UI、长上下文处理、推理成本优化、GitHub 高质量 AI 开源项目/核心贡献者均无体现",
+        "importance": "中",
+        "suggestion": ""
+      }
+    ],
+    "action_items": [],
+    "summary": "该岗位必需技能包含 java，与你的技术路线不符，未生成提升建议。匹配分和差距分析仅供参考。",
+    "job_id": 3
+  },
+  {
+    "match_score": 67,
+    "score_breakdown": {
+      "skills": 78,
+      "experience": 45,
+      "education": 88,
+      "other": 62
+    },
+    "matched_skills": [
+      "Python",
+      "FastAPI",
+      "React",
+      "JavaScript",
+      "SQL",
+      "Prompt Engineering",
+      "LLM应用开发",
+      "DeepSeek API",
+      "LangChain",
+      "LangGraph",
+      "Git",
+      "Linux",
+      "Vercel",
+      "Railway"
+    ],
+    "missing_skills": [
+      "Java",
+      "常见数据结构与算法的系统性训练/证明",
+      "Agent核心组件（Chains、Agents、Memory）的完整落地经验",
+      "RAG优化",
+      "多模态大模型",
+      "工具调用链路设计",
+      "上下文工程（Context Engineering）实践"
+    ],
+    "strengths": [
+      "技术栈与岗位方向高度重合：Python/FastAPI + React 全栈能力，且已具备 LangChain、LangGraph、DeepSeek API、Prompt Engineering 等 LLM 应用开发要素",
+      "有已上线的 AI Chat 多轮对话应用，具备从开发到部署（Vercel/Railway）的完整链路经验",
+      "学历背景达标且偏强：悉尼大学计算机科学硕士 + 四川大学计算机科学本科，符合本科及以上要求"
+    ],
+    "gaps": [
+      {
+        "gap": "缺乏互联网/AI 公司的正式实习或工作经历，唯一经历为 3 个月前端页面编写，与岗位要求的全栈开发、生产场景复杂问题解决不匹配",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "Agent 核心组件（Chains、Agents、Memory）仅停留在 CareerMatch 项目（开发中）层面，无生产级 Multi-Agent 系统落地经验",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺少 RAG 优化、多模态大模型、工具调用链路设计等岗位明确职责方向的项目或实践证据",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "无深度学习/机器学习科研经历或竞赛获奖，preferred 项中的科研与竞赛维度为空",
+        "importance": "中",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺少 Java 等岗位列举语言的掌握证明，且无数据结构与算法的系统性训练或刷题/竞赛佐证",
+        "importance": "中",
+        "suggestion": ""
+      }
+    ],
+    "action_items": [],
+    "summary": "该岗位必需技能包含 java，与你的技术路线不符，未生成提升建议。匹配分和差距分析仅供参考。",
+    "job_id": 4
+  },
+  {
+    "match_score": 56,
+    "score_breakdown": {
+      "skills": 62,
+      "experience": 35,
+      "education": 85,
+      "other": 55
+    },
+    "matched_skills": [
+      "Python",
+      "LLM应用开发",
+      "LangGraph",
+      "Langchain",
+      "DeepSeek API",
+      "Prompt Engineering",
+      "React",
+      "JavaScript",
+      "FastAPI",
+      "SQL",
+      "Git",
+      "Linux",
+      "Claude Code"
+    ],
+    "missing_skills": [
+      "Java",
+      "TypeScript",
+      "RAG",
+      "Function Calling/Tool Calling",
+      "结构化输出",
+      "评测",
+      "Agent（工程化落地）"
+    ],
+    "strengths": [
+      "具备 LLM 应用开发全链路实践：AI Chat 已上线，覆盖 React + FastAPI + DeepSeek + SQLite 的前后端与模型调用",
+      "技术栈与岗位方向高度对齐：Python、FastAPI、LangGraph/LangChain、Prompt Engineering 直接对应 Agent 与大模型应用开发",
+      "学历背景达标且为计算机科班：四川大学本科 + 悉尼大学计算机科学硕士，满足本科及以上要求"
+    ],
+    "gaps": [
+      {
+        "gap": "缺少 RAG 相关经验：无检索增强生成的向量库、召回/重排、知识库构建等实践，而岗位明确要求 RAG 并在客服场景落地",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺少 Agent 工程化落地经验：仅有 LangGraph/LangChain 在开发中项目里的使用，无 Function Calling/Tool Calling、多轮对话状态管理的完整交付案例",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺少评测（Evaluation）能力：无大模型效果评测、指标设计、A/B 验证等经验，岗位职责要求效果验证与持续优化",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "工作经验严重不足：仅 3 个月前端实习，无 1-3 年正式工作经验，且无后端/服务端工程经验",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺少智能客服业务背景与 Java/TypeScript 技能：无客服场景从业经验，且未掌握岗位要求的 Java、TypeScript",
+        "importance": "中",
+        "suggestion": ""
+      }
+    ],
+    "action_items": [],
+    "summary": "该岗位必需技能包含 java，与你的技术路线不符，未生成提升建议。匹配分和差距分析仅供参考。",
+    "job_id": 5
+  },
+  {
+    "match_score": 47,
+    "score_breakdown": {
+      "skills": 45,
+      "experience": 30,
+      "education": 85,
+      "other": 50
+    },
+    "matched_skills": [
+      "Python",
+      "SQL",
+      "Linux",
+      "Git",
+      "LLM应用开发",
+      "Prompt Engineering",
+      "LangGraph",
+      "Langchain",
+      "DeepSeek API",
+      "PostgreSQL基础"
+    ],
+    "missing_skills": [
+      "Golang",
+      "Java",
+      "C",
+      "C++",
+      "PHP",
+      "Go",
+      "SpringCloud",
+      "MySQL",
+      "Kafka",
+      "Redis",
+      "数据结构",
+      "算法",
+      "操作系统"
+    ],
+    "strengths": [
+      "学历背景匹配：悉尼大学计算机科学硕士 + 四川大学计算机科学本科，满足本科及以上要求",
+      "具备 LLM 应用开发实战经验，掌握 LangGraph/LangChain、Prompt Engineering、DeepSeek API，与岗位中智能创作 Agent 方向有交集",
+      "有已上线的 AI Chat 全栈项目（React + FastAPI + DeepSeek + SQLite），具备端到端交付能力"
+    ],
+    "gaps": [
+      {
+        "gap": "缺少岗位核心后端语言能力：无 Golang/Go、Java、C/C++、PHP 中任何一门主力后端语言的工程经验，仅 Python 一项部分对应",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺少服务端中间件与存储栈：无 MySQL、Redis、Kafka 使用经验，仅有 SQLite 与 PostgreSQL 基础，无法支撑亿级用户的高并发场景",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺少分布式/微服务架构经验：无 SpringCloud 或等价微服务框架、数据隔离、系统解耦相关实践",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺少计算机基础理论在工程中的体现：简历未体现数据结构、算法、操作系统层面的能力或相关项目/竞赛经历",
+        "importance": "中",
+        "suggestion": ""
+      },
+      {
+        "gap": "后端工程经验薄弱：唯一实习为 3 个月前端工程师（页面编写），无服务端开发、系统调优、代码规范与测试规范相关经历",
+        "importance": "中",
+        "suggestion": ""
+      }
+    ],
+    "action_items": [],
+    "summary": "该岗位必需技能包含 java、golang，与你的技术路线不符，未生成提升建议。匹配分和差距分析仅供参考。",
+    "job_id": 6
+  },
+  {
+    "match_score": 43,
+    "score_breakdown": {
+      "skills": 35,
+      "experience": 30,
+      "education": 85,
+      "other": 45
+    },
+    "matched_skills": [
+      "Python",
+      "React",
+      "Vue",
+      "JavaScript",
+      "SQL",
+      "LLM应用开发",
+      "Prompt Engineering",
+      "LangGraph",
+      "Langchain",
+      "Git",
+      "Linux"
+    ],
+    "missing_skills": [
+      "Golang",
+      "Java",
+      "Elasticsearch",
+      "MySQL",
+      "MyBatis",
+      "Redis",
+      "SQL Server",
+      "Spring"
+    ],
+    "strengths": [
+      "学历背景达标：悉尼大学计算机科学硕士（2026年12月）+ 四川大学计算机科学本科，满足岗位本科及以上要求",
+      "具备LLM应用开发实操经验：DeepSeek API、Prompt Engineering、LangGraph/Langchain，并有AI Chat（已上线）与CareerMatch两个AI应用项目",
+      "技术栈覆盖前端与Python后端：React/Vue/JavaScript + FastAPI/Python，与岗位职责中前后端协作、AI平台研发方向部分重合"
+    ],
+    "gaps": [
+      {
+        "gap": "缺失岗位核心后端语言：无Golang、Java经验，required_skills中两大主力语言均不具备",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺失Java后端生态：Spring、MyBatis、MySQL、SQL Server均无使用记录，仅有SQLite与PostgreSQL基础",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺失中间件与检索组件：无Elasticsearch、Redis经验，无法对应大规模系统架构与质量智能平台的数据检索需求",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "后端工程经验薄弱：唯一实习为3个月前端工程师（仅页面编写），无后端研发、架构设计、技术攻坚类经历",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "无大规模系统架构经验，且AI工程落地仅限个人项目（CareerMatch仍在开发中），缺少企业级AI工程落地与团队协作交付记录",
+        "importance": "中",
+        "suggestion": ""
+      }
+    ],
+    "action_items": [],
+    "summary": "该岗位必需技能包含 java、golang，与你的技术路线不符，未生成提升建议。匹配分和差距分析仅供参考。",
+    "job_id": 7
+  },
+  {
+    "match_score": 46,
+    "score_breakdown": {
+      "skills": 45,
+      "experience": 25,
+      "education": 85,
+      "other": 50
+    },
+    "matched_skills": [
+      "Python",
+      "AI辅助开发工具（Claude Code）",
+      "LLM应用开发",
+      "Prompt Engineering",
+      "LangGraph",
+      "LangChain",
+      "DeepSeek API",
+      "React",
+      "Vue",
+      "JavaScript",
+      "FastAPI",
+      "SQL",
+      "SQLite",
+      "PostgreSQL基础",
+      "Linux",
+      "Git",
+      "Railway",
+      "Vercel"
+    ],
+    "missing_skills": [
+      "Go",
+      "MySQL",
+      "Redis",
+      "消息队列",
+      "Docker",
+      "Kubernetes",
+      "DevOps"
+    ],
+    "strengths": [
+      "具备 LLM 应用开发实战经验，掌握 LangGraph/LangChain 多 Agent 编排与 Prompt Engineering，与岗位 AI Agent 方向直接对口",
+      "技术栈覆盖前后端全栈（React/Vue + FastAPI/Python），有已上线的 AI Chat 多轮对话应用，具备独立交付能力",
+      "学历背景匹配，悉尼大学计算机科学硕士 + 四川大学计算机科学本科，满足本科及以上要求"
+    ],
+    "gaps": [
+      {
+        "gap": "缺少 Go 语言开发经验，而岗位明确要求基于 Go/Python 实现后端服务，Go 为核心必要技能",
+        "importance": "高",
+        "suggestion": "把 CareerMatch 的 FastAPI 后端用 Go（Gin/Echo）重写核心的匹配与 LLM 调用接口，保留 Python 侧做 Agent 编排，形成 Go+Python 双语言服务，并在 README 给出两版接口的 QPS/延迟对比数据。"
+      },
+      {
+        "gap": "缺少 Docker、Kubernetes、DevOps 相关容器化与部署运维经验，仅有 Railway/Vercel 等托管平台使用经历",
+        "importance": "高",
+        "suggestion": "为 AI Chat 和 CareerMatch 编写 Dockerfile 与 docker-compose（含后端、Redis、MySQL），再用 k3s 或云厂商托管 K8s 部署，产出 CI/CD 流水线（GitHub Actions）与一份可访问的部署地址。"
+      },
+      {
+        "gap": "缺少 Redis、消息队列（MQ）等中间件使用经验，无高并发/高可用后端系统实践",
+        "importance": "高",
+        "suggestion": "在 AI Chat 中引入 Redis 做会话上下文缓存与限流，把 LLM 调用改为 Kafka/RabbitMQ 异步任务队列，并压测出改造前后的并发承载量与 P99 延迟数字。"
+      },
+      {
+        "gap": "工作经验严重不足，仅 3 个月前端实习，与岗位要求的 3-5 年经验差距明显，且无后端服务开发正式经历",
+        "importance": "高",
+        "suggestion": "把 CareerMatch 做成有真实用户和线上数据的完整后端产品（含监控、日志、错误追踪），用可量化的线上指标（日活、请求量、可用性）替代工作年限证明后端交付能力。"
+      },
+      {
+        "gap": "缺少 MySQL 使用经验（仅有 SQLite 与 PostgreSQL 基础），且无海外业务场景落地经验，与岗位海外业务方向不匹配",
+        "importance": "中",
+        "suggestion": "将 AI Chat 的 SQLite 迁移到 MySQL（含索引设计与慢查询优化记录），并为应用加入 i18n 与多区域部署，模拟海外用户场景。"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "用 Go 重写 CareerMatch 的后端核心接口（匹配计算 + LLM 调用），保留 Python 做 Agent 编排，形成 Go/Python 双服务架构；产出：可运行代码仓库 + 两版接口的压测报告（QPS、P99 延迟对比）",
+        "why_valuable": "直接补齐 JD 中「基于 Go/Python 实现高可用、高性能功能模块」这条硬性要求，同时用性能数字证明你理解后端性能而非只会写业务逻辑",
+        "priority": "high",
+        "resource": "Gin 或 Echo 框架；用 k6 或 wrk 做压测；先只重写 2-3 个核心接口，不必全量迁移"
+      },
+      {
+        "item": "为 AI Chat 补齐生产级后端基础设施：Docker + docker-compose（后端/Redis/MySQL）+ GitHub Actions CI/CD + k3s 部署，Redis 做会话缓存与限流，LLM 调用走消息队列异步化；产出：可访问的上线地址 + 压测前后并发承载量与 P99 延迟数据 + 一份架构说明",
+        "why_valuable": "一次性覆盖 JD 中 Docker、Kubernetes、DevOps、Redis、消息队列五项必要技能，并证明你能独立交付可运维的线上服务，这是 3-5 年经验岗位最看重的信号",
+        "priority": "high",
+        "resource": "本地用 k3d/k3s 起集群即可；消息队列可用 RabbitMQ 或 Kafka 单机版；压测工具 k6"
+      },
+      {
+        "item": "把 CareerMatch 从「开发中」推到真实上线并接入可观测性（日志、错误追踪、基础监控面板），记录真实请求量、可用性与失败率；产出：线上地址 + 监控截图/数据 + 一份线上问题排查记录",
+        "why_valuable": "对应 JD 中「线上问题排查修复，持续提升系统质量」与「推动 AI 能力在业务场景落地」，用真实运营数据弥补工作年限不足，比任何简历措辞都有说服力",
+        "priority": "medium",
+        "resource": "Sentry 做错误追踪，Grafana/Prometheus 或云厂商监控；先小范围邀请真实用户使用"
+      }
+    ],
+    "summary": "候选人技术栈偏前端与 LLM 应用，与岗位要求的 Go 后端、容器化、中间件、高并发系统存在结构性差距，且工作年限不足。建议以 CareerMatch 和 AI Chat 为载体，用 Go 重写后端、补齐 Docker/K8s/Redis/MQ 基础设施并真实上线，用可量化的性能与运营数据替代年限证明后端交付能力。",
+    "job_id": 8
+  },
+  {
+    "match_score": 64,
+    "score_breakdown": {
+      "skills": 72,
+      "experience": 45,
+      "education": 88,
+      "other": 55
+    },
+    "matched_skills": [
+      "Python",
+      "LangChain",
+      "LangGraph",
+      "大模型应用开发",
+      "LLM应用开发",
+      "Prompt Engineering",
+      "DeepSeek API",
+      "FastAPI",
+      "React",
+      "Vue",
+      "JavaScript",
+      "SQL",
+      "SQLite",
+      "PostgreSQL基础",
+      "Linux",
+      "Git",
+      "Claude Code",
+      "Railway",
+      "Vercel"
+    ],
+    "missing_skills": [
+      "Agent（独立Agent系统设计与落地）",
+      "RAG（检索增强生成）",
+      "工具调用/Tool Calling",
+      "量化经验",
+      "金融科技经验",
+      "clawhub上发布skills"
+    ],
+    "strengths": [
+      "技术栈与岗位核心要求高度重合：Python、LangChain、LangGraph、大模型应用开发、FastAPI 均已具备，且有两个 LLM 应用项目（AI Chat 已上线、CareerMatch 开发中）作为落地证据",
+      "学历背景匹配且超出要求：悉尼大学计算机科学硕士 + 四川大学计算机科学本科，满足“本科及以上”门槛",
+      "目标城市包含上海，且目标公司类型（AI创业公司、中型互联网、外企在华）与岗位方向一致，求职意向明确"
+    ],
+    "gaps": [
+      {
+        "gap": "无量化/金融科技领域经验：岗位核心职责是研发“量化投研专属智能体”，涉及研报分析、因子处理、数据复盘，候选人简历中无任何金融、量化、投研相关背景或项目",
+        "importance": "高",
+        "suggestion": "把 CareerMatch 的匹配分析链路改造成“投研版”：用公开财报/研报 PDF 作为输入，输出结构化因子表与复盘摘要，让项目直接落在量化投研场景上。"
+      },
+      {
+        "gap": "Agent 能力停留在框架使用层面：仅列出 LangChain/LangGraph 技术名词，无独立设计并落地 Agent 系统（多工具编排、任务规划、状态管理）的完整项目证据",
+        "importance": "高",
+        "suggestion": "在 CareerMatch 中用 LangGraph 显式画出状态图（规划→检索→工具调用→校验→重试），并记录每个节点的输入输出与失败重试次数，把“用了框架”变成“设计了 Agent”。"
+      },
+      {
+        "gap": "缺失 RAG 与工具调用（Tool Calling）的明确实践：岗位职责明确要求落地 RAG、工具调用、任务自动化，简历中未体现向量检索、知识库构建、外部工具集成等经验",
+        "importance": "高",
+        "suggestion": "给 AI Chat 加一条 RAG 支线：把研报/公告切片入向量库，接入 2-3 个真实工具（如财报数据接口、计算器、SQL 查询），并给出检索命中率与幻觉下降的对比数据。"
+      },
+      {
+        "gap": "正式工作经验薄弱：仅 3 个月前端实习（北京九章科技，前端页面编写），无后端/算法/AI 工程岗位的正式或长期实习经历，与“在校/应届”要求虽不冲突但工程成熟度证据不足",
+        "importance": "中",
+        "suggestion": "把 AI Chat 与 CareerMatch 的工程化部分补全并公开：Docker 化部署、接口文档、日志与错误监控、CI 流程，用可访问的线上地址和运行数据替代“实习时长”来证明工程成熟度。"
+      },
+      {
+        "gap": "缺少岗位加分项：无 clawhub 发布 skills 记录，无金融科技/AI 竞赛或开源成果，且硕士毕业时间为 2026 年 12 月，与当前招聘节奏存在时间错配",
+        "importance": "低",
+        "suggestion": "把投研 Agent 中可复用的能力（如研报解析、因子计算）封装成独立 skill 发布到 clawhub，同时用 2026 年 12 月毕业的时间线主动对齐可实习/入职档期。"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "把 CareerMatch 升级为“量化投研 Agent”：输入一批公开研报/财报 PDF，用 LangGraph 编排 规划→RAG 检索→工具调用（财报数据接口 + 因子计算函数 + SQL 查询）→结果校验→重试 的状态图，输出结构化因子表与投研复盘摘要；交付物为线上可访问地址 + 状态图截图 + 10 份研报的端到端处理结果。",
+        "why_valuable": "直接对应 JD 的“基于大模型与 Agent 框架研发量化投研专属智能体”“落地 RAG、工具调用、任务自动化，覆盖研报分析、因子处理、数据复盘”，同时把简历里 LangChain/LangGraph 的技术名词变成可验证的 Agent 设计证据。",
+        "priority": "high",
+        "resource": "数据用巨潮资讯/交易所公开财报与券商公开研报；向量库用 pgvector 或 Chroma；因子计算可先做动量、波动率、估值三类基础因子。"
+      },
+      {
+        "item": "为 Agent 建立评测集并给出量化对比：构造 30-50 条投研问答/因子提取任务作为测试集，记录加入 RAG 与工具调用前后的准确率、检索命中率、幻觉率、平均响应时延，形成一份可复现的评测报告（含脚本与原始数据）。",
+        "why_valuable": "对应 JD 的“优化模型推理与输出精度”，证明候选人不是只会搭 Demo，而是能用数据驱动地迭代 Agent 效果——这是 AI 应用岗最稀缺的能力，也弥补正式工作经验薄弱的短板。",
+        "priority": "high",
+        "resource": "评测脚本用 Python + pytest 组织，指标落成 CSV/表格；幻觉率可用人工标注 + LLM 裁判双轨校验。"
+      },
+      {
+        "item": "把投研 Agent 中可复用的两个能力（研报结构化解析、因子计算）封装为独立 skill 发布到 clawhub，附上输入输出 schema、调用示例与版本记录。",
+        "why_valuable": "直接命中 JD 加分项“在 clawhub 上发布 skills”，同时证明候选人具备把 Agent 能力产品化、可被他人复用的工程意识，而非一次性脚本。",
+        "priority": "medium",
+        "resource": "先按 clawhub 的 skill 规范定义 manifest 与参数 schema，再补一个最小可运行示例和 README。"
+      }
+    ],
+    "summary": "技术栈与岗位方向基本对口，但缺量化投研场景、Agent 系统设计与 RAG/工具调用的落地证据。建议以改造 CareerMatch 为主线，做成可上线的投研 Agent 并配评测数据，成本低、产出可验证，能同时补上三条高优先级差距。",
+    "job_id": 9
+  },
+  {
+    "match_score": 45,
+    "score_breakdown": {
+      "skills": 42,
+      "experience": 30,
+      "education": 85,
+      "other": 45
+    },
+    "matched_skills": [
+      "Python",
+      "LLM应用开发",
+      "DeepSeek API",
+      "Prompt Engineering",
+      "LangGraph",
+      "Langchain",
+      "FastAPI",
+      "SQL",
+      "PostgreSQL基础",
+      "SQLite",
+      "Git",
+      "Linux",
+      "React",
+      "Vue",
+      "JavaScript"
+    ],
+    "missing_skills": [
+      "分布式搜索引擎开发",
+      "Solr",
+      "Elasticsearch",
+      "搜索性能优化",
+      "索引设计",
+      "查询优化",
+      "分片策略",
+      "缓存机制",
+      "系统性能分析",
+      "AI LLM生成结果评估",
+      "多语言AI应用开发",
+      "英文沟通能力（未验证）",
+      "Infrastructure as Code (IaC)",
+      "Terraform",
+      "CloudFormation",
+      "AWS架构设计",
+      "软件安全与合规意识"
+    ],
+    "strengths": [
+      "具备 LLM 应用开发实操经验，掌握 DeepSeek API、Prompt Engineering、LangChain/LangGraph，与岗位 AI Agent 方向的技术栈有直接交集",
+      "有已上线的 AI Chat 全栈项目（React + FastAPI + DeepSeek + SQLite），具备从模型调用到前后端落地的完整链路经验",
+      "学历背景符合要求，悉尼大学计算机科学硕士 + 四川大学计算机科学本科，均为计算机科班"
+    ],
+    "gaps": [
+      {
+        "gap": "完全缺失分布式搜索引擎能力：无 Solr/Elasticsearch 使用经验，无索引设计、查询优化、分片策略、缓存机制、搜索性能优化等岗位核心技能",
+        "importance": "高",
+        "suggestion": "把 CareerMatch 的岗位/简历匹配检索从 SQLite 全表扫描迁到 Elasticsearch，用中文分词+BM25 建索引，并记录迁移前后 P95 查询延迟与召回率对比数据。"
+      },
+      {
+        "gap": "无 RAG 检索链路实战经验：项目中未见向量检索、混合检索、召回与生成质量优化的具体实现，与岗位 RAG 优化职责不匹配",
+        "importance": "高",
+        "suggestion": "在 CareerMatch 里把 LangGraph 流程扩成完整 RAG 链路：ES 关键词检索 + 向量检索做混合召回，加 rerank 与引用溯源，输出召回率/幻觉率的前后对比。"
+      },
+      {
+        "gap": "无 AWS 云基础设施经验：不具备 Terraform/CloudFormation 等 IaC 工具使用经历，无 AWS 架构设计与高可用保障经验",
+        "importance": "高",
+        "suggestion": "把已上线的 AI Chat 从 Railway/Vercel 迁到 AWS（ECS Fargate + RDS + ALB），用 Terraform 写全部资源，仓库里提交 .tf 文件与架构图，证明可复现部署。"
+      },
+      {
+        "gap": "无评估体系建设经验：缺少自动化/人工评估、相关性准确性判定、幻觉检测、基准数据集维护等 LLM 生成结果评估实践",
+        "importance": "高",
+        "suggestion": "为 CareerMatch 建一套评估集：人工标注 100 条匹配样本作为基准，写脚本自动跑相关性/准确性/幻觉指标，输出可复现的评估报告与回归对比。"
+      },
+      {
+        "gap": "工作经验严重不足且方向偏离：仅 3 个月前端页面编写实习，无 AI Agent 推理引擎、任务规划、记忆机制、多 Agent 协作架构的设计与实现经验，也无跨团队协作与技术方案主导交付经历",
+        "importance": "高",
+        "suggestion": "把 CareerMatch 从单轮工具升级为多 Agent 架构（规划 Agent + 检索 Agent + 评估 Agent），用 LangGraph 实现任务规划与记忆机制，并写技术方案文档说明拆解与交付过程。"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "把 CareerMatch 的检索层从 SQLite 迁移到 Elasticsearch：建中文分词索引（ik 分词器），设计 mapping 与分片策略，实现关键词+向量混合检索与查询缓存，产出迁移前后 P95 延迟、召回率@10 的对比表格和压测脚本。",
+        "why_valuable": "直接对应 JD 的「分布式搜索引擎开发」「Solr 或 Elasticsearch」「索引设计/查询优化/分片策略/缓存机制/搜索性能优化」多条硬性要求，且用真实性能数字证明能力，而非罗列技能名。",
+        "priority": "high",
+        "resource": "本地用 docker-compose 起单节点 ES + Kibana；数据用 CareerMatch 已有的岗位/简历文本；压测用 locust 或 esrally。"
+      },
+      {
+        "item": "在 CareerMatch 上搭完整 RAG + 评估闭环：LangGraph 编排「规划→混合检索→rerank→生成→自评」状态图，人工标注 100 条匹配样本作基准集，写脚本自动计算相关性、准确性、幻觉率，输出带引用溯源的评估报告。",
+        "why_valuable": "同时命中 JD 的「RAG 链路优化」「评估体系建设（相关性/准确性/幻觉检测/基准数据集）」「Agent 推理引擎与任务规划」三块核心职责，把候选人现有的 LangGraph/LangChain 技能从「会用」升级为「有量化结果」。",
+        "priority": "high",
+        "resource": "rerank 可用 bge-reranker 或 Cohere Rerank；评估指标参考 RAGAS 的 faithfulness/answer_relevancy 定义。"
+      },
+      {
+        "item": "把已上线的 AI Chat 从 Railway/Vercel 迁到 AWS，用 Terraform 声明式管理 ECS Fargate + RDS + ALB + S3，仓库提交完整 .tf 文件、架构图和一条命令可复现的部署脚本，并给出迁移前后的可用性/成本对比。",
+        "why_valuable": "对应 JD 的「IaC（Terraform 或 CloudFormation）」「AWS 架构设计」「保障系统高可用」，这是候选人目前完全空白且无法靠刷题补上的一块，有可复现的 .tf 仓库是最直接的证据。",
+        "priority": "medium",
+        "resource": "Terraform AWS provider 官方文档；先用 terraform plan 验证，注意用免费额度或及时 destroy 控制成本。"
+      }
+    ],
+    "summary": "候选人技术栈与 AI 应用方向匹配，但缺搜索引擎、RAG 检索链路、评估体系、AWS/IaC 四块硬技能，且实战深度不足。建议以 CareerMatch 为主战场做检索层与 RAG+评估闭环改造，用 AI Chat 承载 AWS/Terraform 迁移，全部以可验证的性能数字和仓库产出呈现，可在 2-3 个月内显著补齐岗位核心差距。",
+    "job_id": 10
+  },
+  {
+    "match_score": 62,
+    "score_breakdown": {
+      "skills": 62,
+      "experience": 45,
+      "education": 85,
+      "other": 70
+    },
+    "matched_skills": [
+      "Python",
+      "大模型API（DeepSeek API）",
+      "Prompt Engineering",
+      "Agent开发（LangGraph/LangChain）",
+      "React",
+      "JavaScript",
+      "FastAPI",
+      "SQL",
+      "Git",
+      "Linux"
+    ],
+    "missing_skills": [
+      "TypeScript",
+      "Node.js",
+      "Function Calling",
+      "OpenAI Agents SDK",
+      "MCP"
+    ],
+    "strengths": [
+      "技术栈与岗位方向高度重合：具备 Python + FastAPI + LangGraph/LangChain + DeepSeek API 的 LLM 应用开发组合，直接对应 Agent 开发职责",
+      "有已上线的 AI Chat 多轮对话应用，以及开发中的 CareerMatch 求职匹配工具，均为可展示的 LLM 落地项目",
+      "悉尼大学计算机科学硕士 + 四川大学计算机科学本科，学历背景超过岗位本科要求，且目标城市包含上海"
+    ],
+    "gaps": [
+      {
+        "gap": "缺少 TypeScript 与 Node.js 经验，而这是岗位 required_skills 中的前两项，且现有前端栈为 React/Vue + JavaScript",
+        "importance": "高",
+        "suggestion": "把 CareerMatch 的前端从 JavaScript 迁移到 TypeScript（开启 strict 模式），并把 FastAPI 的匹配分析接口用 Node.js + TypeScript 重写一版，形成前后端同语言的 TS 工程。"
+      },
+      {
+        "gap": "缺少 Function Calling 的明确经验，岗位职责核心是工具调用与任务执行，简历中未体现该能力",
+        "importance": "高",
+        "suggestion": "在 CareerMatch 中把\"匹配分析\"拆成可被模型调用的工具（如 query_jobs、score_resume、fetch_jd），用 DeepSeek 的 Function Calling 让模型自主决定调用顺序，并记录工具调用日志。"
+      },
+      {
+        "gap": "缺少 OpenAI Agents SDK 与 MCP 经验，这两项为岗位 preferred_skills，且是当前 Agent 生态主流方案",
+        "importance": "中",
+        "suggestion": "把 CareerMatch 里已用 LangGraph 编排的流程，用 OpenAI Agents SDK 重写一版做对照，并把简历解析、岗位检索封装成一个 MCP Server 供 Agent 调用。"
+      },
+      {
+        "gap": "缺少图片、视频、音频等 AIGC 多模态能力接入经验，岗位职责明确要求接入多模态能力优化 Agent",
+        "importance": "中",
+        "suggestion": "在 AI Chat 中接入一个多模态链路：上传简历图片/面试录音，走 OCR 或语音转写后再交给模型分析，把\"非文本输入→结构化结果\"跑通并记录耗时与成本。"
+      },
+      {
+        "gap": "正式工作经验仅 3 个月前端实习性质经历，与岗位要求的 1-3 年经验存在差距，且无 Agent 相关生产环境经验",
+        "importance": "中",
+        "suggestion": "把 AI Chat 和 CareerMatch 都部署到公网并保持可访问，补上监控、错误重试、限流与 token 成本统计，用\"已上线且稳定运行 N 天、P95 延迟 X ms、单次调用成本 Y 元\"来替代工作年限的证明。"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "把 CareerMatch 改造成一个真正的 Agent 服务：用 Node.js + TypeScript 重写后端，接入 DeepSeek Function Calling，把简历解析、岗位检索、匹配打分封装为 3-5 个工具，由模型自主编排调用；同时把其中 2 个工具暴露为 MCP Server。产出物：可访问的线上地址 + 仓库代码 + 一份工具调用日志（含每次任务的调用链、耗时、token 消耗）。",
+        "why_valuable": "一次性覆盖 JD 的 required_skills 前两项（TypeScript、Node.js）、核心职责\"工具调用、任务执行和工作流编排\"，以及 preferred 里的 MCP。相比只写\"熟悉 LangChain\"，这条能直接证明你能独立交付一个 Agent 服务，也补上了\"无 Agent 生产经验\"的短板。",
+        "priority": "high",
+        "resource": "Node 侧用 Hono 或 Express + TypeScript strict；Function Calling 参考 DeepSeek 官方 tools 参数文档；MCP Server 用 @modelcontextprotocol/sdk，先在 Claude Desktop 或 Claude Code 里验证工具能被正确调用。"
+      },
+      {
+        "item": "在 AI Chat 上做一次 Agent 稳定性与成本优化，并给出量化对比：加入工具调用失败重试、超时降级、上下文裁剪与结果缓存，输出优化前后的成功率、P95 响应延迟、单次对话平均 token 成本三组数字。",
+        "why_valuable": "JD 明确要求\"优化 Agent 的稳定性、执行效果、响应速度和成本\"，这四个词几乎就是这条的评分点。有前后对比数字，说明你不是只会调 API，而是能对线上效果负责——这正是 1-3 年经验岗位最想看到的证据。",
+        "priority": "high",
+        "resource": "用 LangSmith 或自建 SQLite 日志表记录每次请求的耗时与 token；缓存可用 Redis 或 SQLite；把对比结果写成 README 里的一张表格。"
+      },
+      {
+        "item": "在 AI Chat 中打通一条多模态链路：支持上传简历截图或面试录音，先做 OCR / 语音转写，再把结构化文本交给模型分析，产出\"输入类型→处理耗时→识别准确率\"的记录。",
+        "why_valuable": "对应 JD 职责中\"接入大模型及图片、视频、音频等 AIGC 能力\"。这是候选人目前完全空白的一块，且能复用已有的 AI Chat 项目，成本低；同时证明你具备把非文本输入接入 Agent 的工程能力。",
+        "priority": "medium",
+        "resource": "OCR 可用 PaddleOCR 或云厂商 API，语音转写可用 Whisper API；先用 10-20 个真实样本测准确率，把结果写进项目 README。"
+      }
+    ],
+    "summary": "候选人技术底子与岗位方向高度吻合（Python/FastAPI/LLM 应用/LangGraph 都有），主要缺口集中在 TypeScript+Node.js 工程栈、Function Calling 与 MCP 的实操证据、多模态接入，以及缺少可量化的生产级 Agent 经验。建议不新开项目，直接改造 CareerMatch 和 AI Chat：前者补 TS/Node/Function Calling/MCP，后者补稳定性成本优化与多模态，用线上地址和性能数字替代工作年限的证明。",
+    "job_id": 11
+  },
+  {
+    "match_score": 51,
+    "score_breakdown": {
+      "skills": 52,
+      "experience": 30,
+      "education": 85,
+      "other": 55
+    },
+    "matched_skills": [
+      "Prompt Engineering",
+      "LLM应用开发",
+      "LangGraph",
+      "Langchain",
+      "FastAPI",
+      "Python",
+      "React",
+      "Vue",
+      "JavaScript",
+      "SQL",
+      "DeepSeek API",
+      "Git",
+      "Linux",
+      "Vercel",
+      "Railway"
+    ],
+    "missing_skills": [
+      "AIAgent商用项目经验",
+      "Function Calling",
+      "RAG",
+      "MCP",
+      "SKILL（Agent技能封装）",
+      "多Agent调度与编排",
+      "浏览器/桌面自动化（RPA）"
+    ],
+    "strengths": [
+      "技术栈与岗位方向高度同源：具备 LangGraph/LangChain 框架使用经验、LLM 应用开发与 Prompt Engineering 能力，且前后端（React + FastAPI + Python）全栈能力可支撑 Agent 系统落地",
+      "已有可验证的 LLM 应用产出：AI Chat 多轮对话应用已上线，CareerMatch 求职匹配工具使用 LangGraph/LangChain 开发，体现从 0 到 1 的动手能力",
+      "学历背景匹配且目标一致：悉尼大学计算机科学硕士 + 四川大学计算机本科，满足本科及以上要求，目标岗位明确指向 AI 应用/大模型应用开发，目标城市包含上海"
+    ],
+    "gaps": [
+      {
+        "gap": "无 AI Agent 商用项目经验：现有项目（AI Chat、CareerMatch）均为个人/工具类项目，无企业级、面向真实业务场景并交付上线的 Agent 产品经历，与岗位核心要求“AIAgent商用项目经验”直接冲突",
+        "importance": "高",
+        "suggestion": "把 CareerMatch 从“分析工具”升级为面向真实招聘/求职业务的可交付 Agent 产品：接入真实岗位数据源、跑通端到端任务闭环并部署上线，用真实用户量、任务成功率、单次调用成本等指标证明它是可商用的系统而非 demo。"
+      },
+      {
+        "gap": "缺失 Agent 核心工程能力：无 Function Calling、RAG、MCP、SKILL 等 Agent 关键机制的实践证据，简历技能与项目中均未体现检索增强、工具调用协议、技能封装等实现",
+        "importance": "高",
+        "suggestion": "在 CareerMatch 中把 DeepSeek 调用从纯 Prompt 改为 Function Calling + 工具注册表，并加一层基于向量库的 RAG 检索（岗位库/简历库），把每个能力封装成可被 Agent 调用的 SKILL，形成可展示的代码与调用日志。"
+      },
+      {
+        "gap": "无多 Agent 系统与编排经验：岗位要求设计多 Agent 协作机制、多模型/多 Agent 调度及复杂系统架构，候选人仅有单应用级 LangGraph 使用，无协作机制、任务拆解、反思自纠错闭环的设计经验",
+        "importance": "高",
+        "suggestion": "用 LangGraph 把 CareerMatch 拆成 Planner / Executor / Critic 多 Agent 状态图，实现任务拆解、执行、反思自纠错闭环，并输出多 Agent 与单 Agent 在任务成功率、重试次数上的对比数据。"
+      },
+      {
+        "gap": "无 RPA / 自动化流程编排经验：岗位职责包含类 RPA 流程编排系统、浏览器/桌面自动化 Agent，候选人无任何自动化操作、工作流编排或 RPA 相关经历",
+        "importance": "中",
+        "suggestion": "给 CareerMatch 增加一个浏览器自动化 Agent（Playwright），让 Agent 自动完成“打开招聘网站→检索岗位→抓取 JD→写入数据库→触发匹配分析”的编排流程，产出可复现的自动化脚本与执行录屏/日志。"
+      },
+      {
+        "gap": "无 SaaS/ERP 业务领域经验：岗位需完成 Agent 系统与 SaaS ERP 核心模块集成，候选人无 ERP、SaaS 或企业级业务系统集成背景，且正式工作经验仅 3 个月前端实习性质经历，工程落地与稳定性/成本优化经验不足",
+        "importance": "中",
+        "suggestion": "选一个开源 ERP（如 ERPNext）做集成演练：让 Agent 通过 API 完成“创建订单/查询库存”等真实业务动作，并记录接口鉴权、失败重试、幂等处理等工程细节，补齐 SaaS 集成与稳定性经验。"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "把 CareerMatch 重构为多 Agent 编排系统：用 LangGraph 搭建 Planner / Executor / Critic 状态图，实现任务拆解、工具调用（Function Calling）、反思自纠错闭环，并接入向量库做 RAG 检索；产出可运行代码 + 上线地址 + 一组对比数据（单 Agent vs 多 Agent 的任务成功率、平均重试次数、单次任务 token 成本）。",
+        "why_valuable": "直接对应 JD 的“设计多 Agent 系统及协作机制”“实现复杂任务拆解、自动执行及反思自纠错闭环”“构建 Agent 核心能力，优化稳定性、成本及执行成功率”，同时补齐 Function Calling / RAG / SKILL 三项硬性技能缺口，把个人项目变成能证明 Agent 工程能力的作品。",
+        "priority": "high",
+        "resource": "LangGraph 官方 multi-agent 与 reflection 示例；向量库可用 pgvector 或 Chroma；成本/成功率对比用同一批测试任务跑两版并记录日志。"
+      },
+      {
+        "item": "在 CareerMatch 上叠加浏览器自动化 Agent：用 Playwright 让 Agent 自动完成“打开招聘网站→按条件检索→抓取 JD→结构化入库→触发匹配分析”的类 RPA 流程，产出可复现脚本、执行日志与失败重试机制说明。",
+        "why_valuable": "对应 JD 的“开发基于大模型的类 RPA 流程编排系统”与“AI 自动化操作浏览器/桌面自动化 Agent 开发经验”，把候选人从“只会调 API 的前端”变成能落地自动化流程编排的 Agent 开发者，这是该岗位区别于普通 LLM 应用岗的关键加分项。",
+        "priority": "high",
+        "resource": "Playwright Python；先做单站点稳定跑通，再加失败重试与选择器容错，记录成功率。"
+      },
+      {
+        "item": "做一次 SaaS/ERP 集成演练：基于开源 ERPNext（或同类）暴露的 REST API，让 Agent 通过工具调用完成“创建销售订单 / 查询库存 / 更新客户”等真实业务动作，产出集成代码、接口鉴权与幂等/重试处理说明，以及一次端到端演示。",
+        "why_valuable": "对应 JD 的“完成 AIAgent 系统与 SaaS ERP 核心模块的集成落地”，并弥补候选人无 ERP/SaaS 业务系统集成背景、工程落地经验不足的短板，证明其能把 Agent 接入真实企业业务系统而非停留在玩具项目。",
+        "priority": "medium",
+        "resource": "ERPNext 官方 REST API 文档 + Docker 本地部署；重点记录鉴权、错误码处理、幂等设计。"
+      }
+    ],
+    "summary": "候选人技术栈与岗位方向匹配，但缺的是“Agent 工程化 + 商用落地”证据：无 Function Calling/RAG/MCP 实践、无多 Agent 编排、无 RPA 与 ERP 集成经验。建议以 CareerMatch 为主战场做多 Agent 重构 + 浏览器自动化 + ERP 集成三步改造，用成功率、成本、上线地址等可验证产出把个人项目升级为可商用 Agent 作品，即可显著缩小与 JD 的差距。",
+    "job_id": 12
+  },
+  {
+    "match_score": 59,
+    "score_breakdown": {
+      "skills": 62,
+      "experience": 45,
+      "education": 85,
+      "other": 55
+    },
+    "matched_skills": [
+      "Python",
+      "Prompt Engineering",
+      "LLM应用开发",
+      "LangGraph",
+      "Langchain",
+      "FastAPI",
+      "React",
+      "JavaScript",
+      "SQL",
+      "Git",
+      "Linux",
+      "DeepSeek API"
+    ],
+    "missing_skills": [
+      "Java",
+      "Go",
+      "TypeScript",
+      "Function Calling",
+      "RAG",
+      "上下文管理",
+      "Agent工作流",
+      "API设计",
+      "系统集成"
+    ],
+    "strengths": [
+      "具备 LLM 应用开发与 Agent 编排相关技术栈（LangGraph、LangChain、DeepSeek API、Prompt Engineering），与岗位 Agent 方向技术路线重合度较高",
+      "有已上线的 AI Chat 多轮对话应用，覆盖 React + FastAPI + DeepSeek + SQLite 全栈链路，与岗位多轮对话、工具调用场景相关",
+      "学历背景为悉尼大学计算机科学硕士 + 四川大学计算机科学本科，满足本科及以上要求且专业对口"
+    ],
+    "gaps": [
+      {
+        "gap": "缺少 Java / Go / TypeScript 中任一后端或前端强类型语言能力，岗位 required_skills 明确列出，仅具备 JavaScript 与 Python",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺少 RAG、Function Calling、上下文管理、Agent 工作流等 Agent 核心能力的明确项目落地证据，现有项目描述未体现这些能力的实现细节",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺少 API 设计与系统集成经验，无对接云 API、控制台或第三方系统集成的经历",
+        "importance": "高",
+        "suggestion": ""
+      },
+      {
+        "gap": "缺少云产品相关背景：无腾讯云产品开发、云控制台智能助手、自动化运维、运维经验等 preferred 项经历",
+        "importance": "中",
+        "suggestion": ""
+      },
+      {
+        "gap": "正式工作经验仅 3 个月前端实习性质经历（北京九章科技，前端页面编写），无 Agent 或后端工程方向的实习/项目工程化经验，且无 Agent 效果评测体系建设经历",
+        "importance": "中",
+        "suggestion": ""
+      }
+    ],
+    "action_items": [],
+    "summary": "该岗位必需技能包含 java，与你的技术路线不符，未生成提升建议。匹配分和差距分析仅供参考。",
+    "job_id": 13
+  },
+  {
+    "match_score": 57,
+    "score_breakdown": {
+      "skills": 62,
+      "experience": 35,
+      "education": 85,
+      "other": 60
+    },
+    "matched_skills": [
+      "Python",
+      "LangChain",
+      "LangGraph",
+      "FastAPI",
+      "React",
+      "Vue",
+      "JavaScript",
+      "SQL",
+      "LLM应用开发",
+      "Prompt Engineering",
+      "DeepSeek API",
+      "Linux",
+      "Git",
+      "SQLite",
+      "PostgreSQL基础",
+      "Vercel",
+      "Railway",
+      "Claude Code"
+    ],
+    "missing_skills": [
+      "MCP协议",
+      "RAG",
+      "向量数据库",
+      "Flask",
+      "高可用工程化（超时控制/重试/降级/幂等/可观测性）",
+      "Multi-Agent复杂编排落地经验",
+      "Harness Engineering",
+      "LangSmith/Langfuse等可观测性工具"
+    ],
+    "strengths": [
+      "技术栈与岗位核心框架高度重合：已具备Python、LangChain、LangGraph、FastAPI，且CareerMatch项目直接使用LangGraph+LangChain做匹配分析编排",
+      "有LLM应用从0到1的落地实践：AI Chat多轮对话应用已上线，覆盖React+FastAPI+DeepSeek+SQLite全链路",
+      "学历背景达标且为计算机科班：悉尼大学CS硕士（2026.12）+四川大学CS本科，满足本科及以上要求"
+    ],
+    "gaps": [
+      {
+        "gap": "无RAG知识库与检索链路经验：岗位要求文档解析、分块策略、Embedding、混合检索、重排序、引用溯源与效果评测，候选人技能与项目中均无RAG、向量数据库相关实践",
+        "importance": "高",
+        "suggestion": "在CareerMatch中把岗位JD与简历文本做成RAG链路：用pgvector或Qdrant存Embedding，实现BM25+向量混合检索与重排序，输出带引用溯源的匹配理由，并自建20-30条标注问答集跑Recall@5/MRR评测，把评测脚本与分数写进README。"
+      },
+      {
+        "gap": "无MCP协议经验：岗位要求基于MCP完成工具标准化封装（Tool/Resource/Skill）供Agent动态调用，候选人无任何MCP相关技能或项目",
+        "importance": "高",
+        "suggestion": "把CareerMatch里已有的能力（岗位检索、简历解析、匹配打分）用官方Python MCP SDK封装成标准MCP Server，暴露为Tool与Resource，让Agent通过MCP协议动态调用，并在README给出Claude Desktop/客户端接入配置与调用截图。"
+      },
+      {
+        "gap": "缺乏Multi-Agent复杂编排的生产级落地：岗位要求StateGraph状态管理、条件路由、Pipeline串联、并行执行、HITL人机协同、断点恢复，候选人仅有开发中的单项目且未体现上述机制",
+        "importance": "高",
+        "suggestion": "用LangGraph把CareerMatch的匹配流程重构成显式StateGraph：定义状态Schema、按岗位类型条件路由到不同分析子Agent、并行执行多岗位分析、在关键节点插入HITL人工确认，并用checkpointer实现断点恢复，附上状态图截图与中断后恢复的演示。"
+      },
+      {
+        "gap": "无高可用与工程化治理经验：岗位要求超时控制、自动重试、优雅降级、幂等设计、全链路日志追踪与可观测性（LangSmith/Langfuse），候选人无相关技能与项目体现",
+        "importance": "高",
+        "suggestion": "在AI Chat与CareerMatch的FastAPI层接入Langfuse做全链路trace，为LLM调用加超时+指数退避重试+降级到备用模型，用请求ID做幂等去重，并给出压测数据（如并发50下P95延迟、重试后失败率从X%降到Y%）。"
+      },
+      {
+        "gap": "正式工作经验严重不足：仅3个月前端实习（北京九章科技，前端页面编写），与岗位要求的1-3年经验及后端/Agent工程方向不匹配，且无Flask使用经验",
+        "importance": "中",
+        "suggestion": "把AI Chat与CareerMatch从\"个人项目\"包装成有工程规范的产品：补Flask或FastAPI的接口文档、单元测试与CI，写清部署架构与线上访问地址，用可运行的系统与测试覆盖率弥补正式经验缺口。"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "把CareerMatch升级为\"RAG + MCP + LangGraph Multi-Agent\"三位一体的可上线系统：pgvector/Qdrant做混合检索与重排序、MCP Server封装工具、StateGraph做条件路由与并行编排，部署到Railway/Vercel并给出公开访问地址、状态图截图、以及自建评测集上的Recall@5/MRR与重构前后失败率对比数字。",
+        "why_valuable": "一次性覆盖JD中RAG检索链路、MCP工具标准化封装、Multi-Agent编排（StateGraph/条件路由/并行/HITL/断点恢复）三条硬性要求，且是候选人已有项目改造，成本最低、产出最直接；有上线地址和评测数字才能证明是生产级交付而非Demo。",
+        "priority": "high",
+        "resource": "LangGraph官方StateGraph与checkpointer文档、MCP官方Python SDK、Qdrant/pgvector文档、RAGAS或自建评测脚本；在现有CareerMatch仓库上迭代，不新开项目。"
+      },
+      {
+        "item": "为AI Chat与CareerMatch补齐工程化治理层：接入Langfuse全链路trace，实现LLM调用超时控制、指数退避重试、备用模型优雅降级、请求ID幂等，并输出一份压测报告（并发50下的P95延迟、重试前后失败率对比、降级触发次数）。",
+        "why_valuable": "直接对应JD\"高可用与工程化治理\"整条职责（超时/重试/降级/幂等/日志追踪/可观测性），这是区分\"会调API\"和\"能做企业级Agent系统\"的关键；可观测性工具（Langfuse/LangSmith）是JD点名要求。",
+        "priority": "high",
+        "resource": "Langfuse自托管或云版、FastAPI中间件、tenacity做重试、locust或k6做压测。"
+      },
+      {
+        "item": "把两个项目的后端接口补成有文档、有测试、有CI的工程交付：为FastAPI/Flask接口写OpenAPI文档与单元测试（覆盖Agent调用、检索、降级路径），配置GitHub Actions跑测试，README给出部署架构图与线上地址。",
+        "why_valuable": "JD明确要求\"编写接口文档、技术方案与单元测试\"，且候选人正式经验仅3个月前端，需要用可验证的工程规范（测试覆盖率、CI通过记录、接口文档）来弥补经验短板，证明具备后端/Agent工程交付能力。",
+        "priority": "medium",
+        "resource": "pytest + httpx测试FastAPI、FastAPI自带/docs生成OpenAPI、GitHub Actions workflow。"
+      }
+    ],
+    "summary": "候选人技术栈与岗位方向基本对口（LangGraph/FastAPI/LLM应用），但缺RAG、MCP、Multi-Agent生产级编排与高可用治理四块硬性能力，且正式经验偏薄。建议不新开项目，直接在CareerMatch上做RAG+MCP+StateGraph改造并补齐可观测性与测试，用上线地址和评测/压测数字把项目从Demo升级为可证明的生产级交付。",
+    "job_id": 14
+  },
+  {
+    "match_score": 55,
+    "score_breakdown": {
+      "skills": 62,
+      "experience": 30,
+      "education": 85,
+      "other": 55
+    },
+    "matched_skills": [
+      "Python",
+      "LLM应用开发",
+      "Prompt Engineering",
+      "DeepSeek API",
+      "LangGraph",
+      "Langchain",
+      "FastAPI",
+      "React",
+      "Vue",
+      "JavaScript",
+      "SQL",
+      "SQLite",
+      "PostgreSQL基础",
+      "Linux",
+      "Git",
+      "Claude Code",
+      "Railway",
+      "Vercel"
+    ],
+    "missing_skills": [
+      "Agent架构（多Agent orchestration/协作协议）",
+      "Node.js/TypeScript",
+      "MCP Server开发",
+      "记忆系统设计（短期/长期/语义/情景记忆、Dream/Consolidation/Atomization）",
+      "hybrid search（向量+BM25）检索管线",
+      "OpenClaw Skills/Plugins开发",
+      "飞书/企微开放平台集成",
+      "Agent行为监控与质量评估",
+      "token预算管理与模型路由"
+    ],
+    "strengths": [
+      "技术栈与岗位方向高度重合：Python + LLM应用开发 + LangGraph/LangChain + DeepSeek API + Prompt Engineering，直接对应Agent开发核心链路",
+      "已有可验证的LLM落地作品：AI Chat多轮对话应用已上线，CareerMatch使用LangGraph/LangChain做匹配分析，具备从0到1的Agent类项目实践",
+      "学历背景达标且偏优：悉尼大学计算机科学硕士 + 四川大学计算机科学本科，满足本科及以上要求，专业完全对口"
+    ],
+    "gaps": [
+      {
+        "gap": "工作经验严重不足：仅3个月前端实习（北京九章科技，前端页面编写），岗位要求3-5年，且无任何Agent/后端工程正式工作经历",
+        "importance": "高",
+        "suggestion": "无法靠时间补齐年限，只能用可验证的产出替代：把CareerMatch做成真实用户可访问的上线产品（Vercel/Railway部署+公开访问地址+真实使用数据），用'独立交付一个完整Agent产品'证明你具备3-5年工程师的交付能力，而非前端页面编写。"
+      },
+      {
+        "gap": "缺失Agent架构核心能力：无多Agent orchestration、Agent间协作协议、Bootstrap文件体系（SOUL/AGENTS/USER/MEMORY/TOOLS）的设计与实现经验",
+        "importance": "高",
+        "suggestion": "在CareerMatch中把单一流程拆成多Agent（简历解析Agent、JD分析Agent、匹配评分Agent、建议生成Agent），用LangGraph实现显式状态图与Agent间消息协议，并落地一套SOUL/AGENTS/USER/MEMORY/TOOLS的Bootstrap文件目录，直接对应JD的'Bootstrap文件体系'与'多Agent orchestration'两条职责。"
+      },
+      {
+        "gap": "缺失记忆系统设计经验：岗位要求的短期/长期/语义/情景记忆架构、Dream/Consolidation/Atomization记忆整理机制、hybrid search（向量+BM25）检索管线均无对应经历",
+        "importance": "高",
+        "suggestion": "在AI Chat上做记忆层改造：用PostgreSQL+pgvector存语义记忆、SQLite/表存情景记忆，实现向量+BM25混合检索并给出召回率对比数字，再写一个定时Consolidation任务把多轮对话原子化为长期记忆条目，这是JD里最核心且最难被替代的能力。"
+      },
+      {
+        "gap": "缺失OpenClaw/MCP生态经验：无OpenClaw Skills/Plugins开发、MCP Server开发与维护经历，preferred中的OpenClaw/Claude Code/Cursor AI coding agent仅Claude Code有接触",
+        "importance": "中",
+        "suggestion": "用Python或TypeScript写一个真实可用的MCP Server（例如把CareerMatch的岗位匹配能力暴露为MCP工具），并在Claude Code/Cursor中实际接入调用，产出仓库+接入截图+调用日志，直接命中JD的'MCP Server开发与维护'与preferred项。"
+      },
+      {
+        "gap": "缺失企业系统集成与工程化能力：无飞书/企微开放平台开发经验，无Node.js/TypeScript技能，无token预算管理、模型路由、Agent行为监控与质量评估经验",
+        "importance": "中",
+        "suggestion": "给CareerMatch加一个飞书机器人入口（飞书开放平台事件订阅+消息卡片），并把LLM调用层改造成带token预算与模型路由（DeepSeek/Claude按任务分流）的网关，同时记录每次调用的token、延迟、失败率，既补TypeScript/Node.js又补企业集成与可观测性。"
+      }
+    ],
+    "action_items": [
+      {
+        "item": "把CareerMatch从'开发中'推到真实上线：拆成多Agent架构（简历解析/JD分析/匹配评分/建议生成四个Agent，LangGraph状态图编排），落地SOUL/AGENTS/USER/MEMORY/TOOLS的Bootstrap文件目录，部署到Railway并给出公开访问地址、GitHub仓库、以及一份架构说明文档（含Agent间消息协议定义）。",
+        "why_valuable": "JD明确要求'设计Agent的Bootstrap文件体系(SOUL/AGENTS/USER/MEMORY/TOOLS)'和'构建Agent间的协作协议(多Agent orchestration)'，这两条是岗位最核心的职责，且候选人目前完全没有对应经历。用已有项目改造，成本最低，同时把'开发中'变成'已上线'，直接对冲'工作经验不足'的硬伤。",
+        "priority": "high",
+        "resource": "LangGraph官方multi-agent与state graph文档；OpenClaw的Bootstrap文件规范（SOUL/AGENTS/USER/MEMORY/TOOLS）可参考其开源仓库的目录约定；部署用Railway（候选人已熟悉）。"
+      },
+      {
+        "item": "在AI Chat上实现完整记忆系统：PostgreSQL+pgvector存语义记忆、结构化表存情景记忆、短期用滑动窗口；实现向量+BM25混合检索（可用pgvector+PostgreSQL全文检索或rank_bm25），并给出混合检索vs纯向量的召回率/命中率对比数字；再写一个定时Consolidation任务，把多轮对话原子化为长期记忆条目（Dream/Atomization机制）。",
+        "why_valuable": "JD把'记忆系统设计'列为preferred且职责里占了4条（记忆架构、hybrid search、Dream/Consolidation/Atomization）。这是AI Agent岗最难被替代、也最容易在面试中被追问深挖的能力。有对比数字的检索实验能直接证明工程判断力，而不是只会调API。",
+        "priority": "high",
+        "resource": "pgvector官方文档；BM25可用rank_bm25或PostgreSQL ts_rank；记忆分层可参考MemGPT/Letta的架构论文与开源实现。"
+      },
+      {
+        "item": "写一个真实可用的MCP Server（TypeScript实现，把CareerMatch的岗位匹配能力暴露为MCP工具），在Claude Code/Cursor中实际接入并跑通，产出仓库+接入配置+调用日志；同时给CareerMatch加飞书机器人入口（事件订阅+消息卡片），并在LLM调用层加token预算与模型路由（DeepSeek/Claude按任务分流）+调用指标记录（token/延迟/失败率）。",
+        "why_valuable": "一次性覆盖JD的三块空白：'MCP Server开发与维护'、'飞书开放平台开发经验'、'Node.js/TypeScript'与'token预算管理、模型路由、Agent行为监控'。TypeScript写MCP Server同时补上候选人缺失的Node.js/TypeScript技能，飞书集成是preferred项，可观测性指标则对应'Agent行为监控与质量评估'职责。",
+        "priority": "medium",
+        "resource": "MCP官方TypeScript SDK（@modelcontextprotocol/sdk）；飞书开放平台事件订阅与消息卡片文档；模型路由可用LiteLLM或自写简单路由层。"
+      }
+    ],
+    "summary": "候选人技术栈与岗位方向高度对口（Python/FastAPI/LLM应用/LangGraph），但硬伤是经验年限与Agent核心能力空白。建议不追新项目，而是把CareerMatch和AI Chat两个已有项目改造成'多Agent编排+完整记忆系统+MCP/飞书集成'的可上线作品，用可验证的产出物替代工作年限，这是当前性价比最高的路径。",
+    "job_id": 15
+  }
+]

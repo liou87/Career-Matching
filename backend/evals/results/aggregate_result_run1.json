@@ -1,0 +1,644 @@
+[
+  {
+    "skill": "RAG",
+    "job_count": 8,
+    "category": "框架工具",
+    "originals": [
+      "RAG / 知识库问答 / 结构化数据分析",
+      "RAG（检索增强生成）",
+      "RAG",
+      "RAG（检索增强生成）",
+      "RAG",
+      "RAG",
+      "RAG（文档解析、分块、Embedding、混合检索、重排序、引用溯源、效果评测）",
+      "hybrid search（向量 + BM25）检索管线"
+    ]
+  },
+  {
+    "skill": "Multi-Agent协作",
+    "job_count": 6,
+    "category": "框架工具",
+    "originals": [
+      "Multi-Agent 协作工程化",
+      "多Agent协作",
+      "多Agent调度与协作机制设计",
+      "多Agent协作",
+      "Multi-Agent 复杂编排落地经验",
+      "多Agent orchestration / 协作协议"
+    ]
+  },
+  {
+    "skill": "Java",
+    "job_count": 6,
+    "category": "语言技能",
+    "originals": [
+      "Java/Scala",
+      "Java",
+      "Java",
+      "Java",
+      "Java",
+      "Java"
+    ]
+  },
+  {
+    "skill": "MCP",
+    "job_count": 5,
+    "category": "框架工具",
+    "originals": [
+      "MCP",
+      "MCP",
+      "MCP",
+      "MCP协议",
+      "MCP Server 开发"
+    ]
+  },
+  {
+    "skill": "评测体系",
+    "job_count": 4,
+    "category": "工程能力",
+    "originals": [
+      "自动化测试体系（工程化测试框架）",
+      "AI LLM生成结果评估（体系化基准数据集）",
+      "Langfuse 等可观测性工具",
+      "Agent 行为监控与质量评估体系（生产级）"
+    ]
+  },
+  {
+    "skill": "向量数据库与Embedding",
+    "job_count": 4,
+    "category": "框架工具",
+    "originals": [
+      "向量数据库 / Embedding 检索",
+      "向量数据库 / Embedding 检索",
+      "向量数据库",
+      "向量数据库 / 语义检索"
+    ]
+  },
+  {
+    "skill": "Golang",
+    "job_count": 4,
+    "category": "语言技能",
+    "originals": [
+      "Golang",
+      "Go",
+      "Golang",
+      "Go",
+      "Go"
+    ]
+  },
+  {
+    "skill": "Redis",
+    "job_count": 4,
+    "category": "框架工具",
+    "originals": [
+      "Redis",
+      "Redis",
+      "Redis",
+      "缓存机制"
+    ]
+  },
+  {
+    "skill": "系统设计",
+    "job_count": 3,
+    "category": "工程能力",
+    "originals": [
+      "任务调度与状态管理基础设施",
+      "监控告警与容错机制（生产级）",
+      "系统性能分析",
+      "高可用工程化（超时控制、优雅降级、幂等设计）"
+    ]
+  },
+  {
+    "skill": "MySQL",
+    "job_count": 3,
+    "category": "框架工具",
+    "originals": [
+      "MySQL",
+      "MySQL",
+      "MySQL"
+    ]
+  },
+  {
+    "skill": "TypeScript",
+    "job_count": 3,
+    "category": "语言技能",
+    "originals": [
+      "TypeScript",
+      "TypeScript",
+      "Node.js/TypeScript"
+    ]
+  },
+  {
+    "skill": "多模态",
+    "job_count": 2,
+    "category": "领域知识",
+    "originals": [
+      "多模态模型(VLM)项目经验",
+      "多模态大模型"
+    ]
+  },
+  {
+    "skill": "微服务与分布式",
+    "job_count": 2,
+    "category": "工程能力",
+    "originals": [
+      "微服务架构",
+      "分布式系统",
+      "SpringCloud"
+    ]
+  },
+  {
+    "skill": "Docker/K8s",
+    "job_count": 2,
+    "category": "框架工具",
+    "originals": [
+      "容器化与云原生技术（Docker / K8s）",
+      "Docker",
+      "Kubernetes"
+    ]
+  },
+  {
+    "skill": "Agent记忆机制",
+    "job_count": 2,
+    "category": "框架工具",
+    "originals": [
+      "Memory 组件（Agent 长期/短期记忆）",
+      "Agent架构（记忆系统设计：短期/长期/语义/情景）"
+    ]
+  },
+  {
+    "skill": "消息队列",
+    "job_count": 2,
+    "category": "框架工具",
+    "originals": [
+      "Kafka",
+      "消息队列"
+    ]
+  },
+  {
+    "skill": "Elasticsearch",
+    "job_count": 2,
+    "category": "框架工具",
+    "originals": [
+      "Elasticsearch",
+      "Solr或Elasticsearch"
+    ]
+  },
+  {
+    "skill": "云平台",
+    "job_count": 2,
+    "category": "工程能力",
+    "originals": [
+      "AWS架构设计",
+      "腾讯云产品开发经验"
+    ]
+  },
+  {
+    "skill": "其他:大语言模型底层原理（训练/微调、Transformer、注意力机制）",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "大语言模型基本原理（模型训练/微调、Transformer、注意力机制等底层理论）"
+    ]
+  },
+  {
+    "skill": "其他:主流LLM API（OpenAI/Claude/Gemini）使用经验",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "OpenAI / Claude / Gemini 等主流 LLM API 的直接使用经验（现有为 DeepSeek）"
+    ]
+  },
+  {
+    "skill": "其他:AI辅助开发工具（Cursor等）",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "Cursor 等 AI 辅助开发工具（现有为 Claude Code）"
+    ]
+  },
+  {
+    "skill": "Function/Tool Calling",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "插件系统 / 工具链开发"
+    ]
+  },
+  {
+    "skill": "大数据处理",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "Spark"
+    ]
+  },
+  {
+    "skill": "其他:Google ADK 智能体开发框架",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "Google ADK"
+    ]
+  },
+  {
+    "skill": "其他:Text2SQL 自然语言转SQL",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "Text2SQL"
+    ]
+  },
+  {
+    "skill": "其他:DeepResearch 深度研究能力",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "DeepResearch"
+    ]
+  },
+  {
+    "skill": "其他:AIOps 智能运维",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "AIOps"
+    ]
+  },
+  {
+    "skill": "其他:生成式UI",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "生成式UI"
+    ]
+  },
+  {
+    "skill": "其他:长上下文处理",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "长上下文处理"
+    ]
+  },
+  {
+    "skill": "其他:推理成本优化",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "推理成本优化"
+    ]
+  },
+  {
+    "skill": "其他:深度学习/机器学习框架（PyTorch、TensorFlow）",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "深度学习 / 机器学习框架（PyTorch、TensorFlow）"
+    ]
+  },
+  {
+    "skill": "其他:算法与数据结构",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "算法与数据结构（无竞赛/刷题类证据）"
+    ]
+  },
+  {
+    "skill": "其他:智能客服业务经验",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "智能客服业务经验"
+    ]
+  },
+  {
+    "skill": "其他:C 语言",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "C"
+    ]
+  },
+  {
+    "skill": "其他:C++",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "C++"
+    ]
+  },
+  {
+    "skill": "其他:PHP",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "PHP"
+    ]
+  },
+  {
+    "skill": "其他:数据结构",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "数据结构"
+    ]
+  },
+  {
+    "skill": "其他:算法",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "算法"
+    ]
+  },
+  {
+    "skill": "其他:操作系统",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "操作系统"
+    ]
+  },
+  {
+    "skill": "其他:MyBatis 持久层框架",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "MyBatis"
+    ]
+  },
+  {
+    "skill": "其他:SQL Server",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "SQL Server"
+    ]
+  },
+  {
+    "skill": "其他:Spring 框架",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "Spring"
+    ]
+  },
+  {
+    "skill": "其他:DevOps",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "DevOps"
+    ]
+  },
+  {
+    "skill": "其他:量化投研领域知识（因子、策略、研报分析）",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "量化投研领域知识（因子、策略、研报分析）"
+    ]
+  },
+  {
+    "skill": "其他:金融科技/量化经验",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "金融科技 / 量化经验"
+    ]
+  },
+  {
+    "skill": "其他:clawhub 发布 skills 经验",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "clawhub 发布 skills 经验"
+    ]
+  },
+  {
+    "skill": "其他:模型推理优化与输出精度调优",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "模型推理优化与输出精度调优（微调/推理加速）"
+    ]
+  },
+  {
+    "skill": "其他:分布式搜索引擎开发",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "分布式搜索引擎开发"
+    ]
+  },
+  {
+    "skill": "其他:搜索性能优化",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "搜索性能优化"
+    ]
+  },
+  {
+    "skill": "其他:索引设计",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "索引设计"
+    ]
+  },
+  {
+    "skill": "其他:查询优化",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "查询优化"
+    ]
+  },
+  {
+    "skill": "其他:分片策略",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "分片策略"
+    ]
+  },
+  {
+    "skill": "其他:多语言AI应用开发",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "多语言AI应用开发"
+    ]
+  },
+  {
+    "skill": "其他:英文沟通能力",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "英文沟通能力（无证据）"
+    ]
+  },
+  {
+    "skill": "其他:Infrastructure as Code (IaC)",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "Infrastructure as Code (IaC)"
+    ]
+  },
+  {
+    "skill": "其他:Terraform或CloudFormation",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "Terraform或CloudFormation"
+    ]
+  },
+  {
+    "skill": "其他:软件安全与合规意识",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "软件安全与合规意识"
+    ]
+  },
+  {
+    "skill": "其他:跨团队协作",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "跨团队协作（无证据）"
+    ]
+  },
+  {
+    "skill": "其他:Node.js",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "Node.js"
+    ]
+  },
+  {
+    "skill": "其他:OpenAI Agents SDK",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "OpenAI Agents SDK"
+    ]
+  },
+  {
+    "skill": "其他:SKILL 技能封装/技能体系",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "SKILL（岗位所指技能封装/技能体系）"
+    ]
+  },
+  {
+    "skill": "其他:多模型调度",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "多模型调度"
+    ]
+  },
+  {
+    "skill": "其他:浏览器/桌面自动化（RPA）",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "浏览器/桌面自动化（RPA）"
+    ]
+  },
+  {
+    "skill": "其他:AI编排自动工作流",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "AI编排自动工作流"
+    ]
+  },
+  {
+    "skill": "其他:云控制台智能助手相关经验",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "云控制台智能助手相关经验"
+    ]
+  },
+  {
+    "skill": "其他:自动化运维/运维经验",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "自动化运维 / 运维经验"
+    ]
+  },
+  {
+    "skill": "其他:企业级AI产品经验",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "企业级AI产品经验"
+    ]
+  },
+  {
+    "skill": "其他:开发者工具经验",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "开发者工具经验"
+    ]
+  },
+  {
+    "skill": "其他:Flask 框架",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "Flask"
+    ]
+  },
+  {
+    "skill": "其他:HITL 人机协同与断点恢复",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "HITL 人机协同与断点恢复"
+    ]
+  },
+  {
+    "skill": "其他:单元测试与接口文档沉淀",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "单元测试与接口文档沉淀"
+    ]
+  },
+  {
+    "skill": "其他:OpenClaw 平台与 Skill/Plugin 开发",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "OpenClaw 平台与 Skill/Plugin 开发"
+    ]
+  },
+  {
+    "skill": "其他:飞书/企微开放平台开发",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "飞书/企微开放平台开发"
+    ]
+  },
+  {
+    "skill": "其他:token 预算管理与模型路由",
+    "job_count": 1,
+    "category": "其他",
+    "originals": [
+      "token 预算管理与模型路由"
+    ]
+  }
+]

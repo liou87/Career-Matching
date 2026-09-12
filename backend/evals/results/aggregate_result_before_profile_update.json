@@ -1,0 +1,708 @@
+[
+  {
+    "skill": "RAG",
+    "job_count": 7,
+    "category": "框架工具",
+    "originals": [
+      "RAG / 知识库问答 / 结构化数据分析经验",
+      "RAG优化",
+      "RAG",
+      "RAG（检索增强生成）",
+      "RAG",
+      "RAG",
+      "RAG"
+    ]
+  },
+  {
+    "skill": "工具调用（Function/Tool Calling）",
+    "job_count": 6,
+    "category": "框架工具",
+    "originals": [
+      "工具调用链路设计",
+      "Function Calling/Tool Calling",
+      "工具调用/Tool Calling",
+      "Function Calling",
+      "Function Calling",
+      "Function Calling"
+    ]
+  },
+  {
+    "skill": "Java",
+    "job_count": 5,
+    "category": "语言技能",
+    "originals": [
+      "Java",
+      "Java",
+      "Java",
+      "Java",
+      "Java"
+    ]
+  },
+  {
+    "skill": "评测体系与Benchmark构建",
+    "job_count": 4,
+    "category": "工程能力",
+    "originals": [
+      "评测数据集（Benchmark）构建与评估指标定义能力",
+      "自动化评测体系搭建",
+      "评测",
+      "AI LLM生成结果评估"
+    ]
+  },
+  {
+    "skill": "Multi-Agent协作",
+    "job_count": 4,
+    "category": "框架工具",
+    "originals": [
+      "Multi-Agent 协作工程化经验",
+      "多Agent调度与编排",
+      "Multi-Agent复杂编排落地经验",
+      "Agent架构（多Agent orchestration/协作协议）"
+    ]
+  },
+  {
+    "skill": "Go",
+    "job_count": 4,
+    "category": "语言技能",
+    "originals": [
+      "Golang",
+      "Go",
+      "Golang",
+      "Go",
+      "Go"
+    ]
+  },
+  {
+    "skill": "Agent系统设计",
+    "job_count": 3,
+    "category": "框架工具",
+    "originals": [
+      "Agent系统设计（多Agent协作、状态管理、技能封装）",
+      "Agent（工程化落地）",
+      "Agent（独立Agent系统设计与落地）"
+    ]
+  },
+  {
+    "skill": "TypeScript",
+    "job_count": 3,
+    "category": "语言技能",
+    "originals": [
+      "TypeScript",
+      "TypeScript",
+      "TypeScript"
+    ]
+  },
+  {
+    "skill": "MySQL",
+    "job_count": 3,
+    "category": "框架工具",
+    "originals": [
+      "MySQL",
+      "MySQL",
+      "MySQL"
+    ]
+  },
+  {
+    "skill": "Redis",
+    "job_count": 3,
+    "category": "框架工具",
+    "originals": [
+      "Redis",
+      "Redis",
+      "Redis"
+    ]
+  },
+  {
+    "skill": "Agent技能封装与发布",
+    "job_count": 3,
+    "category": "框架工具",
+    "originals": [
+      "clawhub上发布skills",
+      "SKILL（Agent技能封装）",
+      "OpenClaw Skills/Plugins开发"
+    ]
+  },
+  {
+    "skill": "MCP",
+    "job_count": 3,
+    "category": "框架工具",
+    "originals": [
+      "MCP",
+      "MCP",
+      "MCP协议"
+    ]
+  },
+  {
+    "skill": "多模态模型（VLM）",
+    "job_count": 2,
+    "category": "领域知识",
+    "originals": [
+      "多模态模型（VLM）项目经验",
+      "多模态大模型"
+    ]
+  },
+  {
+    "skill": "数据结构与算法",
+    "job_count": 2,
+    "category": "工程能力",
+    "originals": [
+      "常见数据结构与算法的系统性训练/证明",
+      "数据结构",
+      "算法"
+    ]
+  },
+  {
+    "skill": "上下文工程",
+    "job_count": 2,
+    "category": "工程能力",
+    "originals": [
+      "上下文工程（Context Engineering）实践",
+      "上下文管理"
+    ]
+  },
+  {
+    "skill": "Elasticsearch",
+    "job_count": 2,
+    "category": "框架工具",
+    "originals": [
+      "Elasticsearch",
+      "Elasticsearch"
+    ]
+  },
+  {
+    "skill": "大语言模型原理",
+    "job_count": 1,
+    "category": "领域知识",
+    "originals": [
+      "大语言模型基本原理（模型结构、训练/微调、推理机制等系统性知识）"
+    ]
+  },
+  {
+    "skill": "主流LLM API使用",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "OpenAI / Claude / Gemini 等主流 LLM API 使用经验（仅体现 DeepSeek）"
+    ]
+  },
+  {
+    "skill": "微服务架构",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "微服务架构"
+    ]
+  },
+  {
+    "skill": "分布式系统",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "分布式系统"
+    ]
+  },
+  {
+    "skill": "容器化与云原生（Docker/K8s）",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "容器化与云原生技术（Docker/K8s）"
+    ]
+  },
+  {
+    "skill": "任务调度与监控告警基础设施",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "任务调度/状态管理/监控告警等基础设施能力"
+    ]
+  },
+  {
+    "skill": "Spark",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "Spark"
+    ]
+  },
+  {
+    "skill": "Java/Scala",
+    "job_count": 1,
+    "category": "语言技能",
+    "originals": [
+      "Java/Scala"
+    ]
+  },
+  {
+    "skill": "Google ADK",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "Google ADK"
+    ]
+  },
+  {
+    "skill": "Text2SQL",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "Text2SQL"
+    ]
+  },
+  {
+    "skill": "DeepResearch",
+    "job_count": 1,
+    "category": "领域知识",
+    "originals": [
+      "DeepResearch"
+    ]
+  },
+  {
+    "skill": "AIOps",
+    "job_count": 1,
+    "category": "领域知识",
+    "originals": [
+      "AIOps"
+    ]
+  },
+  {
+    "skill": "生成式UI",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "生成式UI"
+    ]
+  },
+  {
+    "skill": "长上下文处理",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "长上下文处理"
+    ]
+  },
+  {
+    "skill": "推理成本优化",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "推理成本优化"
+    ]
+  },
+  {
+    "skill": "自动化测试",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "自动化测试"
+    ]
+  },
+  {
+    "skill": "Agent核心组件（Chains/Agents/Memory）",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "Agent核心组件（Chains、Agents、Memory）的完整落地经验"
+    ]
+  },
+  {
+    "skill": "结构化输出",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "结构化输出"
+    ]
+  },
+  {
+    "skill": "C",
+    "job_count": 1,
+    "category": "语言技能",
+    "originals": [
+      "C"
+    ]
+  },
+  {
+    "skill": "C++",
+    "job_count": 1,
+    "category": "语言技能",
+    "originals": [
+      "C++"
+    ]
+  },
+  {
+    "skill": "PHP",
+    "job_count": 1,
+    "category": "语言技能",
+    "originals": [
+      "PHP"
+    ]
+  },
+  {
+    "skill": "SpringCloud",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "SpringCloud"
+    ]
+  },
+  {
+    "skill": "Kafka",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "Kafka"
+    ]
+  },
+  {
+    "skill": "操作系统",
+    "job_count": 1,
+    "category": "领域知识",
+    "originals": [
+      "操作系统"
+    ]
+  },
+  {
+    "skill": "MyBatis",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "MyBatis"
+    ]
+  },
+  {
+    "skill": "SQL Server",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "SQL Server"
+    ]
+  },
+  {
+    "skill": "Spring",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "Spring"
+    ]
+  },
+  {
+    "skill": "消息队列",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "消息队列"
+    ]
+  },
+  {
+    "skill": "Docker",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "Docker"
+    ]
+  },
+  {
+    "skill": "Kubernetes",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "Kubernetes"
+    ]
+  },
+  {
+    "skill": "DevOps",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "DevOps"
+    ]
+  },
+  {
+    "skill": "量化经验",
+    "job_count": 1,
+    "category": "领域知识",
+    "originals": [
+      "量化经验"
+    ]
+  },
+  {
+    "skill": "金融科技经验",
+    "job_count": 1,
+    "category": "领域知识",
+    "originals": [
+      "金融科技经验"
+    ]
+  },
+  {
+    "skill": "分布式搜索引擎开发",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "分布式搜索引擎开发"
+    ]
+  },
+  {
+    "skill": "Solr",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "Solr"
+    ]
+  },
+  {
+    "skill": "搜索性能优化",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "搜索性能优化"
+    ]
+  },
+  {
+    "skill": "索引设计",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "索引设计"
+    ]
+  },
+  {
+    "skill": "查询优化",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "查询优化"
+    ]
+  },
+  {
+    "skill": "分片策略",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "分片策略"
+    ]
+  },
+  {
+    "skill": "缓存机制",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "缓存机制"
+    ]
+  },
+  {
+    "skill": "系统性能分析",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "系统性能分析"
+    ]
+  },
+  {
+    "skill": "多语言AI应用开发",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "多语言AI应用开发"
+    ]
+  },
+  {
+    "skill": "英文沟通能力",
+    "job_count": 1,
+    "category": "语言技能",
+    "originals": [
+      "英文沟通能力（未验证）"
+    ]
+  },
+  {
+    "skill": "Infrastructure as Code (IaC)",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "Infrastructure as Code (IaC)"
+    ]
+  },
+  {
+    "skill": "Terraform",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "Terraform"
+    ]
+  },
+  {
+    "skill": "CloudFormation",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "CloudFormation"
+    ]
+  },
+  {
+    "skill": "AWS架构设计",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "AWS架构设计"
+    ]
+  },
+  {
+    "skill": "软件安全与合规",
+    "job_count": 1,
+    "category": "领域知识",
+    "originals": [
+      "软件安全与合规意识"
+    ]
+  },
+  {
+    "skill": "Node.js",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "Node.js"
+    ]
+  },
+  {
+    "skill": "OpenAI Agents SDK",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "OpenAI Agents SDK"
+    ]
+  },
+  {
+    "skill": "AI Agent商用项目经验",
+    "job_count": 1,
+    "category": "经验年限",
+    "originals": [
+      "AIAgent商用项目经验"
+    ]
+  },
+  {
+    "skill": "浏览器/桌面自动化（RPA）",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "浏览器/桌面自动化（RPA）"
+    ]
+  },
+  {
+    "skill": "Agent工作流",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "Agent工作流"
+    ]
+  },
+  {
+    "skill": "API设计",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "API设计"
+    ]
+  },
+  {
+    "skill": "系统集成",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "系统集成"
+    ]
+  },
+  {
+    "skill": "向量数据库",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "向量数据库"
+    ]
+  },
+  {
+    "skill": "Flask",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "Flask"
+    ]
+  },
+  {
+    "skill": "高可用工程化（超时/重试/降级/幂等/可观测性）",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "高可用工程化（超时控制/重试/降级/幂等/可观测性）"
+    ]
+  },
+  {
+    "skill": "Harness Engineering",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "Harness Engineering"
+    ]
+  },
+  {
+    "skill": "LLM可观测性工具（LangSmith/Langfuse）",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "LangSmith/Langfuse等可观测性工具"
+    ]
+  },
+  {
+    "skill": "Node.js/TypeScript",
+    "job_count": 1,
+    "category": "语言技能",
+    "originals": [
+      "Node.js/TypeScript"
+    ]
+  },
+  {
+    "skill": "MCP Server开发",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "MCP Server开发"
+    ]
+  },
+  {
+    "skill": "记忆系统设计",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "记忆系统设计（短期/长期/语义/情景记忆、Dream/Consolidation/Atomization）"
+    ]
+  },
+  {
+    "skill": "Hybrid Search（向量+BM25）",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "hybrid search（向量+BM25）检索管线"
+    ]
+  },
+  {
+    "skill": "飞书/企微开放平台集成",
+    "job_count": 1,
+    "category": "框架工具",
+    "originals": [
+      "飞书/企微开放平台集成"
+    ]
+  },
+  {
+    "skill": "Agent行为监控与质量评估",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "Agent行为监控与质量评估"
+    ]
+  },
+  {
+    "skill": "Token预算管理与模型路由",
+    "job_count": 1,
+    "category": "工程能力",
+    "originals": [
+      "token预算管理与模型路由"
+    ]
+  }
+]
