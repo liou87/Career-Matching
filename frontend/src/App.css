@@ -277,6 +277,26 @@ label { display: block; font-size: 13px; font-weight: 500; color: var(--color-mu
 
 .section-title { font-size: 13px; font-weight: 600; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
 
+.skill-gap-row { border-bottom: 1px solid var(--border); padding: 12px 0; }
+.skill-gap-row:last-child { border-bottom: none; }
+.skill-gap-row-head { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.skill-gap-name { flex: 1; font-weight: 500; font-size: 14px; color: var(--text); }
+.skill-gap-arrow { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; flex-shrink: 0; }
+.skill-gap-arrow.open { transform: rotate(90deg); }
+.skill-gap-originals {
+  list-style: none;
+  margin-top: 8px;
+  padding: 10px 14px;
+  background: var(--row-bg);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.skill-gap-others { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 12px; }
+
 .tag-input-row { display: flex; gap: 8px; }
 .tag-input-row input { flex: 1; }
 

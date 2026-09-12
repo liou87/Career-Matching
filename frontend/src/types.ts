@@ -48,6 +48,27 @@ export interface Analysis {
   summary: string;
 }
 
+export interface SkillRankingItem {
+  skill: string;
+  job_count: number;
+  category: string;
+  originals: string[];
+}
+
+export type BatchStatus = "pending" | "running" | "done" | "failed";
+
+export interface BatchAnalysis {
+  id: number;
+  status: BatchStatus;
+  created_at?: string | null;
+  started_at?: string | null;
+  finished_at?: string | null;
+  job_count: number;
+  success_count: number;
+  ranking?: SkillRankingItem[] | null;
+  error?: string | null;
+}
+
 export interface ChecklistItem {
   id: number;
   content: string;

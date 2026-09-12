@@ -5,7 +5,8 @@ import JobsPage from "./pages/JobsPage";
 import JobDetailPage from "./pages/JobDetailPage";
 import AnalysisPage from "./pages/AnalysisPage";
 import ChecklistPage from "./pages/ChecklistPage";
-import { ProfileIcon, JobsIcon, AnalysisIcon, ChecklistIcon, SunIcon, MoonIcon } from "./components/Icons";
+import SkillGapsPage from "./pages/SkillGapsPage";
+import { ProfileIcon, JobsIcon, AnalysisIcon, ChecklistIcon, GapsIcon, SunIcon, MoonIcon } from "./components/Icons";
 import "./App.css";
 
 type Theme = "light" | "dark";
@@ -38,6 +39,9 @@ export default function App() {
           <NavLink to="/analysis" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
             <AnalysisIcon /> 匹配分析
           </NavLink>
+          <NavLink to="/skill-gaps" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+            <GapsIcon /> 技能缺口
+          </NavLink>
           <NavLink to="/checklist" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
             <ChecklistIcon /> 我的清单
           </NavLink>
@@ -56,6 +60,7 @@ export default function App() {
             <Route path="/jobs" element={<JobsPage />} />
             <Route path="/jobs/:id" element={<JobDetailPage />} />
             <Route path="/analysis" element={<AnalysisPage />} />
+            <Route path="/skill-gaps" element={<SkillGapsPage />} />
             <Route path="/checklist" element={<ChecklistPage />} />
           </Routes>
         </main>

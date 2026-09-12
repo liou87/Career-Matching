@@ -49,6 +49,16 @@ export function ChecklistIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function GapsIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M4 6h16" />
+      <path d="M4 12h11" />
+      <path d="M4 18h6" />
+    </svg>
+  );
+}
+
 export function SunIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg {...base} {...props}>
