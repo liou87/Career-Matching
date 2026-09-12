@@ -71,3 +71,17 @@ class SuggestionResult(BaseModel):
         description="只给真正有价值的建议，1-3条。宁可少给，不要为凑数写'去实习''去开源'这类通用建议"
     )
     summary: str = Field(description="100字以内整体评估")
+
+
+# ---------- 批量结果聚合：missing_skills 归一化 ----------
+
+class SkillMapping(BaseModel):
+    index: int = Field(description="对应输入列表中该条目的序号")
+    canonical: str = Field(
+        description="必须从给定的标准技能词表中原样选一个填入。"
+        "如果实在没有任何一个词条能覆盖，填 '其他:<一句话描述>'，不要自己发明新的标准名称。"
+    )
+
+
+class SkillMergeResult(BaseModel):
+    mappings: list[SkillMapping] = Field(description="输入列表中每一条都必须有对应映射，不能遗漏")
