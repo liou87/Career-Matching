@@ -1,13 +1,18 @@
 import hashlib
 import json
+from datetime import datetime, timedelta
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from sqlalchemy.orm import Session
-from database import get_db
+from database import get_db, SessionLocal
 from services.graph import analyze_match_v3
+from services.batch_graph import analyze_all
+from services.aggregate import aggregate_gaps
 import models, schemas
 
 router = APIRouter(prefix="/analysis", tags=["analysis"])
+
+BATCH_TIMEOUT = timedelta(minutes=5)
 
 
 def _content_hash(profile: dict, job: dict) -> str:
@@ -65,6 +70,108 @@ def _job_to_dict(job: models.Job) -> dict:
         "responsibilities": job.responsibilities,
     }
 
+
+# ---------- 批量分析：后台任务 ----------
+# 这三条 /batch... 路由必须写在下面 /{job_id}... 路由前面：FastAPI/Starlette
+# 按声明顺序匹配路由，/{job_id} 和 /{job_id}/latest 在路径形状上会先一步
+# "吃掉" /batch、/batch/latest 这类请求（把 "batch"/"latest" 当成 job_id
+# 尝试转 int，导致 422），写在前面才能保证字面量路径优先匹配。
+
+
+def run_batch(task_id: int):
+    """后台任务实体。BackgroundTasks 是在响应已经返回给客户端之后才执行的，
+    这时候原来那次请求的 db session（由 Depends(get_db) 提供）已经在
+    get_db 的 finally 里关掉了，不能继续用，必须自己开一个新的。"""
+    db = SessionLocal()
+    try:
+        task = db.query(models.BatchAnalysis).filter(models.BatchAnalysis.id == task_id).first()
+        if not task:
+            return
+
+        task.status = "running"
+        task.started_at = datetime.utcnow()
+        db.commit()
+
+        profile = db.query(models.Profile).first()
+        if not profile:
+            raise RuntimeError("没有个人画像，无法批量分析")
+
+        jobs = db.query(models.Job).filter(models.Job.status == "active").all()
+
+        profile_dict = _profile_to_dict(profile)
+        job_items = [{"job_id": j.id, "job": _job_to_dict(j)} for j in jobs]
+
+        results = analyze_all(profile_dict, job_items, max_concurrency=5)
+        ranking = aggregate_gaps(results)
+
+        task.job_count = len(jobs)
+        task.success_count = len([r for r in results if "error" not in r])
+        task.ranking = ranking
+        task.status = "done"
+        task.finished_at = datetime.utcnow()
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        task = db.query(models.BatchAnalysis).filter(models.BatchAnalysis.id == task_id).first()
+        if task:
+            task.status = "failed"
+            task.error = str(e)
+            task.finished_at = datetime.utcnow()
+            db.commit()
+    finally:
+        db.close()
+
+
+@router.post("/batch")
+def start_batch_analysis(background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+    existing = (
+        db.query(models.BatchAnalysis)
+        .filter(models.BatchAnalysis.status.in_(["pending", "running"]))
+        .order_by(models.BatchAnalysis.created_at.desc())
+        .first()
+    )
+    if existing:
+        return {"task_id": existing.id}
+
+    task = models.BatchAnalysis(status="pending")
+    db.add(task)
+    db.commit()
+    db.refresh(task)
+
+    background_tasks.add_task(run_batch, task.id)
+    return {"task_id": task.id}
+
+
+@router.get("/batch/latest")
+def get_latest_batch(db: Session = Depends(get_db)):
+    task = (
+        db.query(models.BatchAnalysis)
+        .filter(models.BatchAnalysis.status == "done")
+        .order_by(models.BatchAnalysis.created_at.desc())
+        .first()
+    )
+    if not task:
+        return {"status": "none"}
+    return schemas.BatchAnalysisOut.model_validate(task)
+
+
+@router.get("/batch/{task_id}", response_model=schemas.BatchAnalysisOut)
+def get_batch_status(task_id: int, db: Session = Depends(get_db)):
+    task = db.query(models.BatchAnalysis).filter(models.BatchAnalysis.id == task_id).first()
+    if not task:
+        raise HTTPException(status_code=404, detail="Batch task not found")
+
+    if task.status == "running" and task.started_at and datetime.utcnow() - task.started_at > BATCH_TIMEOUT:
+        task.status = "failed"
+        task.error = "任务超时或进程中断"
+        task.finished_at = datetime.utcnow()
+        db.commit()
+        db.refresh(task)
+
+    return task
+
+
+# ---------- 单个岗位分析 ----------
 
 @router.post("/{job_id}", response_model=schemas.AnalysisOut)
 def run_analysis(job_id: int, force: bool = False, db: Session = Depends(get_db)):

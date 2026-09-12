@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy import Column, Integer, String, Text, DateTime, JSON
 from sqlalchemy.sql import func
 from database import Base
@@ -53,6 +55,20 @@ class Analysis(Base):
     action_items = Column(JSON)         # [{item, priority, resource}]
     summary = Column(Text)
     created_at = Column(DateTime, server_default=func.now())
+
+
+class BatchAnalysis(Base):
+    __tablename__ = "batch_analyses"
+
+    id = Column(Integer, primary_key=True, index=True)
+    status = Column(String, default="pending")   # pending/running/done/failed
+    created_at = Column(DateTime, default=datetime.utcnow)
+    started_at = Column(DateTime, nullable=True)
+    finished_at = Column(DateTime, nullable=True)
+    job_count = Column(Integer, default=0)
+    success_count = Column(Integer, default=0)
+    ranking = Column(JSON, nullable=True)       # [{skill, job_count, category, originals}]
+    error = Column(Text, nullable=True)
 
 
 class Checklist(Base):

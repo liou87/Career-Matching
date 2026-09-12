@@ -103,6 +103,29 @@ class AnalysisOut(BaseModel):
         from_attributes = True
 
 
+# ---------- Batch Analysis ----------
+
+class SkillRankingItem(BaseModel):
+    skill: str
+    job_count: int
+    category: str
+    originals: list[str] = []   # 前端要展开看每条原始差距描述，不能被裁掉
+
+class BatchAnalysisOut(BaseModel):
+    id: int
+    status: str   # pending/running/done/failed
+    created_at: Optional[datetime] = None
+    started_at: Optional[datetime] = None
+    finished_at: Optional[datetime] = None
+    job_count: int
+    success_count: int
+    ranking: Optional[list[SkillRankingItem]] = None
+    error: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
 # ---------- Checklist ----------
 
 class ChecklistItemCreate(BaseModel):
