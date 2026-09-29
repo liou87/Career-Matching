@@ -1,6 +1,7 @@
 import axios, { type InternalAxiosRequestConfig } from "axios";
 
-const api = axios.create({ baseURL: import.meta.env.VITE_API_URL || "http://localhost:8000" });
+// 线上前后端同域，本地由 Vite 把 /api 代理到后端（见 vite.config.ts）
+const api = axios.create({ baseURL: "/api" });
 
 // 后端配了 ACCESS_TOKEN 时，所有请求要带口令。口令存在浏览器本地，
 // 第一次收到 401 时弹框询问，输入后自动重试原请求。
