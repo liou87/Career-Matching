@@ -22,8 +22,8 @@ CareerMatch（求职助手）用 AI 管理求职全流程：维护个人画像�
 
 ## CareerMatch 技术栈
 
-- **后端**：FastAPI、SQLAlchemy、SQLite；AI 部分用 LangChain 和
-  LangGraph，模型走 DeepSeek。
+- **后端**：FastAPI、SQLAlchemy，本地用 SQLite，线上用 Postgres；
+  AI 部分用 LangChain 和 LangGraph，模型走 DeepSeek。
 - **前端**：React 19、TypeScript、Vite、React Router、axios。
 
 ## CareerMatch 目录结构
@@ -39,9 +39,11 @@ backend/
     batch_graph.py         # 批量分析与技能合并
     job_agent.py           # AI 助手 Agent 与工具
   evals/                   # 各版本对比评测脚本与结果
+  scripts/                 # SQLite 数据迁移到 Postgres
 frontend/
   src/pages/               # 各页面
   src/api.ts               # axios 实例
+docs/deploy.md             # Vercel 部署说明
 start.bat                  # Windows 下一键启动前后端
 ```
 
@@ -79,6 +81,11 @@ npm run dev
 
 访问 <http://localhost:5173>，前端请求 <http://localhost:8000> 的后端接口。
 
+## 部署 CareerMatch
+
+前后端分别部署为两个 Vercel 项目，数据库用 Neon Postgres，
+公网访问需要口令。步骤见 [docs/deploy.md](docs/deploy.md)。
+
 ## CareerMatch 接口
 
 | 方法           | 路径                        | 说明                           |
@@ -110,10 +117,7 @@ npm run dev
 ## CareerMatch 已知局限
 
 - 单用户设计，没有账号体系，`/profile` 始终操作同一条记录。
+  线上只靠一个访问口令保护。
 - 新增数据库列不会自动迁移：`create_all` 只建新表，不给已有表补列，
   旧库升级后需要手动 `ALTER TABLE`。
-
-> [!WARNING]
-> 数据存在本地 SQLite 文件 `backend/job_helper.db`。
-> 部署到无持久化磁盘的平台（如 Render 的无状态服务）会在重启后丢数据，
-> 需要挂载持久化卷或换成 Postgres。
+- 批量分析在请求内同步执行，岗位很多时可能超过 Vercel 函数时限。
