@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../api";
 import type { Job } from "../types";
 import { salaryLabel } from "../lib/format";
+import { JOB_SITES, buildJobSearchUrl, type JobSite } from "../lib/jobSearch";
 
 export default function JobsPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -10,11 +11,28 @@ export default function JobsPage() {
   const [url, setUrl] = useState("");
   const [adding, setAdding] = useState(false);
   const [error, setError] = useState("");
+  const [targetRoles, setTargetRoles] = useState<string[]>([]);
+  const [targetCities, setTargetCities] = useState<string[]>([]);
+  const [searchRole, setSearchRole] = useState("");
+  const [searchCity, setSearchCity] = useState("");
+  const [searchSite, setSearchSite] = useState<JobSite>("lagou");
   const navigate = useNavigate();
 
   const load = () => api.get("/jobs").then(r => setJobs(r.data)).catch(() => setError("加载岗位列表失败，请检查后端是否在运行"));
 
   useEffect(() => { load(); }, []);
+
+  useEffect(() => {
+    api.get("/profile").then(r => {
+      setTargetRoles(r.data.target_roles || []);
+      setTargetCities(r.data.target_cities || []);
+    }).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (!searchRole && targetRoles.length > 0) setSearchRole(targetRoles[0]);
+    if (!searchCity && targetCities.length > 0) setSearchCity(targetCities[0]);
+  }, [targetRoles, targetCities]);
 
   const addJob = async () => {
     if (!jdText.trim()) { setError("请粘贴JD内容"); return; }
@@ -40,6 +58,37 @@ export default function JobsPage() {
   return (
     <div>
       <h1>岗位库</h1>
+
+      <div className="card">
+        <h2>一键搜索岗位</h2>
+        {targetRoles.length === 0 ? (
+          <p className="empty">请先在「个人画像」填写目标岗位</p>
+        ) : (
+          <>
+            <div className="btn-row" style={{ marginTop: 0 }}>
+              <select style={{ width: "auto" }} value={searchRole} onChange={e => setSearchRole(e.target.value)}>
+                {targetRoles.map(r => <option key={r} value={r}>{r}</option>)}
+              </select>
+              <select style={{ width: "auto" }} value={searchCity} onChange={e => setSearchCity(e.target.value)}>
+                <option value="">全国</option>
+                {targetCities.map(c => <option key={c} value={c}>{c}</option>)}
+              </select>
+              <select style={{ width: "auto" }} value={searchSite} onChange={e => setSearchSite(e.target.value as JobSite)}>
+                {JOB_SITES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+              </select>
+              <button
+                className="btn btn-primary"
+                onClick={() => window.open(buildJobSearchUrl(searchSite, searchRole, searchCity), "_blank", "noopener,noreferrer")}
+              >
+                打开搜索结果
+              </button>
+            </div>
+            <p style={{ color: "var(--text-faint)", fontSize: 12, marginTop: 8 }}>
+              新标签页打开该网站的搜索结果，挑中岗位后回来粘贴 JD 自动解析入库
+            </p>
+          </>
+        )}
+      </div>
 
       <div className="card">
         <h2>添加岗位</h2>
