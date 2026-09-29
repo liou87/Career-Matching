@@ -6,7 +6,8 @@ import JobDetailPage from "./pages/JobDetailPage";
 import AnalysisPage from "./pages/AnalysisPage";
 import ChecklistPage from "./pages/ChecklistPage";
 import SkillGapsPage from "./pages/SkillGapsPage";
-import { ProfileIcon, JobsIcon, AnalysisIcon, ChecklistIcon, GapsIcon, SunIcon, MoonIcon } from "./components/Icons";
+import AssistantPage from "./pages/AssistantPage";
+import { ProfileIcon, JobsIcon, AnalysisIcon, ChecklistIcon, GapsIcon, ChatIcon, SunIcon, MoonIcon } from "./components/Icons";
 import "./App.css";
 
 type Theme = "light" | "dark";
@@ -45,6 +46,9 @@ export default function App() {
           <NavLink to="/checklist" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
             <ChecklistIcon /> 我的清单
           </NavLink>
+          <NavLink to="/assistant" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+            <ChatIcon /> AI 助手
+          </NavLink>
           <button
             className="theme-toggle"
             onClick={() => setTheme(t => t === "light" ? "dark" : "light")}
@@ -62,6 +66,7 @@ export default function App() {
             <Route path="/analysis" element={<AnalysisPage />} />
             <Route path="/skill-gaps" element={<SkillGapsPage />} />
             <Route path="/checklist" element={<ChecklistPage />} />
+            <Route path="/assistant" element={<AssistantPage />} />
           </Routes>
         </main>
       </div>

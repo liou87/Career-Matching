@@ -69,6 +69,17 @@ export interface BatchAnalysis {
   error?: string | null;
 }
 
+export interface ToolCall {
+  name: string;
+  args: Record<string, unknown>;
+}
+
+export interface AgentMessage {
+  role: "user" | "assistant";
+  content: string;
+  tool_calls?: ToolCall[];
+}
+
 export interface ChecklistItem {
   id: number;
   content: string;

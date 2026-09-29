@@ -126,6 +126,25 @@ class BatchAnalysisOut(BaseModel):
         from_attributes = True
 
 
+# ---------- Agent ----------
+
+class ChatMessage(BaseModel):
+    role: str   # user / assistant
+    content: str
+
+class AgentChatIn(BaseModel):
+    message: str
+    history: list[ChatMessage] = []
+
+class ToolCallOut(BaseModel):
+    name: str
+    args: dict
+
+class AgentChatOut(BaseModel):
+    reply: str
+    tool_calls: list[ToolCallOut] = []
+
+
 # ---------- Checklist ----------
 
 class ChecklistItemCreate(BaseModel):

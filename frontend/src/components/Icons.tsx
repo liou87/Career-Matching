@@ -59,6 +59,14 @@ export function GapsIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function ChatIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M4 5h16v10H9l-5 4V5z" />
+    </svg>
+  );
+}
+
 export function SunIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg {...base} {...props}>

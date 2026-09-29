@@ -297,6 +297,38 @@ label { display: block; font-size: 13px; font-weight: 500; color: var(--color-mu
 }
 .skill-gap-others { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 12px; }
 
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 16px;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.chat-bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.chat-bubble-user { align-self: flex-end; background: var(--color-primary); color: #fff; white-space: pre-wrap; }
+.chat-bubble-assistant { align-self: flex-start; background: var(--row-bg); color: var(--text); }
+.chat-tool-calls { font-size: 12px; color: var(--text-faint); margin-top: 6px; }
+.chat-bubble p { margin-bottom: 8px; }
+.chat-bubble p:last-child { margin-bottom: 0; }
+.chat-bubble ul, .chat-bubble ol { margin: 4px 0 8px 20px; }
+.chat-bubble li { margin-bottom: 2px; }
+.chat-bubble strong { font-weight: 600; }
+.chat-bubble code { background: var(--color-gray-bg); padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+.chat-bubble table { border-collapse: collapse; margin: 8px 0; width: 100%; font-size: 13px; }
+.chat-bubble th, .chat-bubble td { border: 1px solid var(--border); padding: 4px 8px; text-align: left; }
+.chat-bubble h1, .chat-bubble h2, .chat-bubble h3 { font-size: 14px; font-weight: 600; margin: 8px 0 4px; }
+
+.chat-input-row { display: flex; gap: 10px; align-items: flex-end; }
+.chat-input-row textarea { flex: 1; resize: none; }
+
 .tag-input-row { display: flex; gap: 8px; }
 .tag-input-row input { flex: 1; }
 
