@@ -1,0 +1,7 @@
+# 不需要部署到 Vercel 的文件
+evals/
+sandbox/
+scripts/
+*.db
+.env
+__pycache__/
