@@ -46,6 +46,9 @@ export default function AnalysisPage() {
   const [savingChecklist, setSavingChecklist] = useState(false);
   const [checklistMsg, setChecklistMsg] = useState("");
   const [reuseMsg, setReuseMsg] = useState("");
+  const [checkedActions, setCheckedActions] = useState<Set<number>>(new Set());
+  const [savingActionChecklist, setSavingActionChecklist] = useState(false);
+  const [actionChecklistMsg, setActionChecklistMsg] = useState("");
 
   useEffect(() => {
     api.get("/jobs").then(r => {
@@ -62,6 +65,8 @@ export default function AnalysisPage() {
   const loadLatest = (id: number) => {
     setCheckedGaps(new Set());
     setChecklistMsg("");
+    setCheckedActions(new Set());
+    setActionChecklistMsg("");
     api.get(`/analysis/${id}/latest`).then(r => setAnalysis(r.data)).catch(() => setAnalysis(null));
   };
 
@@ -80,6 +85,8 @@ export default function AnalysisPage() {
     setCheckedGaps(new Set());
     setChecklistMsg("");
     setReuseMsg("");
+    setCheckedActions(new Set());
+    setActionChecklistMsg("");
     try {
       const r = await api.post(`/analysis/${selectedJob}`, null, { params: force ? { force: true } : {} });
       setAnalysis(r.data);
@@ -116,6 +123,37 @@ export default function AnalysisPage() {
       setChecklistMsg("保存失败，请重试");
     }
     setSavingChecklist(false);
+  };
+
+  const toggleAction = (i: number) => {
+    setCheckedActions(prev => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i); else next.add(i);
+      return next;
+    });
+  };
+
+  const saveActionsToChecklist = async () => {
+    if (!analysis || checkedActions.size === 0) return;
+    setSavingActionChecklist(true);
+    setActionChecklistMsg("");
+    try {
+      const items = [...checkedActions].map(i => {
+        const a = analysis.action_items[i];
+        return {
+          content: a.item,
+          importance: a.priority,
+          suggestion: [a.why_valuable, a.resource].filter(Boolean).join(" · ") || undefined,
+          category: "action",
+        };
+      });
+      await api.post("/checklist", { items });
+      setActionChecklistMsg(`已保存 ${items.length} 条到提升清单`);
+      setCheckedActions(new Set());
+    } catch {
+      setActionChecklistMsg("保存失败，请重试");
+    }
+    setSavingActionChecklist(false);
   };
 
   const job = jobs.find(j => j.id === selectedJob);
@@ -228,6 +266,12 @@ export default function AnalysisPage() {
             )}
             {analysis.action_items.map((s, i) => (
               <div key={i} className="suggestion-item">
+                <input
+                  type="checkbox"
+                  style={{ width: "auto", marginTop: 4 }}
+                  checked={checkedActions.has(i)}
+                  onChange={() => toggleAction(i)}
+                />
                 <LevelDot value={s.priority} />
                 <div>
                   <div style={{ fontWeight: 500, fontSize: 14, marginBottom: 2 }}>{s.item}</div>
@@ -243,6 +287,14 @@ export default function AnalysisPage() {
                 </span>
               </div>
             ))}
+            {analysis.action_items.length > 0 && (
+              <div className="btn-row">
+                <button className="btn btn-primary" onClick={saveActionsToChecklist} disabled={checkedActions.size === 0 || savingActionChecklist}>
+                  {savingActionChecklist ? "保存中..." : `保存到提升清单 (${checkedActions.size})`}
+                </button>
+                {actionChecklistMsg && <span className={actionChecklistMsg.includes("失败") ? "error-msg" : "success-msg"} style={{ alignSelf: "center" }}>{actionChecklistMsg}</span>}
+              </div>
+            )}
           </div>
         </>
       )}

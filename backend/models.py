@@ -79,4 +79,5 @@ class Checklist(Base):
     importance = Column(String(10))     # 高/中/低
     suggestion = Column(Text)
     status = Column(String(10), default="todo")   # todo / done
+    category = Column(String(20), default="gap")  # gap（差距） / action（行动建议）
     created_at = Column(DateTime, server_default=func.now())

@@ -14,7 +14,7 @@ def list_checklist(db: Session = Depends(get_db)):
 @router.post("", response_model=list[schemas.ChecklistOut])
 def add_checklist_items(data: schemas.ChecklistCreate, db: Session = Depends(get_db)):
     items = [
-        models.Checklist(content=i.content, importance=i.importance, suggestion=i.suggestion)
+        models.Checklist(content=i.content, importance=i.importance, suggestion=i.suggestion, category=i.category)
         for i in data.items
     ]
     db.add_all(items)

@@ -151,6 +151,7 @@ class ChecklistItemCreate(BaseModel):
     content: str
     importance: Optional[str] = None
     suggestion: Optional[str] = None
+    category: str = "gap"   # gap（差距） / action（行动建议）
 
 class ChecklistCreate(BaseModel):
     items: list[ChecklistItemCreate]
@@ -165,6 +166,7 @@ class ChecklistOut(BaseModel):
     importance: Optional[str] = None
     suggestion: Optional[str] = None
     status: str
+    category: str = "gap"
     created_at: Optional[datetime] = None
 
     class Config:

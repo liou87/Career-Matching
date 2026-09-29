@@ -43,7 +43,8 @@ export default function ChecklistPage() {
     await api.delete(`/checklist/${id}`);
   };
 
-  const todoItems = items.filter(i => i.status === "todo");
+  const gapTodoItems = items.filter(i => i.status === "todo" && i.category !== "action");
+  const actionTodoItems = items.filter(i => i.status === "todo" && i.category === "action");
   const doneItems = items.filter(i => i.status === "done");
 
   const renderItem = (item: ChecklistItem) => (
@@ -96,16 +97,23 @@ export default function ChecklistPage() {
       {loading && <p className="loading">加载中...</p>}
 
       {!loading && items.length === 0 && (
-        <p className="empty">清单还是空的，去「匹配分析」页面勾选差距条目保存进来吧</p>
+        <p className="empty">清单还是空的，去「匹配分析」页面勾选差距或行动建议保存进来吧</p>
       )}
 
       {!loading && items.length > 0 && (
         <>
           <div className="card">
-            <div className="section-title">待提升（{todoItems.length}）</div>
-            {todoItems.length === 0
+            <div className="section-title">待提升（{gapTodoItems.length}）</div>
+            {gapTodoItems.length === 0
               ? <p style={{ color: "var(--text-faint)", fontSize: 14 }}>暂无</p>
-              : todoItems.map(renderItem)}
+              : gapTodoItems.map(renderItem)}
+          </div>
+
+          <div className="card">
+            <div className="section-title">行动建议（{actionTodoItems.length}）</div>
+            {actionTodoItems.length === 0
+              ? <p style={{ color: "var(--text-faint)", fontSize: 14 }}>暂无</p>
+              : actionTodoItems.map(renderItem)}
           </div>
 
           {doneItems.length > 0 && (

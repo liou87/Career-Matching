@@ -86,5 +86,6 @@ export interface ChecklistItem {
   importance: string | null;
   suggestion: string | null;
   status: "todo" | "done";
+  category: "gap" | "action";
   created_at: string;
 }
