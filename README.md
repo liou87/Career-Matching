@@ -1,57 +1,75 @@
-# CareerMatch（求职助手）
+# CareerMatch
 
-用 AI 帮你管理求职全流程：维护个人画像、粘贴 JD 自动解析入库、AI 匹配分析给出差距和行动建议，并把待提升项沉淀成一份可勾选打勾的清单。
+CareerMatch（求职助手）用 AI 管理求职全流程：维护个人画像，
+粘贴 JD 自动解析入库，逐岗位做匹配分析，汇总所有岗位的技能缺口，
+并把待提升项沉淀成一份可勾选的清单。
 
-## 功能
+## CareerMatch 功能
 
-- **个人画像**：录入教育经历、技能、实习/工作经历、项目经历、目标岗位/城市/公司，一份画像贯穿后续所有分析。
-- **岗位库**：粘贴招聘网站上的 JD 全文，AI 自动解析出职位、公司、城市、薪资范围、必备/加分技能、经验学历要求、职责；点进岗位卡片可看详情和 JD 原文。
-- **匹配分析**：针对画像 + 目标岗位调用 AI，输出匹配分（0-100）、已匹配/缺失技能、3 条优势、5 条差距（含重要程度和一句话建议）、3 条按优先级排序的行动建议。
-- **提升清单**：在差距分析里勾选想跟进的条目，一键存进清单；清单页可以标记完成、编辑内容、删除。
+- **个人画像**：教育、技能、实习/工作经历、项目、目标岗位/城市/公司，
+  贯穿后续所有分析。
+- **岗位库**：粘贴 JD 全文，AI 解析出职位、公司、城市、薪资、
+  必备/加分技能、经验学历要求和职责。可按画像里的目标岗位和城市，
+  一键打开拉勾、Boss直聘、前程无忧的搜索结果。
+- **匹配分析**：输出匹配分（0-100）、已匹配/缺失技能、优势、差距
+  和按优先级排序的行动建议。画像和岗位都没变时直接复用上次结果。
+- **技能缺口总览**：对岗位库批量跑分析，用 LLM 合并同义技能，
+  按“多少个岗位缺这项技能”排序。
+- **提升清单**：从分析结果里勾选差距或行动建议存进清单，
+  分栏展示，可标记完成、编辑、删除。
+- **AI 助手**：对话式问答，Agent 通过工具查询岗位库、画像、
+  单岗分析和技能缺口排行，回答“我现在最该学什么”这类问题。
 
-## 技术栈
+## CareerMatch 技术栈
 
-- **后端**：FastAPI + SQLAlchemy + SQLite，AI 调用走 DeepSeek（OpenAI 兼容接口）
-- **前端**：React 19 + TypeScript + Vite + React Router + axios
+- **后端**：FastAPI、SQLAlchemy、SQLite；AI 部分用 LangChain 和
+  LangGraph，模型走 DeepSeek。
+- **前端**：React 19、TypeScript、Vite、React Router、axios。
 
-## 项目结构
+## CareerMatch 目录结构
 
-```
+```text
 backend/
-  main.py              # FastAPI 入口
-  models.py            # SQLAlchemy 表：Profile / Job / Analysis / Checklist
-  schemas.py           # Pydantic 请求/响应模型
-  database.py          # SQLite 连接
-  routers/             # profile / jobs / analysis / checklist 四组接口
-  services/ai_service.py  # 封装 DeepSeek 调用（JD 解析、匹配分析）
-
+  main.py                  # FastAPI 入口
+  models.py / schemas.py   # SQLAlchemy 表 / Pydantic 模型
+  routers/                 # profile / jobs / analysis / checklist / agent
+  services/
+    ai_service.py          # JD 解析；匹配分析 v1、v2（对照实验保留）
+    graph.py               # 匹配分析 v3（LangGraph，当前线上版本）
+    batch_graph.py         # 批量分析与技能合并
+    job_agent.py           # AI 助手 Agent 与工具
+  evals/                   # 各版本对比评测脚本与结果
 frontend/
-  src/pages/           # ProfilePage / JobsPage / JobDetailPage / AnalysisPage / ChecklistPage
-  src/api.ts           # axios 实例
+  src/pages/               # 各页面
+  src/api.ts               # axios 实例
+start.bat                  # Windows 下一键启动前后端
 ```
 
-## 本地运行
+## 在本地运行 CareerMatch
 
-### 后端
+### 启动后端
 
 ```bash
 cd backend
 pip install -r requirements.txt
 ```
 
-新建 `backend/.env`（参考 `.env.example`），填入你的 DeepSeek API Key：
+参考 `.env.example` 新建 `backend/.env`，填入 DeepSeek API Key：
 
-```
+```dotenv
 DEEPSEEK_API_KEY=sk-xxxxxx
 ```
 
-Key 从 [platform.deepseek.com](https://platform.deepseek.com/) 获取，需要单独绑定支付方式。没有这个 key，「岗位库」的 JD 解析和「匹配分析」这两个 AI 功能不可用，其余功能（个人画像、清单）不受影响。
+> [!NOTE]
+> Key 从 [platform.deepseek.com](https://platform.deepseek.com/) 获取，
+> 需要单独绑定支付方式。没有 Key 时 JD 解析、匹配分析、
+> 技能缺口总览和 AI 助手不可用，个人画像和清单不受影响。
 
 ```bash
 uvicorn main:app --reload --port 8000
 ```
 
-### 前端
+### 启动前端
 
 ```bash
 cd frontend
@@ -59,21 +77,43 @@ npm install
 npm run dev
 ```
 
-默认访问 http://localhost:5173 ，前端会请求 http://localhost:8000 的后端接口。
+访问 <http://localhost:5173>，前端请求 <http://localhost:8000> 的后端接口。
 
-## 接口一览
+## CareerMatch 接口
 
-| 方法 | 路径 | 说明 |
-|---|---|---|
-| GET / PUT | `/profile` | 获取/更新个人画像（单用户，无登录体系） |
-| GET / POST | `/jobs` | 岗位列表 / 粘贴 JD 触发 AI 解析入库 |
-| GET / DELETE | `/jobs/{id}` | 岗位详情 / 软删除 |
-| POST | `/analysis/{job_id}` | 触发一次匹配分析 |
-| GET | `/analysis/{job_id}/latest` | 获取该岗位最近一次分析结果 |
-| GET / POST | `/checklist` | 清单列表 / 批量新增条目 |
-| PATCH / DELETE | `/checklist/{id}` | 更新状态或内容 / 删除条目 |
+| 方法           | 路径                        | 说明                           |
+| -------------- | --------------------------- | ------------------------------ |
+| GET / PUT      | `/profile`                  | 获取/更新个人画像              |
+| GET / POST     | `/jobs`                     | 岗位列表 / 粘贴 JD 解析入库    |
+| GET / DELETE   | `/jobs/{id}`                | 岗位详情 / 软删除              |
+| POST           | `/analysis/{job_id}`        | 匹配分析，`?force=true` 强制重跑 |
+| GET            | `/analysis/{job_id}/latest` | 该岗位最近一次分析结果         |
+| POST           | `/analysis/batch`           | 发起批量分析，返回 `task_id`   |
+| GET            | `/analysis/batch/{task_id}` | 轮询批量分析状态               |
+| GET            | `/analysis/batch/latest`    | 最近一次完成的技能缺口排行     |
+| GET / POST     | `/checklist`                | 清单列表 / 批量新增            |
+| PATCH / DELETE | `/checklist/{id}`           | 更新状态或内容 / 删除          |
+| POST           | `/agent/chat`               | AI 助手对话                    |
 
-## 已知局限
+## 匹配分析的版本演进
+
+用 15 个真实岗位实测，评测脚本在 `backend/evals/`：
+
+| 指标                 | v1 单 prompt          | v2 两步链    | v3 LangGraph       |
+| -------------------- | --------------------- | ------------ | ------------------ |
+| match_score 计算错误 | 7/15                  | 0/15         | 0/15               |
+| 成功率               | 15/15                 | 14/15        | 15/15              |
+| 平均耗时             | ~6s                   | ~12s         | ~12s（排除岗 ~4s） |
+| 平均 token           | ~2.5K                 | ~4.7K        | ~4.7K              |
+| 建议质量             | “系统学习 LangChain” | 绑定已有项目 | 同左               |
+
+## CareerMatch 已知局限
 
 - 单用户设计，没有账号体系，`/profile` 始终操作同一条记录。
-- 数据存在本地 SQLite 文件（`backend/job_helper.db`），部署到无持久化磁盘的平台（如 Render/Vercel 的无状态服务）会在重启后丢数据，需要挂载持久化卷或换成 Postgres。
+- 新增数据库列不会自动迁移：`create_all` 只建新表，不给已有表补列，
+  旧库升级后需要手动 `ALTER TABLE`。
+
+> [!WARNING]
+> 数据存在本地 SQLite 文件 `backend/job_helper.db`。
+> 部署到无持久化磁盘的平台（如 Render 的无状态服务）会在重启后丢数据，
+> 需要挂载持久化卷或换成 Postgres。

@@ -1,3 +1,25 @@
+"""
+这个文件里同时保留了 analyze_match_v1 和 analyze_match_v2 两个版本，
+是刻意的对照实验，不是没清理干净的遗留代码：
+
+- analyze_match_v1：单条 LangChain 链，一次结构化输出拿到所有字段
+  （含 match_score，由 AI 自己算加权和）。
+- analyze_match_v2：拆成两条链（节点1 客观打分识别差距 -> 节点2 基于候选人
+  已有项目生成建议），match_score 改为在 Python 里按 score_breakdown 加权
+  计算，并加了 why_valuable 字段和"禁止通用建议"的约束。
+
+用 evals/baseline_eval.py 和 evals/two_stage_eval.py 实测对比过：v1 的
+match_score 有约一半概率跟自己给出的四个子分算出来的加权值对不上（AI 自己
+做加权求和有算术/舍入误差），v2 是 0 误差；action_items 质量也更高（0 条
+命中"系统学习X"这类空话）。v1 保留下来是为了让这个对比可复现、可回归验证。
+
+analyze_match_v3（在 services/graph.py 里，用 LangGraph 把这里的
+analysis_chain / suggestion_chain 原样复用、重新编排成状态图，加了规则
+筛选、条件路由和节点级重试）是当前 routers/analysis.py 实际调用的版本。
+
+parse_jd 走的是裸 openai SDK（json_object 模式），跟上面这套 LangChain
+链路是完全独立的另一个功能（JD 解析，不是匹配分析），不存在 v1/v2/v3 之分。
+"""
 import os
 import json
 from openai import OpenAI
