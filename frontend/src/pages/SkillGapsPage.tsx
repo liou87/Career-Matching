@@ -69,13 +69,15 @@ export default function SkillGapsPage() {
 
   const startAnalysis = async () => {
     setPollError("");
+    // 后端在请求里同步跑完才返回（约半分钟），等待期间就显示「分析中」
+    setPolling(true);
     try {
       const r = await api.post("/analysis/batch");
       const taskId = r.data.task_id;
-      setPolling(true);
       checkTask(taskId);
       pollRef.current = window.setInterval(() => checkTask(taskId), 3000);
     } catch {
+      setPolling(false);
       setPollError("触发分析失败，请检查后端是否在运行");
     }
   };

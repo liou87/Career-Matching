@@ -2,7 +2,7 @@ import hashlib
 import json
 from datetime import datetime, timedelta
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db, SessionLocal
 from services.graph import analyze_match_v3
@@ -71,7 +71,11 @@ def _job_to_dict(job: models.Job) -> dict:
     }
 
 
-# ---------- 批量分析：后台任务 ----------
+# ---------- 批量分析 ----------
+# 在请求里同步跑完（15 个岗位实测约 35 秒）。部署在 Vercel 上时，响应返回后
+# 进程随时可能被回收，BackgroundTasks 不可靠，所以不放后台。
+# 任务记录和轮询接口保留，前端流程不变。
+#
 # 这三条 /batch... 路由必须写在下面 /{job_id}... 路由前面：FastAPI/Starlette
 # 按声明顺序匹配路由，/{job_id} 和 /{job_id}/latest 在路径形状上会先一步
 # "吃掉" /batch、/batch/latest 这类请求（把 "batch"/"latest" 当成 job_id
@@ -79,9 +83,7 @@ def _job_to_dict(job: models.Job) -> dict:
 
 
 def run_batch(task_id: int):
-    """后台任务实体。BackgroundTasks 是在响应已经返回给客户端之后才执行的，
-    这时候原来那次请求的 db session（由 Depends(get_db) 提供）已经在
-    get_db 的 finally 里关掉了，不能继续用，必须自己开一个新的。"""
+    """批量分析实体。自己开 session，任务状态的读写跟请求的 session 互不影响。"""
     db = SessionLocal()
     try:
         task = db.query(models.BatchAnalysis).filter(models.BatchAnalysis.id == task_id).first()
@@ -123,10 +125,12 @@ def run_batch(task_id: int):
 
 
 @router.post("/batch")
-def start_batch_analysis(background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+def start_batch_analysis(db: Session = Depends(get_db)):
+    # 超时的 running 任务（进程被中途回收）不算数，否则会一直挡住新任务
     existing = (
         db.query(models.BatchAnalysis)
         .filter(models.BatchAnalysis.status.in_(["pending", "running"]))
+        .filter(models.BatchAnalysis.created_at > datetime.utcnow() - BATCH_TIMEOUT)
         .order_by(models.BatchAnalysis.created_at.desc())
         .first()
     )
@@ -138,7 +142,7 @@ def start_batch_analysis(background_tasks: BackgroundTasks, db: Session = Depend
     db.commit()
     db.refresh(task)
 
-    background_tasks.add_task(run_batch, task.id)
+    run_batch(task.id)
     return {"task_id": task.id}
 
 
