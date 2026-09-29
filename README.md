@@ -79,14 +79,17 @@ npm install
 npm run dev
 ```
 
-访问 <http://localhost:5173>，前端请求 <http://localhost:8000> 的后端接口。
+访问 <http://localhost:5173>。Vite 会把 `/api` 请求代理到
+<http://localhost:8000> 的后端，所以要先启动后端。
 
 ## 部署 CareerMatch
 
-前后端分别部署为两个 Vercel 项目，数据库用 Neon Postgres，
+前后端用 Vercel Services 部署在同一个项目里，数据库用 Neon Postgres，
 公网访问需要口令。步骤见 [docs/deploy.md](docs/deploy.md)。
 
 ## CareerMatch 接口
+
+所有接口都带 `/api` 前缀，例如 `/api/jobs`。健康检查是 `/api/health`。
 
 | 方法           | 路径                        | 说明                           |
 | -------------- | --------------------------- | ------------------------------ |
