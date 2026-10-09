@@ -62,7 +62,7 @@ def load_profile() -> dict:
 
 
 def _job_to_dict(job: models.Job) -> dict:
-    # 跟 app/api/analysis.py 里 _job_to_dict 的字段完全一致
+    # 跟 app/services/analysis.py 里 job_to_dict 的字段完全一致
     return {
         "title": job.title,
         "company": job.company,

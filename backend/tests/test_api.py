@@ -6,7 +6,8 @@ import openai
 import pytest
 
 import app.api.analysis as analysis_api
-import app.api.jobs as jobs_api
+import app.services.analysis as analysis_service
+import app.services.jobs as jobs_service
 from app.core.config import settings
 from app.db import models
 from tests.fakes import fake_match_result
@@ -44,7 +45,7 @@ def test_error_response_carries_request_id(client, monkeypatch):
     def timeout(_):
         raise openai.APITimeoutError(request=httpx.Request("POST", "https://llm.test"))
 
-    monkeypatch.setattr(jobs_api, "parse_jd", timeout)
+    monkeypatch.setattr(jobs_service, "parse_jd", timeout)
 
     r = client.post("/api/jobs", json={"raw_jd": "x"})
 
@@ -57,7 +58,7 @@ def test_unexpected_error_does_not_leak_details(client, monkeypatch):
     def boom(_):
         raise KeyError("secret internals")
 
-    monkeypatch.setattr(jobs_api, "parse_jd", boom)
+    monkeypatch.setattr(jobs_service, "parse_jd", boom)
 
     r = client.post("/api/jobs", json={"raw_jd": "x"})
 
@@ -68,7 +69,7 @@ def test_unexpected_error_does_not_leak_details(client, monkeypatch):
 # ---------- 岗位 ----------
 
 def test_add_list_and_archive_job(client, monkeypatch):
-    monkeypatch.setattr(jobs_api, "parse_jd", lambda raw: {"title": "Agent 工程师", "required_skills": ["LangGraph"]})
+    monkeypatch.setattr(jobs_service, "parse_jd", lambda raw: {"title": "Agent 工程师", "required_skills": ["LangGraph"]})
 
     job_id = client.post("/api/jobs", json={"raw_jd": "原文"}).json()["id"]
     assert [j["id"] for j in client.get("/api/jobs").json()] == [job_id]
@@ -88,7 +89,7 @@ def fake_v3(monkeypatch):
         calls.append(job)
         return fake_match_result()
 
-    monkeypatch.setattr(analysis_api, "analyze_match_v3", fake)
+    monkeypatch.setattr(analysis_service, "analyze_match_v3", fake)
     return calls
 
 

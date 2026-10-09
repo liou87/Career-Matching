@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from app import schemas
 from app.db import models
 from app.db.session import get_db
-from app.services.jd_parser import parse_jd
+from app.services.jobs import create_job
 
 router = APIRouter(prefix="/jobs", tags=["jobs"])
 
@@ -16,16 +16,7 @@ def list_jobs(db: Session = Depends(get_db)):
 
 @router.post("", response_model=schemas.JobOut)
 def add_job(data: schemas.JobCreate, db: Session = Depends(get_db)):
-    parsed = parse_jd(data.raw_jd)
-    job = models.Job(
-        raw_jd=data.raw_jd,
-        source_url=data.source_url,
-        **parsed
-    )
-    db.add(job)
-    db.commit()
-    db.refresh(job)
-    return job
+    return create_job(db, data.raw_jd, data.source_url)
 
 
 @router.get("/{job_id}", response_model=schemas.JobOut)

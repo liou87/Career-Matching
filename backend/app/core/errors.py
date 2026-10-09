@@ -15,6 +15,28 @@ from pydantic import ValidationError
 logger = logging.getLogger(__name__)
 
 
+class DomainError(Exception):
+    """业务错误：带状态码和给用户看的提示。接口层转成对应的 HTTP 响应，
+    Agent 工具把提示原样返回给模型，由模型转告用户。"""
+
+    status = 400
+    code = "BAD_REQUEST"
+
+    def __init__(self, message: str):
+        super().__init__(message)
+        self.message = message
+
+
+class NotFoundError(DomainError):
+    status = 404
+    code = "NOT_FOUND"
+
+
+class ConflictError(DomainError):
+    status = 409
+    code = "CONFLICT"
+
+
 class LLMOutputError(Exception):
     """LLM 没有返回符合结构的结果，比如 with_structured_output 返回 None。
 
@@ -25,6 +47,8 @@ class LLMOutputError(Exception):
 
 def classify(exc: Exception) -> tuple[int, str, str]:
     """把异常映射成 (HTTP 状态码, 错误码, 给用户看的提示)。"""
+    if isinstance(exc, DomainError):
+        return exc.status, exc.code, exc.message
     # 子类必须排在父类前面：APITimeoutError 继承自 APIConnectionError，
     # RateLimitError、AuthenticationError 继承自 APIStatusError
     if isinstance(exc, openai.APITimeoutError):
@@ -63,10 +87,14 @@ def register_error_handlers(app: FastAPI) -> None:
         )
         return error_response(request, status, code, message)
 
+    async def handle_domain_error(request: Request, exc: DomainError):
+        return error_response(request, exc.status, exc.code, exc.message)
+
     async def handle_unexpected(request: Request, exc: Exception):
         # 日志已在 main.py 的请求中间件里记过（那里能带上 request_id），这里只负责响应
         return error_response(request, *classify(exc))
 
+    app.add_exception_handler(DomainError, handle_domain_error)
     for exc_type in llm_errors:
         app.add_exception_handler(exc_type, handle_llm_error)
     app.add_exception_handler(Exception, handle_unexpected)

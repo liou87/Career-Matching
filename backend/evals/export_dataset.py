@@ -12,9 +12,9 @@
 import json
 from pathlib import Path
 
-from app.api.analysis import _job_to_dict, _profile_to_dict
 from app.db import models
 from app.db.session import SessionLocal
+from app.services.analysis import job_to_dict, profile_to_dict
 
 DATASET_DIR = Path(__file__).resolve().parent / "dataset"
 
@@ -63,8 +63,8 @@ def main():
         jobs = db.query(models.Job).filter(models.Job.status == "active").order_by(models.Job.id).all()
         if not profile or not jobs:
             raise SystemExit("本地库里没有画像或岗位，无法导出")
-        profile_dict = sanitize_profile(_profile_to_dict(profile))
-        job_dicts = [{"job_id": j.id, **_job_to_dict(j)} for j in jobs]
+        profile_dict = sanitize_profile(profile_to_dict(profile))
+        job_dicts = [{"job_id": j.id, **job_to_dict(j)} for j in jobs]
     finally:
         db.close()
 

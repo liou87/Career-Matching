@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from app import schemas
 from app.db import models
 from app.db.session import get_db
+from app.services.checklist import add_items
 
 router = APIRouter(prefix="/checklist", tags=["checklist"])
 
@@ -15,15 +16,7 @@ def list_checklist(db: Session = Depends(get_db)):
 
 @router.post("", response_model=list[schemas.ChecklistOut])
 def add_checklist_items(data: schemas.ChecklistCreate, db: Session = Depends(get_db)):
-    items = [
-        models.Checklist(content=i.content, importance=i.importance, suggestion=i.suggestion, category=i.category)
-        for i in data.items
-    ]
-    db.add_all(items)
-    db.commit()
-    for item in items:
-        db.refresh(item)
-    return items
+    return add_items(db, [i.model_dump() for i in data.items])
 
 
 @router.patch("/{item_id}", response_model=schemas.ChecklistOut)

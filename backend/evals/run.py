@@ -60,12 +60,12 @@ def parse_args():
 def load_dataset(limit: int | None, profile_from_db: bool):
     jobs = _all_jobs()[:limit]
     if profile_from_db:
-        from app.api.analysis import _profile_to_dict
         from app.db import models
         from app.db.session import SessionLocal
+        from app.services.analysis import profile_to_dict
 
         with SessionLocal() as db:
-            profile = _profile_to_dict(db.query(models.Profile).first())
+            profile = profile_to_dict(db.query(models.Profile).first())
     else:
         profile = json.loads((DATASET_DIR / "profile.json").read_text(encoding="utf-8"))
     labels_path = DATASET_DIR / "labels.json"
