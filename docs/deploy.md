@@ -12,6 +12,13 @@ Vite 开发服务器会把 `/api` 代理到本机 8000 端口。
 - `DEEPSEEK_API_KEY`：DeepSeek API Key。
 - `DATABASE_URL`：Postgres 连接串，接入 Neon 后自动注入。
 - `ACCESS_TOKEN`：访问口令。不配置则任何人都能访问并消耗 API 额度。
+- `LOG_JSON`：设为 `true`，日志按一行一条 JSON 输出，方便在 Vercel Logs 里检索。
+- `LANGSMITH_TRACING`、`LANGSMITH_API_KEY`、`LANGSMITH_PROJECT`：可选，
+  开启 LangSmith 链路追踪。每次请求返回前会等 trace 上传完，
+  避免函数被冻结时丢数据。
+
+其他可调参数（按角色换模型、超时、评分权重等）见 `backend/app/core/config.py`，
+环境变量名为字段名的大写。
 
 ## 部署 CareerMatch
 

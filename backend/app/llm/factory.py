@@ -11,18 +11,20 @@ from langchain.chat_models import init_chat_model
 from langchain_core.language_models import BaseChatModel
 
 from app.core.config import settings
+from app.llm.callbacks import LLMCallLogger
 
 Role = Literal["jd_parse", "analysis", "suggest", "merge", "agent"]
 
 
 @lru_cache
 def get_model(role: Role) -> BaseChatModel:
+    model_name = getattr(settings, f"model_{role}")
     kwargs = {}
     if settings.llm_base_url:
         kwargs["base_url"] = settings.llm_base_url
 
     return init_chat_model(
-        getattr(settings, f"model_{role}"),
+        model_name,
         model_provider=settings.llm_provider,
         api_key=settings.llm_api_key,
         temperature=0,
@@ -32,5 +34,6 @@ def get_model(role: Role) -> BaseChatModel:
         # 打上角色标签，链路追踪里可以按角色筛选
         tags=[f"role:{role}"],
         metadata={"llm_role": role},
+        callbacks=[LLMCallLogger(role, model_name)],
         **kwargs,
     )

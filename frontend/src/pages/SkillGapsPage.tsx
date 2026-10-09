@@ -76,9 +76,9 @@ export default function SkillGapsPage() {
       const taskId = r.data.task_id;
       checkTask(taskId);
       pollRef.current = window.setInterval(() => checkTask(taskId), 3000);
-    } catch {
+    } catch (e: any) {
       setPolling(false);
-      setPollError("触发分析失败，请检查后端是否在运行");
+      setPollError(e.response?.data?.detail || "触发分析失败，请检查后端是否在运行");
     }
   };
 

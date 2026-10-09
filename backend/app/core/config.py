@@ -65,9 +65,12 @@ class Settings(BaseSettings):
     batch_max_concurrency: int = 5
     batch_timeout_minutes: int = 5  # 超过这个时间仍是 running 的任务视为中断
 
-    # ---------- 日志 ----------
+    # ---------- 日志与链路追踪 ----------
     log_level: str = "INFO"
     log_json: bool = False  # 线上设为 true，每条日志输出一行 JSON
+    # LangSmith 由 LangChain 直接读环境变量（LANGSMITH_TRACING / LANGSMITH_API_KEY /
+    # LANGSMITH_PROJECT），这里只用来判断请求结束时要不要等 trace 上传完
+    langsmith_tracing: bool = False
 
     @field_validator("score_weights")
     @classmethod

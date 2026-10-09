@@ -1,11 +1,13 @@
 import hashlib
 import json
+import logging
 from datetime import datetime, timedelta
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app import schemas
 from app.core.config import settings
+from app.core.errors import classify
 from app.db import models
 from app.db.session import get_db, SessionLocal
 from app.graphs.batch import analyze_all
@@ -13,6 +15,7 @@ from app.graphs.match import analyze_match_v3
 from app.services.aggregate import aggregate_gaps
 from app.services.scoring import clamp_breakdown, clamp_score, weighted_score
 
+logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/analysis", tags=["analysis"])
 
 BATCH_TIMEOUT = timedelta(minutes=settings.batch_timeout_minutes)
@@ -93,11 +96,14 @@ def run_batch(task_id: int):
         task.finished_at = datetime.utcnow()
         db.commit()
     except Exception as e:
+        logger.exception("batch_failed", extra={"fields": {"task_id": task_id}})
         db.rollback()
         task = db.query(models.BatchAnalysis).filter(models.BatchAnalysis.id == task_id).first()
         if task:
+            _, code, message = classify(e)
             task.status = "failed"
-            task.error = str(e)
+            # 业务上主动抛的错误（如没有画像）保留原文，LLM 相关的换成友好提示
+            task.error = str(e) if code == "INTERNAL" else message
             task.finished_at = datetime.utcnow()
             db.commit()
     finally:
