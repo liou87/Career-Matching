@@ -1,5 +1,7 @@
 # CareerMatch
 
+[![CI](https://img.shields.io/github/actions/workflow/status/liou87/Career-Matching/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/liou87/Career-Matching/actions/workflows/ci.yml)
+
 CareerMatch（求职助手）用 AI 管理求职全流程：维护个人画像，
 粘贴 JD 自动解析入库，逐岗位做匹配分析，汇总所有岗位的技能缺口，
 并把待提升项沉淀成一份可勾选的清单。
@@ -24,6 +26,8 @@ CareerMatch（求职助手）用 AI 管理求职全流程：维护个人画像�
 
 - **后端**：FastAPI、SQLAlchemy，本地用 SQLite，线上用 Postgres；
   AI 部分用 LangChain 和 LangGraph，模型走 DeepSeek。
+- **工程**：pydantic-settings 集中配置、Alembic 迁移、结构化日志、
+  pytest、ruff、GitHub Actions。
 - **前端**：React 19、TypeScript、Vite、React Router、axios。
 
 ## CareerMatch 目录结构
@@ -87,6 +91,18 @@ npm run dev
 
 访问 <http://localhost:5173>。Vite 会把 `/api` 请求代理到
 <http://localhost:8000> 的后端，所以要先启动后端。
+
+## 测试 CareerMatch
+
+```bash
+cd backend
+pip install -r requirements-dev.txt
+ruff check .
+pytest --cov=app
+```
+
+测试里的 LLM 调用全部替换成假链，不需要 API Key，也不会产生费用。
+每次 push 都会在 GitHub Actions 上跑后端测试和前端构建。
 
 ## 部署 CareerMatch
 

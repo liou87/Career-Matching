@@ -22,17 +22,19 @@
 
 预计 4 天。
 
-- [ ] 目录重组为 `backend/app/` 包：`core`、`db`、`api`、`llm`、`graphs`、
+- [x] 目录重组为 `backend/app/` 包：`core`、`db`、`api`、`llm`、`graphs`、
   `agent`、`services`
-- [ ] `pydantic-settings` 集中配置：模型名、max_tokens、超时、权重、排除技能；
+- [x] `pydantic-settings` 集中配置：模型名、max_tokens、超时、权重、排除技能；
   评分权重只保留一份
-- [ ] LLM 工厂 `get_model(role)`：按角色配置模型，换模型只改配置；
+- [x] LLM 工厂 `get_model(role)`：按角色配置模型，换模型只改配置；
   `parse_jd` 改为 `with_structured_output` 校验
-- [ ] 全局错误处理：LLM 超时返回 504、上游失败返回 502，带错误码
-- [ ] 结构化日志：request_id 中间件；每次 LLM 调用记录角色、模型、耗时、token
-- [ ] 接入 LangSmith；serverless 下设置 `LANGCHAIN_CALLBACKS_BACKGROUND=false`
-- [ ] Alembic 迁移取代 `create_all`
-- [ ] pytest 覆盖确定性逻辑；GitHub Actions 跑 ruff、pytest、前端构建
+- [x] 全局错误处理：LLM 超时返回 504、上游失败返回 502，带错误码
+- [x] 结构化日志：request_id 中间件；每次 LLM 调用记录角色、模型、耗时、token
+- [ ] 接入 LangSmith：代码已就绪（请求结束前等 trace 上传完），
+  待配置 API Key 后验证
+- [x] Alembic 迁移取代 `create_all`
+- [x] pytest 覆盖确定性逻辑（39 个用例，覆盖率 89%）；
+  GitHub Actions 跑 ruff、pytest、前端构建
 
 验收：CI 通过；任意一次分析都能在 LangSmith 看到完整 trace。
 
