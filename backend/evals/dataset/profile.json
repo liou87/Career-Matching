@@ -1,0 +1,84 @@
+{
+  "name": "候选人",
+  "education": [
+    {
+      "degree": "硕士",
+      "school": "某高校",
+      "major": "计算机科学",
+      "year": "2026年12月"
+    },
+    {
+      "degree": "本科",
+      "school": "某高校",
+      "major": "计算机科学",
+      "year": "2024年"
+    }
+  ],
+  "skills": [
+    "React",
+    "Vue",
+    "JavaScript",
+    "Python",
+    "FastAPI",
+    "SQL",
+    "DeepSeek API",
+    "LLM应用开发",
+    "Prompt Engineering",
+    "Linux",
+    "Git",
+    "Claude Code",
+    "Railway",
+    "Vercel",
+    "SQLite",
+    "PostgreSQL基础",
+    "LangChain (LCEL, with_structured_output, @tool)",
+    "LangGraph (StateGraph, 条件路由, Reducer, RetryPolicy, Send API)",
+    "Function Calling / Tool Calling",
+    "Pydantic 结构化输出",
+    "LangSmith (链路追踪与调试)"
+  ],
+  "experiences": [
+    {
+      "title": "前端工程师",
+      "company": "某科技公司",
+      "duration": "2023年（3个月）",
+      "description": "前端页面编写"
+    }
+  ],
+  "projects": [
+    {
+      "name": "AI Chat",
+      "description": "多轮对话应用，已上线。手写会话历史持久化（SQLite）。",
+      "tech_stack": [
+        "React",
+        "FastAPI",
+        "DeepSeek",
+        "SQLite"
+      ]
+    },
+    {
+      "name": "CareerMatch",
+      "description": "AI 求职匹配分析工具，已上线。从裸 openai SDK 迁移到 LangChain，再重构为 LangGraph 状态机。单 prompt 拆为两阶段链（客观比对/建议生成），加权分计算从 LLM 移回 Python，计算错误率 7/15→0/15；LangGraph 条件路由让技术栈不匹配的岗位走轻量路径，耗时 12s→4s；节点级 RetryPolicy 显式配置 retry_on，成功率 14/15→15/15；Send API 动态并行批量分析，15 个岗位 180s→38s；建立 evals 评测脚本体系，所有优化均有前后对比数据。",
+      "tech_stack": [
+        "React",
+        "FastAPI",
+        "DeepSeek",
+        "LangGraph",
+        "LangChain"
+      ]
+    }
+  ],
+  "target_roles": [
+    "AI应用工程师",
+    "大模型应用开发",
+    "AI全栈工程师"
+  ],
+  "target_cities": [
+    "西安 北京 上海 深圳 杭州 广州"
+  ],
+  "target_companies": [
+    "AI创业公司",
+    "中型互联网",
+    "外企在华"
+  ]
+}

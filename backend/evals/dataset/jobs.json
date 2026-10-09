@@ -1,0 +1,515 @@
+[
+  {
+    "job_id": 1,
+    "title": "AlAgent 算法工程师",
+    "company": null,
+    "city": null,
+    "salary_min": null,
+    "salary_max": null,
+    "required_skills": [
+      "Python",
+      "大语言模型基本原理",
+      "LLM API (如OpenAI、Claude、Gemini等)",
+      "Prompt Engineering (Few-shot、CoT、Tool-calling等)"
+    ],
+    "preferred_skills": [
+      "LangChain/LangGraph等Agent框架",
+      "多模态模型(VLM)项目经验",
+      "RAG、知识库问答或结构化数据分析",
+      "Cursor/Claude等AI辅助开发工具"
+    ],
+    "experience_required": "应届生可",
+    "education_required": "硕士及以上（优秀本科生可）",
+    "responsibilities": [
+      "参与AI Agent的设计与开发，负责特定领域诊断/分析Agent的Prompt设计与效果迭代",
+      "通过Chain-of-Thought、多轮推理等策略优化Agent在复杂场景下的准确率和鲁棒性",
+      "构建和维护评测数据集(Benchmark)，定义评估指标，量化分析Agent效果并持续改进",
+      "与团队协作完成Agent Pipeline的集成与调试，推动Agent能力的实际落地"
+    ]
+  },
+  {
+    "job_id": 2,
+    "title": "Agent 开发工程师-校招",
+    "company": "上海觅深科技有限公司",
+    "city": "上海",
+    "salary_min": 25,
+    "salary_max": 30,
+    "required_skills": [
+      "Python",
+      "后端语言",
+      "微服务架构",
+      "分布式系统",
+      "AI Agent框架"
+    ],
+    "preferred_skills": [
+      "AI Agent相关项目经验",
+      "后端开发经验",
+      "LLM应用开发",
+      "容器化与云原生技术",
+      "GitHub活跃项目",
+      "ToB SaaS或用研/调研行业实习经验"
+    ],
+    "experience_required": "应届生可",
+    "education_required": "本科及以上",
+    "responsibilities": [
+      "Agent系统工程化:负责 AI Agent 从算法原型到生产级系统的工程化落地，包括架构设计、代码实现、性能优化",
+      "基础设施建设:设计和搭建 Agent 运行所需的基础设施，包括任务调度、状态管理、监控告警、容错机制，确保系统高可用",
+      "多Agent协作实现:实现 Multi-Agent 系统的工程化，解决 Agent 间的通信、协调、冲突处理等问题",
+      "工具链开发:开发 Agent 可调用的工具集和插件系统，扩展 Agent 的能力边界，支持业务快速迭代",
+      "质量与可观测性:建立测试体系、日志系统、链路追踪机制，保障 Agent 的可靠性和可维护性"
+    ]
+  },
+  {
+    "job_id": 3,
+    "title": "大模型应用开发工程师",
+    "company": "ShopeeFood",
+    "city": "上海",
+    "salary_min": 25,
+    "salary_max": 50,
+    "required_skills": [
+      "Python/Java/Scala",
+      "Spark",
+      "LangGraph/Google ADK",
+      "大模型API调用",
+      "Prompt优化",
+      "工程化部署",
+      "Agent系统设计",
+      "状态管理",
+      "多Agent协作",
+      "技能封装"
+    ],
+    "preferred_skills": [
+      "复杂项目落地经验",
+      "DeepResearch",
+      "Text2SQL",
+      "自动化测试",
+      "AIOps",
+      "生成式UI",
+      "GitHub高质量AI开源项目",
+      "核心贡献者",
+      "Cursor/Codex/Claude Code",
+      "长上下文处理",
+      "推理成本优化"
+    ],
+    "experience_required": "3-5年",
+    "education_required": "本科及以上",
+    "responsibilities": [
+      "负责ShopeeFood大模型应用需求的设计、开发、落地、评估，建立自动化评测体系并持续迭代",
+      "将通用大模型能力转化为文本匹配、评论摘要、Agent工作流等具体应用",
+      "负责基于大模型的Agent系统设计，设计并优化Prompt和Context策略提升整体输出质量"
+    ]
+  },
+  {
+    "job_id": 4,
+    "title": "AI应用开发工程师",
+    "company": "快手",
+    "city": null,
+    "salary_min": null,
+    "salary_max": null,
+    "required_skills": [
+      "至少一种编程语言（如Java、Python等）",
+      "常见数据结构与算法",
+      "AI产品使用与工具应用",
+      "Agent核心组件（Chains、Agents、Memory等）",
+      "Prompt Engineering"
+    ],
+    "preferred_skills": [
+      "AI相关项目经验或互联网实习经历",
+      "深度学习机器学习科研经历或竞赛获奖",
+      "跨学科思维"
+    ],
+    "experience_required": "应届生可",
+    "education_required": "本科及以上",
+    "responsibilities": [
+      "参与A应用的全栈开发，解决生产场景复杂问题，提升业务指标和生产效能",
+      "开发适用于生产场景的Multi-Agent系统，探索上下文工程最佳实践",
+      "探索前沿AI技术，包括多模态大模型、Agent架构设计、RAG优化、工具调用链路设计等，并构建原型",
+      "跟踪AI技术趋势，研究相关产品、开源项目、前沿论文，分享核心技术要点"
+    ]
+  },
+  {
+    "job_id": 5,
+    "title": "ai应用开发工程师",
+    "company": "去哪儿",
+    "city": "上海",
+    "salary_min": 20,
+    "salary_max": 30,
+    "required_skills": [
+      "Python",
+      "Java",
+      "TypeScript",
+      "LLM",
+      "Agent",
+      "RAG",
+      "多轮对话",
+      "Function Calling/Tool Calling",
+      "结构化输出",
+      "评测"
+    ],
+    "preferred_skills": [
+      "智能客服相关从业经验",
+      "大模型应用、Agent相关经验"
+    ],
+    "experience_required": "1-3年",
+    "education_required": "本科及以上",
+    "responsibilities": [
+      "负责AI技术在去哪儿各类业务场景中的创新应用研究与落地，探索大模型、生成式AI、AIAgent等技术在实际业务中的价值。",
+      "与产品、业务及其他工程团队紧密合作，理解业务需求，完成从技术方案设计、系统开发、效果验证到上线迭代的完整交付。",
+      "持续优化AI应用的准确性、稳定性、响应效率和用户体验，推动AI能力在业务流程中的规模化落地。",
+      "借助AI Coding工具提升智能客服系统研发效率，深度参与Agent、RAG等大模型技术在客服场景中的工程落地与持续优化。"
+    ]
+  },
+  {
+    "job_id": 6,
+    "title": "后端开发工程师-番茄/红果/漫剧",
+    "company": null,
+    "city": "北京",
+    "salary_min": 25,
+    "salary_max": 45,
+    "required_skills": [
+      "Golang",
+      "Java",
+      "C",
+      "C++",
+      "PHP",
+      "Python",
+      "Go",
+      "SpringCloud",
+      "MySQL",
+      "Kafka",
+      "Redis",
+      "数据结构",
+      "算法",
+      "操作系统"
+    ],
+    "preferred_skills": [
+      "Agent开发经验"
+    ],
+    "experience_required": "在校/应届",
+    "education_required": "本科及以上",
+    "responsibilities": [
+      "负责字节跳动番茄小说、红果短剧、红果AI漫剧、番茄畅听等多业务方向的服务端开发工作",
+      "负责架构设计和开发，为亿级用户提供优质顺畅的信息服务和极致体验",
+      "构建端到端的智能创作Agent：运用LLM/VLM大模型能力，搭建从剧本到视频的智能创作Agent，并探索多Agent协作模式，打造全新的自动化内容生产流程",
+      "参与设计系统技术方案，代码开发和系统调优",
+      "参与制定代码规范、测试规范，建立起开发质量控制方法",
+      "协助团队攻克各种高并发、数据隔离、系统解耦等方面的技术难关",
+      "参与各专项技术调研，新技术引入等前瞻项目",
+      "参与机器学习与异构计算系统研发"
+    ]
+  },
+  {
+    "job_id": 7,
+    "title": "代码质量Agent开发工程师一开发者服务",
+    "company": "字节跳动",
+    "city": "上海",
+    "salary_min": 25,
+    "salary_max": 40,
+    "required_skills": [
+      "Golang",
+      "Java",
+      "Elasticsearch",
+      "MySQL",
+      "MyBatis",
+      "Redis",
+      "SQL Server",
+      "Spring",
+      "Python"
+    ],
+    "preferred_skills": [
+      "AI工程落地经验",
+      "大规模系统架构经验"
+    ],
+    "experience_required": "应届生可",
+    "education_required": "本科及以上",
+    "responsibilities": [
+      "负责AI智能平台的后端研发工作，包括产品需求分析、架构设计、技术攻坚、产品开发与优化工作",
+      "与前端、产品、UI一起提升产品的用户体验，打造卓越的智能化产品",
+      "关注质量智能领域前沿AI技术发展，能够将新知识传递给团队，并且转化到潜在项目中"
+    ]
+  },
+  {
+    "job_id": 8,
+    "title": "AI Agent开发",
+    "company": null,
+    "city": "上海",
+    "salary_min": 30,
+    "salary_max": 60,
+    "required_skills": [
+      "Go",
+      "Python",
+      "MySQL",
+      "Redis",
+      "消息队列",
+      "Docker",
+      "Kubernetes",
+      "DevOps",
+      "AI辅助开发工具"
+    ],
+    "preferred_skills": [
+      "产品思维",
+      "业务理解力",
+      "开源项目贡献",
+      "技术社区活跃",
+      "AI Agent应用开发",
+      "Agent工具链",
+      "多Agent架构",
+      "多模型工作流搭建"
+    ],
+    "experience_required": "3-5年",
+    "education_required": "本科及以上",
+    "responsibilities": [
+      "参与AI产品的后端服务开发，基于Go/Python实现高可用、高性能的功能模块",
+      "参与核心系统技术方案设计、代码开发及线上问题排查修复，持续提升系统质量与用户体验",
+      "与产品、算法及客户端团队紧密协作，推动AI能力在海外业务场景中的落地，支撑业务增长及产品迭代"
+    ]
+  },
+  {
+    "job_id": 9,
+    "title": "AIAgent开发工程师",
+    "company": null,
+    "city": "上海",
+    "salary_min": 25,
+    "salary_max": 35,
+    "required_skills": [
+      "Python",
+      "LangChain",
+      "Agent",
+      "大模型应用开发"
+    ],
+    "preferred_skills": [
+      "量化经验",
+      "金融科技经验",
+      "AI项目经验",
+      "开发agent",
+      "在clawhub上发布skills"
+    ],
+    "experience_required": "在校/应届",
+    "education_required": "本科及以上",
+    "responsibilities": [
+      "基于大模型与Agent框架，研发量化投研专属智能体",
+      "落地RAG、工具调用、任务自动化，要盖研报分析、因子处理、数据复盘等场景",
+      "对接量化策略与数据团队，推进AI功能落地迭代",
+      "跟进AI前沿技术，优化模型推理与输出精度"
+    ]
+  },
+  {
+    "job_id": 10,
+    "title": "资深Python开发(AI Agent方向)",
+    "company": "TEKsystems",
+    "city": null,
+    "salary_min": 25,
+    "salary_max": 35,
+    "required_skills": [
+      "Python",
+      "分布式搜索引擎开发",
+      "Solr或Elasticsearch",
+      "搜索性能优化",
+      "索引设计",
+      "查询优化",
+      "分片策略",
+      "缓存机制",
+      "系统性能分析",
+      "AI LLM生成结果评估",
+      "多语言AI应用开发",
+      "英文沟通能力",
+      "Infrastructure as Code (IaC)",
+      "Terraform或CloudFormation",
+      "AWS架构设计",
+      "跨团队协作",
+      "问题分析",
+      "需求分析",
+      "任务拆解",
+      "技术方案设计",
+      "项目推进",
+      "成果交付",
+      "软件安全与合规意识"
+    ],
+    "preferred_skills": [
+      "Solr项目经验",
+      "AWS经验",
+      "跨语言检索",
+      "内容生成"
+    ],
+    "experience_required": "经验不限",
+    "education_required": "本科及以上",
+    "responsibilities": [
+      "AI Agent核心开发：负责Agent推理引擎、任务规划、记忆机制、工具调用及多Agent协作架构的设计与实现，持续提升复杂任务完成率与推理准确率。",
+      "LLM集成与RAG优化：集成多种大语言模型，构建可插拔模型适配层；研发检索增强生成(RAG)链路，优化索引设计、查询策略与混合检索，提升召回与生成质量驱动持续迭代优化。",
+      "评估体系建设：建立自动化与人工结合的评估体系，涵盖相关性、准确性、幻觉检测等维度，维护基准数据集。",
+      "多语言能力：支持中英文等多语言输入理解与输出生成，优化跨语言检索及语义一致性，保障多场景下的内容质量。",
+      "基础设施与安全合规：使用IaC(Terraform等)管理AWS云环境，保障系统高可用；落实安全开发生命周期、数据隐私保护及开源合规，构建AI内容安全防护。",
+      "跨团队协作与交付：与数据科学、平台、产品等团队高效协同，主导技术方案设计、任务拆解与项目推进，按期交付成果，跟踪前沿技术并推动创新。"
+    ]
+  },
+  {
+    "job_id": 11,
+    "title": "AIAgent开发工程师",
+    "company": "菲玲科技",
+    "city": "上海",
+    "salary_min": 25,
+    "salary_max": 50,
+    "required_skills": [
+      "TypeScript",
+      "Node.js",
+      "Python",
+      "大模型API",
+      "Prompt",
+      "Function Calling",
+      "Agent开发"
+    ],
+    "preferred_skills": [
+      "OpenAI Agents SDK",
+      "LangChain",
+      "MCP"
+    ],
+    "experience_required": "1-3年",
+    "education_required": "本科",
+    "responsibilities": [
+      "开发和维护AIAgent，包括工具调用、任务执行和工作流编排",
+      "接入大模型及图片、视频、音频等AIGC能力优化Agent的稳定性、执行效果、响应速度和成本",
+      "与产品团队一起快速验证和上线AI功能"
+    ]
+  },
+  {
+    "job_id": 12,
+    "title": "AIAgent开发上程帅",
+    "company": "聚水潭",
+    "city": "上海",
+    "salary_min": 20,
+    "salary_max": 35,
+    "required_skills": [
+      "AIAgent商用项目经验",
+      "主流Agent框架",
+      "Prompt",
+      "Function Calling",
+      "RAG",
+      "SKILL",
+      "MCP"
+    ],
+    "preferred_skills": [
+      "AI编排自动工作流或RPA相关经验",
+      "AI自动化操作浏览器/桌面自动化Agent开发经验",
+      "多模型、多Agent调度及复杂系统架构经验"
+    ],
+    "experience_required": "经验不限",
+    "education_required": "本科",
+    "responsibilities": [
+      "设计多Agent系统及协作机制",
+      "实现复杂ERP任务拆解、自动执行及反思自纠错闭环",
+      "开发基于大模型的类RPA流程编排系统",
+      "构建Agent核心能力，优化系统稳定性、成本及执行成功率",
+      "完成AIAgent系统与SaaSERP核心模块的集成落地"
+    ]
+  },
+  {
+    "job_id": 13,
+    "title": "Agent开发工程师(腾讯云产品交互方向)",
+    "company": "腾讯",
+    "city": "深圳",
+    "salary_min": 20,
+    "salary_max": 28,
+    "required_skills": [
+      "Python",
+      "Java",
+      "Go",
+      "TypeScript",
+      "Prompt Engineering",
+      "Function Calling",
+      "RAG",
+      "上下文管理",
+      "Agent工作流",
+      "API设计",
+      "系统集成"
+    ],
+    "preferred_skills": [
+      "腾讯云产品开发",
+      "运维经验",
+      "云控制台智能助手",
+      "自动化运维",
+      "开发者工具",
+      "企业级AI产品"
+    ],
+    "experience_required": "在校/应届",
+    "education_required": "本科及以上",
+    "responsibilities": [
+      "负责腾讯云产品中智能Agent的设计、开发与落地，包括任务规划、工具调用、多轮对话、上下文管理及异常处理等核心能力。",
+      "对接腾讯云控制台、云API及相关产品能力，构建自然语言驱动的云产品查询、配置、运维与问题诊断体验。",
+      "与产品经理、交互设计师及云产品研发团队协作，将复杂的云服务操作流程转化为清晰、高效、可信的Agent交互。",
+      "建设Agent效果评测体系，持续优化任务成功率、响应准确性、交互效率及用户体验。",
+      "关注大模型与Agent技术发展，探索多Agent协作、RAG、MCP、工作流编排等技术在腾讯云场景中的应用。"
+    ]
+  },
+  {
+    "job_id": 14,
+    "title": "LLM应用开发(Al agent)",
+    "company": "法本",
+    "city": "深圳",
+    "salary_min": 15,
+    "salary_max": 25,
+    "required_skills": [
+      "Python",
+      "LangChain",
+      "LangGraph",
+      "FastAPI",
+      "Flask",
+      "MCP协议",
+      "RAG",
+      "向量数据库",
+      "高可用工程化"
+    ],
+    "preferred_skills": [
+      "Multi-Agent复杂编排项目落地经验",
+      "Harness Engineering",
+      "开源项目贡献或技术博客"
+    ],
+    "experience_required": "1-3年",
+    "education_required": "本科及以上",
+    "responsibilities": [
+      "基于LangChainLangGraph框架设计、开发并维护企业级Multi-Agent系统，实现复杂业务流程的自动化编排与",
+      "负责Multi-Agent工作流架构设计，包括StateGraph状态管理、条件路由、Pipeline串联、并行执行、HITL人机协同及断点恢复等核心机制落地。",
+      "基于MCP协议完成工具标准化封装，将业务API、知识库、数据库等外部能力抽象为标准Tool/Resource/Skill，供Agent动态调用。",
+      "建设企业级RAG知识库与检索链路，涵盖文档解析、分块策略、Embedding、混合检索、重排序、引用溯源与效果评测。",
+      "负责Agent系统高可用与工程化治理，包括超时控制、自动重试、优雅降级、幂等设计、全链路日志追踪与可观测性建设(LangSmith/Langfuse等)。",
+      "响应业务需求，快速完成Agent应用原型验证与生产级交付，持续迭代优化系统稳定性与回答质量。",
+      "编写接口文档、技术方案与单元测试，沉淀可复用的Agent组件、Skill模板与最佳实践。"
+    ]
+  },
+  {
+    "job_id": 15,
+    "title": "AI Agent开发工程师",
+    "company": "和生创新技术",
+    "city": "深圳",
+    "salary_min": 18,
+    "salary_max": 28,
+    "required_skills": [
+      "Python",
+      "LLM应用开发",
+      "Agent架构",
+      "Node.js/TypeScript",
+      "API集成"
+    ],
+    "preferred_skills": [
+      "OpenClaw/Claude Code/Cursor AI coding agent",
+      "记忆系统设计经验",
+      "飞书/企微开放平台开发经验",
+      "个人AIAgent/Bot作品"
+    ],
+    "experience_required": "3-5年",
+    "education_required": "本科",
+    "responsibilities": [
+      "基于OpenClaw开发和维护企业Agent(Skill编写、记忆系统、工具集成)",
+      "设计Agent的记忆架构(短期/长期/语义/情景记忆)",
+      "构建Agent间的协作协议(多Agent orchestration)",
+      "设计Agent的Bootstrap文件体系(SOUL/AGENTS/USER/MEMORY/TOOLS)",
+      "构建hybrid search(向量+BM25)检索管线",
+      "实现记忆整理机制(Dream/Consolidation/Atomization)",
+      "MCP Server开发与维护",
+      "开发OpenClaw Skills/Plugins,打通内部系统(飞书、ERP、CRM、数据平台)",
+      "对接LLM API(Claude/GPT/DeepSeek)，管理token预算与模型路由",
+      "Agent行为监控与质量评估",
+      "Prompt工程优化",
+      "跟进Agent记忆/工具/协作的最新研究与开源方案"
+    ]
+  }
+]

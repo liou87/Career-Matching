@@ -1,0 +1,928 @@
+[
+  {
+    "job_id": 1,
+    "title": "AlAgent 算法工程师",
+    "reviewed": false,
+    "jd_required": [
+      "Python",
+      "大语言模型基本原理",
+      "LLM API (如OpenAI、Claude、Gemini等)",
+      "Prompt Engineering (Few-shot、CoT、Tool-calling等)"
+    ],
+    "jd_preferred": [
+      "LangChain/LangGraph等Agent框架",
+      "多模态模型(VLM)项目经验",
+      "RAG、知识库问答或结构化数据分析",
+      "Cursor/Claude等AI辅助开发工具"
+    ],
+    "missing": [
+      {
+        "skill": "大语言模型基本原理",
+        "aliases": [
+          "大语言模型基本原理"
+        ]
+      },
+      {
+        "skill": "LLM API (如OpenAI、Claude、Gemini等)",
+        "aliases": [
+          "LLM API (如OpenAI、Claude、Gemini等)"
+        ]
+      }
+    ]
+  },
+  {
+    "job_id": 2,
+    "title": "Agent 开发工程师-校招",
+    "reviewed": false,
+    "jd_required": [
+      "Python",
+      "后端语言",
+      "微服务架构",
+      "分布式系统",
+      "AI Agent框架"
+    ],
+    "jd_preferred": [
+      "AI Agent相关项目经验",
+      "后端开发经验",
+      "LLM应用开发",
+      "容器化与云原生技术",
+      "GitHub活跃项目",
+      "ToB SaaS或用研/调研行业实习经验"
+    ],
+    "missing": [
+      {
+        "skill": "后端语言",
+        "aliases": [
+          "后端语言"
+        ]
+      },
+      {
+        "skill": "微服务架构",
+        "aliases": [
+          "微服务架构"
+        ]
+      },
+      {
+        "skill": "分布式系统",
+        "aliases": [
+          "分布式系统"
+        ]
+      },
+      {
+        "skill": "AI Agent框架",
+        "aliases": [
+          "AI Agent框架"
+        ]
+      }
+    ]
+  },
+  {
+    "job_id": 3,
+    "title": "大模型应用开发工程师",
+    "reviewed": false,
+    "jd_required": [
+      "Python/Java/Scala",
+      "Spark",
+      "LangGraph/Google ADK",
+      "大模型API调用",
+      "Prompt优化",
+      "工程化部署",
+      "Agent系统设计",
+      "状态管理",
+      "多Agent协作",
+      "技能封装"
+    ],
+    "jd_preferred": [
+      "复杂项目落地经验",
+      "DeepResearch",
+      "Text2SQL",
+      "自动化测试",
+      "AIOps",
+      "生成式UI",
+      "GitHub高质量AI开源项目",
+      "核心贡献者",
+      "Cursor/Codex/Claude Code",
+      "长上下文处理",
+      "推理成本优化"
+    ],
+    "missing": [
+      {
+        "skill": "Spark",
+        "aliases": [
+          "Spark"
+        ]
+      },
+      {
+        "skill": "LangGraph/Google ADK",
+        "aliases": [
+          "LangGraph/Google ADK"
+        ]
+      },
+      {
+        "skill": "大模型API调用",
+        "aliases": [
+          "大模型API调用"
+        ]
+      },
+      {
+        "skill": "Prompt优化",
+        "aliases": [
+          "Prompt优化"
+        ]
+      },
+      {
+        "skill": "工程化部署",
+        "aliases": [
+          "工程化部署"
+        ]
+      },
+      {
+        "skill": "Agent系统设计",
+        "aliases": [
+          "Agent系统设计"
+        ]
+      },
+      {
+        "skill": "状态管理",
+        "aliases": [
+          "状态管理"
+        ]
+      },
+      {
+        "skill": "多Agent协作",
+        "aliases": [
+          "多Agent协作"
+        ]
+      },
+      {
+        "skill": "技能封装",
+        "aliases": [
+          "技能封装"
+        ]
+      }
+    ]
+  },
+  {
+    "job_id": 4,
+    "title": "AI应用开发工程师",
+    "reviewed": false,
+    "jd_required": [
+      "至少一种编程语言（如Java、Python等）",
+      "常见数据结构与算法",
+      "AI产品使用与工具应用",
+      "Agent核心组件（Chains、Agents、Memory等）",
+      "Prompt Engineering"
+    ],
+    "jd_preferred": [
+      "AI相关项目经验或互联网实习经历",
+      "深度学习机器学习科研经历或竞赛获奖",
+      "跨学科思维"
+    ],
+    "missing": [
+      {
+        "skill": "常见数据结构与算法",
+        "aliases": [
+          "常见数据结构与算法"
+        ]
+      },
+      {
+        "skill": "AI产品使用与工具应用",
+        "aliases": [
+          "AI产品使用与工具应用"
+        ]
+      },
+      {
+        "skill": "Agent核心组件（Chains、Agents、Memory等）",
+        "aliases": [
+          "Agent核心组件（Chains、Agents、Memory等）"
+        ]
+      }
+    ]
+  },
+  {
+    "job_id": 5,
+    "title": "ai应用开发工程师",
+    "reviewed": false,
+    "jd_required": [
+      "Python",
+      "Java",
+      "TypeScript",
+      "LLM",
+      "Agent",
+      "RAG",
+      "多轮对话",
+      "Function Calling/Tool Calling",
+      "结构化输出",
+      "评测"
+    ],
+    "jd_preferred": [
+      "智能客服相关从业经验",
+      "大模型应用、Agent相关经验"
+    ],
+    "missing": [
+      {
+        "skill": "TypeScript",
+        "aliases": [
+          "TypeScript"
+        ]
+      },
+      {
+        "skill": "Agent",
+        "aliases": [
+          "Agent"
+        ]
+      },
+      {
+        "skill": "RAG",
+        "aliases": [
+          "RAG"
+        ]
+      },
+      {
+        "skill": "多轮对话",
+        "aliases": [
+          "多轮对话"
+        ]
+      },
+      {
+        "skill": "Function Calling/Tool Calling",
+        "aliases": [
+          "Function Calling/Tool Calling"
+        ]
+      },
+      {
+        "skill": "评测",
+        "aliases": [
+          "评测"
+        ]
+      }
+    ]
+  },
+  {
+    "job_id": 6,
+    "title": "后端开发工程师-番茄/红果/漫剧",
+    "reviewed": false,
+    "jd_required": [
+      "Golang",
+      "Java",
+      "C",
+      "C++",
+      "PHP",
+      "Python",
+      "Go",
+      "SpringCloud",
+      "MySQL",
+      "Kafka",
+      "Redis",
+      "数据结构",
+      "算法",
+      "操作系统"
+    ],
+    "jd_preferred": [
+      "Agent开发经验"
+    ],
+    "missing": [
+      {
+        "skill": "Golang",
+        "aliases": [
+          "Golang"
+        ]
+      },
+      {
+        "skill": "C++",
+        "aliases": [
+          "C++"
+        ]
+      },
+      {
+        "skill": "PHP",
+        "aliases": [
+          "PHP"
+        ]
+      },
+      {
+        "skill": "Go",
+        "aliases": [
+          "Go"
+        ]
+      },
+      {
+        "skill": "SpringCloud",
+        "aliases": [
+          "SpringCloud"
+        ]
+      },
+      {
+        "skill": "Kafka",
+        "aliases": [
+          "Kafka"
+        ]
+      },
+      {
+        "skill": "Redis",
+        "aliases": [
+          "Redis"
+        ]
+      },
+      {
+        "skill": "数据结构",
+        "aliases": [
+          "数据结构"
+        ]
+      },
+      {
+        "skill": "算法",
+        "aliases": [
+          "算法"
+        ]
+      },
+      {
+        "skill": "操作系统",
+        "aliases": [
+          "操作系统"
+        ]
+      }
+    ]
+  },
+  {
+    "job_id": 7,
+    "title": "代码质量Agent开发工程师一开发者服务",
+    "reviewed": false,
+    "jd_required": [
+      "Golang",
+      "Java",
+      "Elasticsearch",
+      "MySQL",
+      "MyBatis",
+      "Redis",
+      "SQL Server",
+      "Spring",
+      "Python"
+    ],
+    "jd_preferred": [
+      "AI工程落地经验",
+      "大规模系统架构经验"
+    ],
+    "missing": [
+      {
+        "skill": "Golang",
+        "aliases": [
+          "Golang"
+        ]
+      },
+      {
+        "skill": "Elasticsearch",
+        "aliases": [
+          "Elasticsearch"
+        ]
+      },
+      {
+        "skill": "MyBatis",
+        "aliases": [
+          "MyBatis"
+        ]
+      },
+      {
+        "skill": "Redis",
+        "aliases": [
+          "Redis"
+        ]
+      },
+      {
+        "skill": "Spring",
+        "aliases": [
+          "Spring"
+        ]
+      }
+    ]
+  },
+  {
+    "job_id": 8,
+    "title": "AI Agent开发",
+    "reviewed": false,
+    "jd_required": [
+      "Go",
+      "Python",
+      "MySQL",
+      "Redis",
+      "消息队列",
+      "Docker",
+      "Kubernetes",
+      "DevOps",
+      "AI辅助开发工具"
+    ],
+    "jd_preferred": [
+      "产品思维",
+      "业务理解力",
+      "开源项目贡献",
+      "技术社区活跃",
+      "AI Agent应用开发",
+      "Agent工具链",
+      "多Agent架构",
+      "多模型工作流搭建"
+    ],
+    "missing": [
+      {
+        "skill": "Go",
+        "aliases": [
+          "Go"
+        ]
+      },
+      {
+        "skill": "Redis",
+        "aliases": [
+          "Redis"
+        ]
+      },
+      {
+        "skill": "消息队列",
+        "aliases": [
+          "消息队列"
+        ]
+      },
+      {
+        "skill": "Docker",
+        "aliases": [
+          "Docker"
+        ]
+      },
+      {
+        "skill": "Kubernetes",
+        "aliases": [
+          "Kubernetes"
+        ]
+      },
+      {
+        "skill": "DevOps",
+        "aliases": [
+          "DevOps"
+        ]
+      },
+      {
+        "skill": "AI辅助开发工具",
+        "aliases": [
+          "AI辅助开发工具"
+        ]
+      }
+    ]
+  },
+  {
+    "job_id": 9,
+    "title": "AIAgent开发工程师",
+    "reviewed": false,
+    "jd_required": [
+      "Python",
+      "LangChain",
+      "Agent",
+      "大模型应用开发"
+    ],
+    "jd_preferred": [
+      "量化经验",
+      "金融科技经验",
+      "AI项目经验",
+      "开发agent",
+      "在clawhub上发布skills"
+    ],
+    "missing": [
+      {
+        "skill": "Agent",
+        "aliases": [
+          "Agent"
+        ]
+      },
+      {
+        "skill": "大模型应用开发",
+        "aliases": [
+          "大模型应用开发"
+        ]
+      }
+    ]
+  },
+  {
+    "job_id": 10,
+    "title": "资深Python开发(AI Agent方向)",
+    "reviewed": false,
+    "jd_required": [
+      "Python",
+      "分布式搜索引擎开发",
+      "Solr或Elasticsearch",
+      "搜索性能优化",
+      "索引设计",
+      "查询优化",
+      "分片策略",
+      "缓存机制",
+      "系统性能分析",
+      "AI LLM生成结果评估",
+      "多语言AI应用开发",
+      "英文沟通能力",
+      "Infrastructure as Code (IaC)",
+      "Terraform或CloudFormation",
+      "AWS架构设计",
+      "跨团队协作",
+      "问题分析",
+      "需求分析",
+      "任务拆解",
+      "技术方案设计",
+      "项目推进",
+      "成果交付",
+      "软件安全与合规意识"
+    ],
+    "jd_preferred": [
+      "Solr项目经验",
+      "AWS经验",
+      "跨语言检索",
+      "内容生成"
+    ],
+    "missing": [
+      {
+        "skill": "分布式搜索引擎开发",
+        "aliases": [
+          "分布式搜索引擎开发"
+        ]
+      },
+      {
+        "skill": "Solr或Elasticsearch",
+        "aliases": [
+          "Solr或Elasticsearch"
+        ]
+      },
+      {
+        "skill": "搜索性能优化",
+        "aliases": [
+          "搜索性能优化"
+        ]
+      },
+      {
+        "skill": "索引设计",
+        "aliases": [
+          "索引设计"
+        ]
+      },
+      {
+        "skill": "查询优化",
+        "aliases": [
+          "查询优化"
+        ]
+      },
+      {
+        "skill": "分片策略",
+        "aliases": [
+          "分片策略"
+        ]
+      },
+      {
+        "skill": "缓存机制",
+        "aliases": [
+          "缓存机制"
+        ]
+      },
+      {
+        "skill": "系统性能分析",
+        "aliases": [
+          "系统性能分析"
+        ]
+      },
+      {
+        "skill": "AI LLM生成结果评估",
+        "aliases": [
+          "AI LLM生成结果评估"
+        ]
+      },
+      {
+        "skill": "多语言AI应用开发",
+        "aliases": [
+          "多语言AI应用开发"
+        ]
+      },
+      {
+        "skill": "英文沟通能力",
+        "aliases": [
+          "英文沟通能力"
+        ]
+      },
+      {
+        "skill": "Infrastructure as Code (IaC)",
+        "aliases": [
+          "Infrastructure as Code (IaC)"
+        ]
+      },
+      {
+        "skill": "Terraform或CloudFormation",
+        "aliases": [
+          "Terraform或CloudFormation"
+        ]
+      },
+      {
+        "skill": "AWS架构设计",
+        "aliases": [
+          "AWS架构设计"
+        ]
+      },
+      {
+        "skill": "跨团队协作",
+        "aliases": [
+          "跨团队协作"
+        ]
+      },
+      {
+        "skill": "问题分析",
+        "aliases": [
+          "问题分析"
+        ]
+      },
+      {
+        "skill": "需求分析",
+        "aliases": [
+          "需求分析"
+        ]
+      },
+      {
+        "skill": "任务拆解",
+        "aliases": [
+          "任务拆解"
+        ]
+      },
+      {
+        "skill": "技术方案设计",
+        "aliases": [
+          "技术方案设计"
+        ]
+      },
+      {
+        "skill": "项目推进",
+        "aliases": [
+          "项目推进"
+        ]
+      },
+      {
+        "skill": "成果交付",
+        "aliases": [
+          "成果交付"
+        ]
+      },
+      {
+        "skill": "软件安全与合规意识",
+        "aliases": [
+          "软件安全与合规意识"
+        ]
+      }
+    ]
+  },
+  {
+    "job_id": 11,
+    "title": "AIAgent开发工程师",
+    "reviewed": false,
+    "jd_required": [
+      "TypeScript",
+      "Node.js",
+      "Python",
+      "大模型API",
+      "Prompt",
+      "Function Calling",
+      "Agent开发"
+    ],
+    "jd_preferred": [
+      "OpenAI Agents SDK",
+      "LangChain",
+      "MCP"
+    ],
+    "missing": [
+      {
+        "skill": "TypeScript",
+        "aliases": [
+          "TypeScript"
+        ]
+      },
+      {
+        "skill": "Node.js",
+        "aliases": [
+          "Node.js"
+        ]
+      },
+      {
+        "skill": "大模型API",
+        "aliases": [
+          "大模型API"
+        ]
+      },
+      {
+        "skill": "Agent开发",
+        "aliases": [
+          "Agent开发"
+        ]
+      }
+    ]
+  },
+  {
+    "job_id": 12,
+    "title": "AIAgent开发上程帅",
+    "reviewed": false,
+    "jd_required": [
+      "AIAgent商用项目经验",
+      "主流Agent框架",
+      "Prompt",
+      "Function Calling",
+      "RAG",
+      "SKILL",
+      "MCP"
+    ],
+    "jd_preferred": [
+      "AI编排自动工作流或RPA相关经验",
+      "AI自动化操作浏览器/桌面自动化Agent开发经验",
+      "多模型、多Agent调度及复杂系统架构经验"
+    ],
+    "missing": [
+      {
+        "skill": "AIAgent商用项目经验",
+        "aliases": [
+          "AIAgent商用项目经验"
+        ]
+      },
+      {
+        "skill": "主流Agent框架",
+        "aliases": [
+          "主流Agent框架"
+        ]
+      },
+      {
+        "skill": "RAG",
+        "aliases": [
+          "RAG"
+        ]
+      },
+      {
+        "skill": "SKILL",
+        "aliases": [
+          "SKILL"
+        ]
+      },
+      {
+        "skill": "MCP",
+        "aliases": [
+          "MCP"
+        ]
+      }
+    ]
+  },
+  {
+    "job_id": 13,
+    "title": "Agent开发工程师(腾讯云产品交互方向)",
+    "reviewed": false,
+    "jd_required": [
+      "Python",
+      "Java",
+      "Go",
+      "TypeScript",
+      "Prompt Engineering",
+      "Function Calling",
+      "RAG",
+      "上下文管理",
+      "Agent工作流",
+      "API设计",
+      "系统集成"
+    ],
+    "jd_preferred": [
+      "腾讯云产品开发",
+      "运维经验",
+      "云控制台智能助手",
+      "自动化运维",
+      "开发者工具",
+      "企业级AI产品"
+    ],
+    "missing": [
+      {
+        "skill": "Go",
+        "aliases": [
+          "Go"
+        ]
+      },
+      {
+        "skill": "TypeScript",
+        "aliases": [
+          "TypeScript"
+        ]
+      },
+      {
+        "skill": "RAG",
+        "aliases": [
+          "RAG"
+        ]
+      },
+      {
+        "skill": "上下文管理",
+        "aliases": [
+          "上下文管理"
+        ]
+      },
+      {
+        "skill": "Agent工作流",
+        "aliases": [
+          "Agent工作流"
+        ]
+      },
+      {
+        "skill": "API设计",
+        "aliases": [
+          "API设计"
+        ]
+      },
+      {
+        "skill": "系统集成",
+        "aliases": [
+          "系统集成"
+        ]
+      }
+    ]
+  },
+  {
+    "job_id": 14,
+    "title": "LLM应用开发(Al agent)",
+    "reviewed": false,
+    "jd_required": [
+      "Python",
+      "LangChain",
+      "LangGraph",
+      "FastAPI",
+      "Flask",
+      "MCP协议",
+      "RAG",
+      "向量数据库",
+      "高可用工程化"
+    ],
+    "jd_preferred": [
+      "Multi-Agent复杂编排项目落地经验",
+      "Harness Engineering",
+      "开源项目贡献或技术博客"
+    ],
+    "missing": [
+      {
+        "skill": "Flask",
+        "aliases": [
+          "Flask"
+        ]
+      },
+      {
+        "skill": "MCP协议",
+        "aliases": [
+          "MCP协议"
+        ]
+      },
+      {
+        "skill": "RAG",
+        "aliases": [
+          "RAG"
+        ]
+      },
+      {
+        "skill": "向量数据库",
+        "aliases": [
+          "向量数据库"
+        ]
+      },
+      {
+        "skill": "高可用工程化",
+        "aliases": [
+          "高可用工程化"
+        ]
+      }
+    ]
+  },
+  {
+    "job_id": 15,
+    "title": "AI Agent开发工程师",
+    "reviewed": false,
+    "jd_required": [
+      "Python",
+      "LLM应用开发",
+      "Agent架构",
+      "Node.js/TypeScript",
+      "API集成"
+    ],
+    "jd_preferred": [
+      "OpenClaw/Claude Code/Cursor AI coding agent",
+      "记忆系统设计经验",
+      "飞书/企微开放平台开发经验",
+      "个人AIAgent/Bot作品"
+    ],
+    "missing": [
+      {
+        "skill": "Agent架构",
+        "aliases": [
+          "Agent架构"
+        ]
+      },
+      {
+        "skill": "Node.js/TypeScript",
+        "aliases": [
+          "Node.js/TypeScript"
+        ]
+      },
+      {
+        "skill": "API集成",
+        "aliases": [
+          "API集成"
+        ]
+      }
+    ]
+  }
+]
