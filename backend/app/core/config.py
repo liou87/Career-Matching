@@ -2,6 +2,7 @@
 集中配置。所有可调参数都在这里，用环境变量或 backend/.env 覆盖，
 环境变量名就是字段名的大写，比如 MODEL_ANALYSIS=deepseek-reasoner。
 """
+import os
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -67,7 +68,9 @@ class Settings(BaseSettings):
 
     # ---------- 日志与链路追踪 ----------
     log_level: str = "INFO"
-    log_json: bool = False  # 线上设为 true，每条日志输出一行 JSON
+    # 每条日志输出一行 JSON。Vercel 运行时会注入 VERCEL=1，线上默认开启、本地默认关闭；
+    # 显式设置 LOG_JSON 可以覆盖
+    log_json: bool = Field(default_factory=lambda: os.getenv("VERCEL") == "1")
     # LangSmith 由 LangChain 直接读环境变量（LANGSMITH_TRACING / LANGSMITH_API_KEY /
     # LANGSMITH_PROJECT），这里只用来判断请求结束时要不要等 trace 上传完
     langsmith_tracing: bool = False
