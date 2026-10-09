@@ -7,7 +7,7 @@
   },
   "summary": {
     "cases": 35,
-    "pass_rate": 0.657,
+    "pass_rate": 0.629,
     "by_category": {
       "画像查询": "4/4",
       "岗位搜索": "4/7",
@@ -16,15 +16,15 @@
       "写操作": "0/5",
       "偏好记忆": "0/3",
       "闲聊与超出范围": "2/2",
-      "多轮": "4/5"
+      "多轮": "3/5"
     },
     "tool_accuracy": 1.0,
     "arg_accuracy": 0.778,
     "mention_accuracy": 0.864,
     "write_confirmed": "0/8",
     "unexpected_interrupts": 0,
-    "grounded_rate": 0.971,
-    "unsupported_claims": "1/238",
+    "grounded_rate": 0.943,
+    "unsupported_claims": "4/220",
     "turn_latency_ms_p50": 2441.5,
     "turn_latency_ms_p95": 4180.749999999999,
     "avg_cost_usd": 0.00057,
@@ -69,78 +69,23 @@
       },
       "claims": [
         {
-          "claim": "画像技能包含 React",
-          "source": "skills: [\"React\", ...]",
-          "supported": true
-        },
-        {
-          "claim": "画像技能包含 Vue",
-          "source": "skills: [\"React\", \"Vue\", ...]",
-          "supported": true
-        },
-        {
-          "claim": "画像技能包含 JavaScript",
+          "claim": "画像技能包含 React、Vue、JavaScript",
           "source": "skills: [\"React\", \"Vue\", \"JavaScript\", ...]",
           "supported": true
         },
         {
-          "claim": "画像技能包含 Python",
-          "source": "skills: [..., \"Python\", ...]",
+          "claim": "画像技能包含 Python、FastAPI、SQL、Linux、Git",
+          "source": "skills: [..., \"Python\", \"FastAPI\", \"SQL\", ..., \"Linux\", \"Git\", ...]",
           "supported": true
         },
         {
-          "claim": "画像技能包含 FastAPI",
-          "source": "skills: [..., \"FastAPI\", ...]",
+          "claim": "画像技能包含 SQLite、PostgreSQL基础",
+          "source": "skills: [..., \"SQLite\", \"PostgreSQL基础\", ...]",
           "supported": true
         },
         {
-          "claim": "画像技能包含 SQL",
-          "source": "skills: [..., \"SQL\", ...]",
-          "supported": true
-        },
-        {
-          "claim": "画像技能包含 Linux",
-          "source": "skills: [..., \"Linux\", ...]",
-          "supported": true
-        },
-        {
-          "claim": "画像技能包含 Git",
-          "source": "skills: [..., \"Git\", ...]",
-          "supported": true
-        },
-        {
-          "claim": "画像技能包含 SQLite",
-          "source": "skills: [..., \"SQLite\", ...]",
-          "supported": true
-        },
-        {
-          "claim": "画像技能包含 PostgreSQL基础",
-          "source": "skills: [..., \"PostgreSQL基础\", ...]",
-          "supported": true
-        },
-        {
-          "claim": "画像技能包含 DeepSeek API",
-          "source": "skills: [..., \"DeepSeek API\", ...]",
-          "supported": true
-        },
-        {
-          "claim": "画像技能包含 LLM应用开发",
-          "source": "skills: [..., \"LLM应用开发\", ...]",
-          "supported": true
-        },
-        {
-          "claim": "画像技能包含 Prompt Engineering",
-          "source": "skills: [..., \"Prompt Engineering\", ...]",
-          "supported": true
-        },
-        {
-          "claim": "画像技能包含 Function Calling / Tool Calling",
-          "source": "skills: [..., \"Function Calling / Tool Calling\", ...]",
-          "supported": true
-        },
-        {
-          "claim": "画像技能包含 Pydantic 结构化输出",
-          "source": "skills: [..., \"Pydantic 结构化输出\", ...]",
+          "claim": "画像技能包含 DeepSeek API、LLM应用开发、Prompt Engineering、Function Calling / Tool Calling、Pydantic 结构化输出",
+          "source": "skills: [..., \"DeepSeek API\", \"LLM应用开发\", \"Prompt Engineering\", ..., \"Function Calling / Tool Calling\", \"Pydantic 结构化输出\", ...]",
           "supported": true
         },
         {
@@ -159,43 +104,28 @@
           "supported": true
         },
         {
-          "claim": "画像技能包含 Claude Code",
-          "source": "skills: [..., \"Claude Code\", ...]",
+          "claim": "画像技能包含 Claude Code、Railway、Vercel",
+          "source": "skills: [..., \"Claude Code\", \"Railway\", \"Vercel\", ...]",
           "supported": true
         },
         {
-          "claim": "画像技能包含 Railway",
-          "source": "skills: [..., \"Railway\", ...]",
-          "supported": true
-        },
-        {
-          "claim": "画像技能包含 Vercel",
-          "source": "skills: [..., \"Vercel\", ...]",
-          "supported": true
-        },
-        {
-          "claim": "画像学历为硕士（计算机科学，2026年12月毕业）",
+          "claim": "画像里学历为硕士（计算机科学，2026年12月毕业）",
           "source": "education: [{\"degree\": \"硕士\", \"school\": \"某高校\", \"major\": \"计算机科学\", \"year\": \"2026年12月\"}, ...]",
           "supported": true
         },
         {
-          "claim": "画像学历为本科（计算机科学，2024年）",
-          "source": "education: [..., {\"degree\": \"本科\", \"school\": \"某高校\", \"major\": \"计算机科学\", \"year\": \"2024\"}]",
+          "claim": "画像里学历为本科（计算机科学，2024年）",
+          "source": "education: [..., {\"degree\": \"本科\", \"school\": \"某高校\", \"major\": \"计算机科学\", \"year\": \"2024年\"}]",
           "supported": true
         },
         {
-          "claim": "画像有一段前端工程师实习（2023年，3个月）",
-          "source": "experiences: [{\"title\": \"前端工程师\", \"company\": \"某科技公司\", \"duration\": \"2023年（3个月）\", ...}]",
+          "claim": "画像里有一段前端工程师实习（2023年，3个月）",
+          "source": "experiences: [{\"title\": \"前端工程师\", \"company\": \"某科技公司\", \"duration\": \"2023年（3个月）\", \"description\": \"前端页面编写\"}]",
           "supported": true
         },
         {
-          "claim": "画像有 AI Chat 项目",
-          "source": "projects: [{\"name\": \"AI Chat\", ...}]",
-          "supported": true
-        },
-        {
-          "claim": "画像有 CareerMatch 项目",
-          "source": "projects: [{\"name\": \"CareerMatch\", ...}]",
+          "claim": "画像里有 AI Chat、CareerMatch 两个项目",
+          "source": "projects: [{\"name\": \"AI Chat\", ...}, {\"name\": \"CareerMatch\", ...}]",
           "supported": true
         },
         {
@@ -262,7 +192,7 @@
         },
         {
           "claim": "AI Chat 技术栈：React、FastAPI、DeepSeek、SQLite",
-          "source": "{\"name\": \"AI Chat\", \"tech_stack\": [\"React\", \"FastAPI\", \"DeepSeek\", \"SQLite\"]}",
+          "source": "\"tech_stack\": [\"React\", \"FastAPI\", \"DeepSeek\", \"SQLite\"]",
           "supported": true
         },
         {
@@ -302,7 +232,7 @@
         },
         {
           "claim": "CareerMatch 技术栈：React、FastAPI、DeepSeek、LangGraph、LangChain",
-          "source": "{\"name\": \"CareerMatch\", \"tech_stack\": [\"React\", \"FastAPI\", \"DeepSeek\", \"LangGraph\", \"LangChain\"]}",
+          "source": "\"tech_stack\": [\"React\", \"FastAPI\", \"DeepSeek\", \"LangGraph\", \"LangChain\"]",
           "supported": true
         },
         {
@@ -405,7 +335,7 @@
           "supported": true
         },
         {
-          "claim": "CareerMatch 项目从 LangChain 迁移到 LangGraph 状态机",
+          "claim": "CareerMatch 项目里从 LangChain 迁移到 LangGraph 状态机",
           "source": "projects: CareerMatch description: \"从裸 openai SDK 迁移到 LangChain，再重构为 LangGraph 状态机\"",
           "supported": true
         },
@@ -485,8 +415,8 @@
           "supported": true
         },
         {
-          "claim": "岗位 1 的 RAG 是加分项（preferred_skills 含 RAG、知识库问答或结构化数据分析）",
-          "source": "\"preferred_skills\": [\"LangChain/LangGraph等Agent框架\", \"多模态模型(VLM)项目经验\", \"RAG、知识库问答或结构化数据分析\", \"Cursor/Claude等AI辅助开发工具\"]",
+          "claim": "岗位 1 的 RAG 是加分项（RAG、知识库问答或结构化数据分析）",
+          "source": "preferred_skills: [\"LangChain/LangGraph等Agent框架\", \"多模态模型(VLM)项目经验\", \"RAG、知识库问答或结构化数据分析\", \"Cursor/Claude等AI辅助开发工具\"]",
           "supported": true
         },
         {
@@ -501,7 +431,7 @@
         },
         {
           "claim": "岗位 5 的 RAG 是必备技能",
-          "source": "\"required_skills\": [\"Python\", \"Java\", \"TypeScript\", \"LLM\", \"Agent\", \"RAG\", \"多轮对话\", \"Function Calling/Tool Calling\", \"结构化输出\", \"评测\"]",
+          "source": "required_skills: [\"Python\", \"Java\", \"TypeScript\", \"LLM\", \"Agent\", \"RAG\", \"多轮对话\", \"Function Calling/Tool Calling\", \"结构化输出\", \"评测\"]",
           "supported": true
         },
         {
@@ -516,7 +446,7 @@
         },
         {
           "claim": "岗位 12 的 RAG 是必备技能",
-          "source": "\"required_skills\": [\"AIAgent商用项目经验\", \"主流Agent框架\", \"Prompt\", \"Function Calling\", \"RAG\", \"SKILL\", \"MCP\"]",
+          "source": "required_skills: [\"AIAgent商用项目经验\", \"主流Agent框架\", \"Prompt\", \"Function Calling\", \"RAG\", \"SKILL\", \"MCP\"]",
           "supported": true
         },
         {
@@ -531,7 +461,7 @@
         },
         {
           "claim": "岗位 13 的 RAG 是必备技能",
-          "source": "\"required_skills\": [\"Python\", \"Java\", \"Go\", \"TypeScript\", \"Prompt Engineering\", \"Function Calling\", \"RAG\", \"上下文管理\", \"Agent工作流\", \"API设计\", \"系统集成\"]",
+          "source": "required_skills: [\"Python\", \"Java\", \"Go\", \"TypeScript\", \"Prompt Engineering\", \"Function Calling\", \"RAG\", \"上下文管理\", \"Agent工作流\", \"API设计\", \"系统集成\"]",
           "supported": true
         },
         {
@@ -546,17 +476,12 @@
         },
         {
           "claim": "岗位 14 的 RAG 是必备技能",
-          "source": "\"required_skills\": [\"Python\", \"LangChain\", \"LangGraph\", \"FastAPI\", \"Flask\", \"MCP协议\", \"RAG\", \"向量数据库\", \"高可用工程化\"]",
+          "source": "required_skills: [\"Python\", \"LangChain\", \"LangGraph\", \"FastAPI\", \"Flask\", \"MCP协议\", \"RAG\", \"向量数据库\", \"高可用工程化\"]",
           "supported": true
         },
         {
-          "claim": "5、12、13、14 把 RAG 列为硬性要求",
-          "source": "id 5、12、13、14 的 required_skills 均包含 RAG",
-          "supported": true
-        },
-        {
-          "claim": "岗位 1 是加分项",
-          "source": "id 1 的 preferred_skills 包含 RAG、知识库问答或结构化数据分析",
+          "claim": "5、12、13、14 把 RAG 列为硬性要求，岗位 1 是加分项",
+          "source": "岗位 5、12、13、14 的 required_skills 均含 RAG；岗位 1 的 preferred_skills 含 RAG",
           "supported": true
         }
       ],
@@ -619,7 +544,7 @@
           "supported": true
         },
         {
-          "claim": "岗位 id: 13",
+          "claim": "岗位 id 为 13",
           "source": "工具 search_jobs 返回：\"id\": 13",
           "supported": true
         },
@@ -685,7 +610,7 @@
         },
         {
           "claim": "岗位 1 名称为 AI Agent 算法工程师",
-          "source": "id 1 title: \"AlAgent 算法工程师\"",
+          "source": "id 1 title: AlAgent 算法工程师",
           "supported": true
         },
         {
@@ -695,47 +620,47 @@
         },
         {
           "claim": "岗位 1 中 LangGraph 在加分项（LangChain/LangGraph 等 Agent 框架）",
-          "source": "id 1 preferred_skills: [\"LangChain/LangGraph等Agent框架\", ...]",
+          "source": "id 1 preferred_skills: LangChain/LangGraph等Agent框架",
           "supported": true
         },
         {
           "claim": "岗位 3 名称为 大模型应用开发工程师",
-          "source": "id 3 title: \"大模型应用开发工程师\"",
+          "source": "id 3 title: 大模型应用开发工程师",
           "supported": true
         },
         {
           "claim": "岗位 3 公司为 ShopeeFood",
-          "source": "id 3 company: \"ShopeeFood\"",
+          "source": "id 3 company: ShopeeFood",
           "supported": true
         },
         {
           "claim": "岗位 3 中 LangGraph/Google ADK 在必备技能",
-          "source": "id 3 required_skills: [..., \"LangGraph/Google ADK\", ...]",
+          "source": "id 3 required_skills: LangGraph/Google ADK",
           "supported": true
         },
         {
           "claim": "岗位 14 名称为 LLM 应用开发（AI agent）",
-          "source": "id 14 title: \"LLM应用开发(Al agent)\"",
+          "source": "id 14 title: LLM应用开发(Al agent)",
           "supported": true
         },
         {
           "claim": "岗位 14 公司为 法本",
-          "source": "id 14 company: \"法本\"",
+          "source": "id 14 company: 法本",
           "supported": true
         },
         {
           "claim": "岗位 14 中 LangGraph 在必备技能",
-          "source": "id 14 required_skills: [\"Python\", \"LangChain\", \"LangGraph\", ...]",
+          "source": "id 14 required_skills: LangGraph",
           "supported": true
         },
         {
           "claim": "岗位 3 和 14 把 LangGraph 列为硬性要求",
-          "source": "id 3 required_skills 含 \"LangGraph/Google ADK\"；id 14 required_skills 含 \"LangGraph\"",
+          "source": "id 3 required_skills 含 LangGraph/Google ADK；id 14 required_skills 含 LangGraph",
           "supported": true
         },
         {
           "claim": "岗位 1 只是加分项",
-          "source": "id 1 的 LangGraph 出现在 preferred_skills 而非 required_skills",
+          "source": "id 1 preferred_skills 含 LangChain/LangGraph等Agent框架，required_skills 不含 LangGraph",
           "supported": true
         }
       ],
@@ -848,7 +773,7 @@
       },
       "claims": [
         {
-          "claim": "快手的AI应用开发工程师岗位（job_id: 4）",
+          "claim": "快手的AI应用开发工程师（job_id: 4）",
           "source": "{\"id\": 4, \"title\": \"AI应用开发工程师\", \"company\": \"快手\"}",
           "supported": true
         },
@@ -1056,37 +981,37 @@
         },
         {
           "claim": "RAG 是缺口排行第一",
-          "source": "get_skill_ranking 返回中 RAG job_count 为 9，为最高值",
+          "source": "{\"skill\": \"RAG\", \"job_count\": 9}",
           "supported": true
         },
         {
           "claim": "画像里已有 LangChain/LangGraph",
-          "source": "skills 列表包含 \"LangChain (LCEL, with_structured_output, @tool)\" 和 \"LangGraph (StateGraph, 条件路由, Reducer, RetryPolicy, Send API)\"",
+          "source": "skills 列表包含 LangChain (LCEL, with_structured_output, @tool)、LangGraph (StateGraph, 条件路由, Reducer, RetryPolicy, Send API)",
           "supported": true
         },
         {
           "claim": "画像里已有 Function Calling",
-          "source": "skills 列表包含 \"Function Calling / Tool Calling\"",
+          "source": "skills 列表包含 Function Calling / Tool Calling",
           "supported": true
         },
         {
           "claim": "画像里已有 Prompt Engineering",
-          "source": "skills 列表包含 \"Prompt Engineering\"",
+          "source": "skills 列表包含 Prompt Engineering",
           "supported": true
         },
         {
           "claim": "画像里已有 LLM 应用开发",
-          "source": "skills 列表包含 \"LLM应用开发\"",
+          "source": "skills 列表包含 LLM应用开发",
           "supported": true
         },
         {
           "claim": "画像里完全没有 RAG 相关技能",
-          "source": "skills 列表（React, Vue, JavaScript, Python, FastAPI, SQL, DeepSeek API, LLM应用开发, Prompt Engineering, Linux, Git, Claude Code, Railway, Vercel, SQLite, PostgreSQL基础, LangChain, LangGraph, Function Calling / Tool Calling, Pydantic 结构化输出, LangSmith）中无 RAG 相关项",
+          "source": "skills 列表：React, Vue, JavaScript, Python, FastAPI, SQL, DeepSeek API, LLM应用开发, Prompt Engineering, Linux, Git, Claude Code, Railway, Vercel, SQLite, PostgreSQL基础, LangChain, LangGraph, Function Calling / Tool Calling, Pydantic 结构化输出, LangSmith",
           "supported": true
         },
         {
-          "claim": "RAG 是目标岗位（AI 应用工程师/大模型应用开发）里出现频率最高的要求",
-          "source": "target_roles 为 [\"AI应用工程师\", \"大模型应用开发\", \"AI全栈工程师\"]；get_skill_ranking 中 RAG job_count 9 为最高",
+          "claim": "目标岗位是 AI 应用工程师/大模型应用开发",
+          "source": "target_roles: [\"AI应用工程师\", \"大模型应用开发\", \"AI全栈工程师\"]",
           "supported": true
         },
         {
@@ -1111,12 +1036,7 @@
         },
         {
           "claim": "画像里已有 LangGraph 基础",
-          "source": "skills 列表包含 \"LangGraph (StateGraph, 条件路由, Reducer, RetryPolicy, Send API)\"",
-          "supported": true
-        },
-        {
-          "claim": "RAG + 向量数据库/Embedding 覆盖 9+4 个岗位",
-          "source": "RAG job_count 9，向量数据库与Embedding job_count 4",
+          "source": "skills 列表包含 LangGraph (StateGraph, 条件路由, Reducer, RetryPolicy, Send API)",
           "supported": true
         }
       ],
@@ -1397,48 +1317,33 @@
           "supported": true
         },
         {
-          "claim": "RAG 经验缺失是高优先级差距",
-          "source": "get_job_analysis 返回 gaps：\"importance\": \"高\"",
-          "supported": true
-        },
-        {
           "claim": "多模态大模型经验缺失（无图像/语音/视频模型的使用或原型经历）",
           "source": "get_job_analysis 返回 gaps：\"缺少多模态大模型经验：无图像/语音/视频等多模态模型的使用或原型构建经历\"",
           "supported": true
         },
         {
-          "claim": "多模态大模型经验缺失是高优先级差距",
-          "source": "get_job_analysis 返回 gaps：\"importance\": \"高\"",
+          "claim": "生产级 Multi-Agent 系统经验缺失（现有项目是单 Agent 状态机 + 批量并行分析）",
+          "source": "get_job_analysis 返回 gaps：\"缺少生产级 Multi-Agent 系统经验：现有项目为单 Agent 状态机与批量并行分析\"",
           "supported": true
         },
         {
-          "claim": "生产级 Multi-Agent 系统经验缺失（现有项目是单 Agent 状态机 + 批量并行分析，缺多 Agent 协作落地记录）",
-          "source": "get_job_analysis 返回 gaps：\"缺少生产级 Multi-Agent 系统经验：现有项目为单 Agent 状态机与批量并行分析，无多 Agent 协作、角色分工、上下文工程在真实生产场景的落地记录\"",
+          "claim": "缺互联网实习/工业级工程经历（唯一工作经历为 3 个月前端页面编写）",
+          "source": "get_job_analysis 返回 gaps：\"缺少互联网实习/工业级工程经历：唯一工作经历为 3 个月前端页面编写\"",
           "supported": true
         },
         {
-          "claim": "生产级 Multi-Agent 系统经验缺失是高优先级差距",
-          "source": "get_job_analysis 返回 gaps：\"importance\": \"高\"",
+          "claim": "缺深度学习/机器学习科研或竞赛背景（无 PyTorch/TensorFlow 等框架使用记录，也无论文、竞赛获奖）",
+          "source": "get_job_analysis 返回 gaps：\"缺少深度学习/机器学习科研或竞赛背景：无 PyTorch/TensorFlow 等框架使用记录，也无论文、竞赛获奖等\"",
           "supported": true
         },
         {
-          "claim": "缺互联网实习/工业级工程经历是中优先级差距",
-          "source": "get_job_analysis 返回 gaps：\"缺少互联网实习/工业级工程经历...importance\": \"中\"",
+          "claim": "3 个高优先级差距",
+          "source": "get_job_analysis 返回 gaps 中 importance 为\"高\"的有 3 条（RAG、多模态、Multi-Agent）",
           "supported": true
         },
         {
-          "claim": "缺深度学习/机器学习科研或竞赛背景是中优先级差距",
-          "source": "get_job_analysis 返回 gaps：\"缺少深度学习/机器学习科研或竞赛背景...importance\": \"中\"",
-          "supported": true
-        },
-        {
-          "claim": "高优先级差距有3个",
-          "source": "get_job_analysis 返回 gaps 中 importance 为\"高\"的有3条",
-          "supported": true
-        },
-        {
-          "claim": "中优先级差距有2项",
-          "source": "get_job_analysis 返回 gaps 中 importance 为\"中\"的有2条",
+          "claim": "中优先级 2 项（缺互联网实习/工业级工程经历、缺深度学习科研或竞赛背景）",
+          "source": "get_job_analysis 返回 gaps 中 importance 为\"中\"的有 2 条",
           "supported": true
         }
       ],
@@ -1511,12 +1416,12 @@
           "supported": true
         },
         {
-          "claim": "岗位名称是代码质量Agent开发工程师—开发者服务",
+          "claim": "岗位名称是「代码质量Agent开发工程师—开发者服务」",
           "source": "工具 search_jobs 返回：\"title\": \"代码质量Agent开发工程师一开发者服务\"",
           "supported": true
         },
         {
-          "claim": "job_id 为 7",
+          "claim": "岗位 job_id 是 7",
           "source": "工具 search_jobs 返回：\"id\": 7",
           "supported": true
         },
@@ -1531,28 +1436,38 @@
           "supported": true
         },
         {
-          "claim": "缺 Java 生态 Spring、MyBatis 都没经验",
+          "claim": "缺 Java 生态 Spring、MyBatis",
           "source": "工具 get_job_analysis 返回：\"缺失 Java 生态技术栈：Spring、MyBatis 均无经验\"",
           "supported": true
         },
         {
-          "claim": "缺 Redis、Elasticsearch、MySQL、SQL Server，只有 SQLite 和 PostgreSQL 基础",
-          "source": "工具 get_job_analysis 返回：\"缺失中间件与存储组件经验：Redis、Elasticsearch、MySQL、SQL Server 全部未出现，仅有 SQLite 与 PostgreSQL 基础\"",
+          "claim": "缺 Redis、Elasticsearch、MySQL、SQL Server",
+          "source": "工具 get_job_analysis 返回：\"缺失中间件与存储组件经验：Redis、Elasticsearch、MySQL、SQL Server 全部未出现\"",
           "supported": true
         },
         {
-          "claim": "无大规模系统架构经验，项目都是个人/小规模上线应用，没涉及高并发、分布式、服务治理",
+          "claim": "只有 SQLite 和 PostgreSQL 基础",
+          "source": "工具 get_profile 返回：skills 含 \"SQLite\"、\"PostgreSQL基础\"",
+          "supported": true
+        },
+        {
+          "claim": "无大规模系统架构经验，项目均为个人/小规模上线应用，未涉及高并发、分布式、服务治理",
           "source": "工具 get_job_analysis 返回：\"无大规模系统架构经验，项目均为个人/小规模上线应用，未涉及高并发、分布式、服务治理等场景\"",
           "supported": true
         },
         {
-          "claim": "正式工作经验只有 3 个月前端口页面编写",
-          "source": "工具 get_job_analysis 返回：\"正式工作经验仅 3 个月前端口页面编写\"",
+          "claim": "正式工作经验仅 3 个月前端口页面编写",
+          "source": "工具 get_profile 返回：experiences 含 {\"title\": \"前端工程师\", \"duration\": \"2023年（3个月）\", \"description\": \"前端页面编写\"}",
           "supported": true
         },
         {
-          "claim": "岗位的硬性要求集中在 Java/Golang 后端方向",
-          "source": "工具 search_jobs 返回：\"required_skills\": [\"Golang\", \"Java\", \"Elasticsearch\", \"MySQL\", \"MyBatis\", \"Redis\", \"SQL Server\", \"Spring\", \"Python\"]",
+          "claim": "画像技能包含 Python、LLM 应用开发、LangChain/LangGraph、Function Calling、Pydantic 结构化输出、LangSmith",
+          "source": "工具 get_profile 返回：skills 含 \"Python\"、\"LLM应用开发\"、\"LangChain (LCEL, with_structured_output, @tool)\"、\"LangGraph (StateGraph, 条件路由, Reducer, RetryPolicy, Send API)\"、\"Function Calling / Tool Calling\"、\"Pydantic 结构化输出\"、\"LangSmith (链路追踪与调试)\"",
+          "supported": true
+        },
+        {
+          "claim": "画像技能包含 React/Vue 前端栈",
+          "source": "工具 get_profile 返回：skills 含 \"React\"、\"Vue\"",
           "supported": true
         },
         {
@@ -1561,13 +1476,8 @@
           "supported": true
         },
         {
-          "claim": "画像中有 Python、LLM 应用开发、LangChain/LangGraph、Function Calling、Pydantic 结构化输出、LangSmith 等 AI 工程能力",
-          "source": "工具 get_profile 返回：\"skills\": [\"Python\", ... \"LLM应用开发\", ... \"LangChain (LCEL, with_structured_output, @tool)\", \"LangGraph (StateGraph, 条件路由, Reducer, RetryPolicy, Send API)\", \"Function Calling / Tool Calling\", \"Pydantic 结构化输出\", \"LangSmith (链路追踪与调试)\"]",
-          "supported": true
-        },
-        {
-          "claim": "画像中有 React/Vue 前端栈",
-          "source": "工具 get_profile 返回：\"skills\": [\"React\", \"Vue\", ...]",
+          "claim": "岗位的硬性要求集中在 Java/Golang 后端方向",
+          "source": "工具 search_jobs 返回：required_skills 含 \"Golang\"、\"Java\"、\"Spring\"、\"MyBatis\" 等",
           "supported": true
         }
       ],
@@ -1621,8 +1531,8 @@
       },
       "claims": [
         {
-          "claim": "岗位 14 的匹配分为 66",
-          "source": "{\"match_score\": 66}",
+          "claim": "岗位 14 匹配分为 66",
+          "source": "match_score: 66",
           "supported": true
         },
         {
@@ -1656,6 +1566,11 @@
           "supported": true
         },
         {
+          "claim": "岗位要求 1-3 年经验",
+          "source": "与岗位要求的 1-3 年经验存在明显差距",
+          "supported": true
+        },
+        {
           "claim": "无 Flask 使用经验",
           "source": "且无 Flask 使用经验",
           "supported": true
@@ -1666,28 +1581,18 @@
           "supported": true
         },
         {
-          "claim": "岗位要求 1-3 年经验",
-          "source": "与岗位要求的 1-3 年经验存在明显差距",
+          "claim": "有 4 个高优先级缺口和 1 个中优先级缺口",
+          "source": "gaps 列表中 importance 为高的有 4 条，为中的有 1 条",
           "supported": true
         },
         {
-          "claim": "建议动作共 3 条",
-          "source": "action_items 列表包含 3 项",
+          "claim": "建议动作有 3 条",
+          "source": "action_items 列表共 3 条",
           "supported": true
         },
         {
-          "claim": "高优先级建议：在 CareerMatch 新增 RAG 知识库链路（pgvector + 混合检索 + 重排序 + 引用溯源）",
-          "source": "在 CareerMatch 中新增 RAG 知识库链路：用 pgvector 建库，实现文档解析→分块→Embedding→混合检索(BM25+向量)→重排序→引用溯源",
-          "supported": true
-        },
-        {
-          "claim": "高优先级建议：把现有 @tool 抽成独立 MCP Server（stdio + SSE），让 Claude Code 作为 MCP Client 调用",
-          "source": "把 CareerMatch 的 @tool 抽成独立 MCP Server（stdio + SSE 两种传输），暴露 Tool/Resource，并让 Claude Code 作为 MCP Client 实际调用完成一次岗位分析",
-          "supported": true
-        },
-        {
-          "claim": "中优先级建议：在 LangGraph 状态机上补 checkpointer 断点恢复、interrupt 实现 HITL、幂等键、超时降级",
-          "source": "在 CareerMatch 的 LangGraph 状态机上补齐生产级治理：checkpointer 断点恢复、interrupt 实现 HITL 人工确认、节点幂等键、超时与优雅降级",
+          "claim": "建议动作优先级分别为高、高、中",
+          "source": "action_items 的 priority 依次为 high、high、medium",
           "supported": true
         }
       ],
@@ -1748,52 +1653,72 @@
       "claims": [
         {
           "claim": "ShopeeFood 的岗位是「大模型应用开发工程师」",
-          "source": "工具 search_jobs 返回：{\"title\": \"大模型应用开发工程师\", \"company\": \"ShopeeFood\"}",
+          "source": "{\"id\": 3, \"title\": \"大模型应用开发工程师\", \"company\": \"ShopeeFood\"}",
           "supported": true
         },
         {
           "claim": "匹配分为 61",
-          "source": "工具 get_job_analysis 返回：{\"match_score\": 61}",
+          "source": "{\"match_score\": 61}",
           "supported": true
         },
         {
-          "claim": "岗位要求 Python/Java/Scala + Spark 组合",
-          "source": "工具 search_jobs 返回 required_skills 含 \"Python/Java/Scala\"、\"Spark\"；get_job_analysis gap 提到\"岗位要求的 Python/Java/Scala + Spark 组合\"",
+          "claim": "给了 3 条行动建议",
+          "source": "{\"action_items\": [{\"item\": \"...\"}, {\"item\": \"...\"}, {\"item\": \"...\"}]}",
           "supported": true
         },
         {
-          "claim": "岗位要求 Agent 系统设计、状态管理、多 Agent 协作、技能封装",
-          "source": "工具 search_jobs 返回 required_skills 含 \"Agent系统设计\"、\"状态管理\"、\"多Agent协作\"、\"技能封装\"",
+          "claim": "第一条行动建议是把 LangGraph 状态机重构为多 Agent 协作架构，拆成简历解析、岗位检索、匹配打分、建议生成四个 Agent，用 Supervisor 编排 + Send API 并行，每个能力封装为带 Pydantic schema 的 @tool 技能包",
+          "source": "把 CareerMatch 的 LangGraph 状态机重构为多 Agent 协作架构：简历解析 Agent、岗位检索 Agent、匹配打分 Agent、建议生成 Agent，用 Supervisor 编排 + Send API 并行，每个能力封装为带 Pydantic schema 的 @tool 技能包",
+          "supported": true
+        },
+        {
+          "claim": "第一条建议的目标是成功率不低于 15/15，耗时不超过现有 38s",
+          "source": "目标：成功率不低于 15/15，耗时不超过现有 38s",
+          "supported": true
+        },
+        {
+          "claim": "第一条建议命中 JD 的「Agent 系统设计、状态管理、多 Agent 协作、技能封装」四条硬性要求",
+          "source": "直接命中 JD 的\"Agent 系统设计、状态管理、多 Agent 协作、技能封装\"四条硬性要求",
+          "supported": true
+        },
+        {
+          "claim": "第二条行动建议是新增 Text2SQL 能力，支持自然语言查询岗位库，用 Pydantic 约束 SQL 输出 + 只读校验与执行兜底",
+          "source": "在 CareerMatch 上新增 Text2SQL 能力：自然语言查询岗位库...用 Pydantic 约束 SQL 输出、加只读校验与执行兜底",
+          "supported": true
+        },
+        {
+          "claim": "第二条建议的目标是 30 条自然语言问题的执行准确率 ≥ 90%",
+          "source": "30 条自然语言问题的执行准确率（目标 ≥ 90%）",
           "supported": true
         },
         {
           "claim": "Text2SQL 是 JD 明确列出的偏好项",
-          "source": "工具 search_jobs 返回 preferred_skills 含 \"Text2SQL\"",
+          "source": "Text2SQL 是 JD 明确列出的偏好项",
+          "supported": true
+        },
+        {
+          "claim": "第三条行动建议是用 PySpark 做一次真实批处理管线，导入 5-10 万条岗位数据，完成去重、技能词频统计、Embedding 批量生成并落库",
+          "source": "用 PySpark 对岗位数据做一次真实批处理管线：抓取/导入 5-10 万条招聘岗位数据，完成去重、技能词频统计、Embedding 批量生成并落库",
+          "supported": true
+        },
+        {
+          "claim": "第三条建议产出「技能需求 Top50」分析",
+          "source": "以及一份\"技能需求 Top50\"分析结果",
+          "supported": true
+        },
+        {
+          "claim": "JD 要求 Python/Java/Scala + Spark 组合",
+          "source": "JD 要求 Python/Java/Scala + Spark 组合",
           "supported": true
         },
         {
           "claim": "分析里列了 5 项 gap",
-          "source": "工具 get_job_analysis 返回 gaps 数组含 5 个元素",
+          "source": "{\"gaps\": [{\"gap\": \"...\"}, {\"gap\": \"...\"}, {\"gap\": \"...\"}, {\"gap\": \"...\"}, {\"gap\": \"...\"}]}",
           "supported": true
         },
         {
           "claim": "gap 包括工作经验不足、缺大数据栈、缺多 Agent 协作、缺垂直场景落地、缺开源背书",
-          "source": "get_job_analysis gaps 各 gap 字段：\"工作经验严重不足\"、\"缺少大数据栈能力\"、\"多Agent协作与技能封装缺失\"、\"缺少岗位偏好的垂直场景落地\"、\"缺少开源与协作背书\"",
-          "supported": true
-        },
-        {
-          "claim": "现有单 Agent 耗时 38s",
-          "source": "get_job_analysis action_items 第一条：\"耗时不超过现有 38s\"",
-          "supported": true
-        },
-        {
-          "claim": "岗位要求 3-5 年工作经验",
-          "source": "get_job_analysis gaps 第一条：\"岗位要求 3-5 年\"",
-          "supported": true
-        },
-        {
-          "claim": "用户仅 3 个月前端口实习/工作经历",
-          "source": "get_job_analysis gaps 第一条：\"仅 3 个月前端口实习/工作经历\"",
+          "source": "gaps 列表：工作经验严重不足...缺少大数据栈能力...多Agent协作与技能封装缺失...缺少岗位偏好的垂直场景落地...缺少开源与协作背书",
           "supported": true
         }
       ],
@@ -1857,73 +1782,43 @@
       },
       "claims": [
         {
-          "claim": "去哪儿目前库里只有一个岗位",
+          "claim": "去哪儿目前库里只有一个岗位：AI应用开发工程师",
           "source": "工具 search_jobs 返回：[{\"id\": 5, \"title\": \"ai应用开发工程师\", \"company\": \"去哪儿\", ...}]",
           "supported": true
         },
         {
-          "claim": "岗位名称为 AI应用开发工程师",
-          "source": "工具 search_jobs 返回：\"title\": \"ai应用开发工程师\"",
-          "supported": true
-        },
-        {
-          "claim": "公司为去哪儿",
-          "source": "工具 search_jobs 返回：\"company\": \"去哪儿\"",
-          "supported": true
-        },
-        {
           "claim": "匹配分 64 分",
-          "source": "工具 get_job_analysis 返回：\"match_score\": 64",
+          "source": "工具 get_job_analysis 返回：{\"match_score\": 64, ...}",
           "supported": true
         },
         {
           "claim": "无 RAG 相关经验：简历里没有检索增强生成、向量库、Embedding、召回/重排等实践",
-          "source": "工具 get_job_analysis 返回：\"gap\": \"无 RAG 相关经验：简历中无检索增强生成、向量库、Embedding、召回/重排等任何实践\"",
+          "source": "工具 get_job_analysis 返回 gaps：\"无 RAG 相关经验：简历中无检索增强生成、向量库、Embedding、召回/重排等任何实践\"",
           "supported": true
         },
         {
           "claim": "无智能客服业务场景经验：该岗位核心是客服系统的 Agent/RAG 落地，而你的项目偏求职匹配、通用对话类",
-          "source": "工具 get_job_analysis 返回：\"gap\": \"无智能客服业务场景经验：岗位核心是客服系统 Agent/RAG 落地，候选人项目均为求职匹配、通用对话类\"",
+          "source": "工具 get_job_analysis 返回 gaps：\"无智能客服业务场景经验：岗位核心是客服系统 Agent/RAG 落地，候选人项目均为求职匹配、通用对话类\"",
           "supported": true
         },
         {
           "claim": "正式工作经验严重不足：仅 3 个月前段实习，岗位要求 1-3 年全职 AI 应用开发",
-          "source": "工具 get_job_analysis 返回：\"gap\": \"正式工作经验严重不足：仅 3 个月前段实习，无 1-3 年全职 AI 应用开发经历\"",
+          "source": "工具 get_job_analysis 返回 gaps：\"正式工作经验严重不足：仅 3 个月前段实习，无 1-3 年全职 AI 应用开发经历\"",
           "supported": true
         },
         {
           "claim": "缺 Java 与 TypeScript（岗位明确要求，你目前是 JavaScript 和 Python）",
-          "source": "工具 search_jobs 返回 required_skills 含 Java、TypeScript；工具 get_job_analysis 返回 \"gap\": \"缺 Java 与 TypeScript：岗位 required_skills 明确列出，候选人仅有 JavaScript 与 Python\"",
+          "source": "工具 get_job_analysis 返回 gaps：\"缺 Java 与 TypeScript：岗位 required_skills 明确列出，候选人仅有 JavaScript 与 Python\"",
           "supported": true
         },
         {
           "claim": "硕士 2026 年 12 月毕业，尚未毕业，无法满足全职到岗要求",
-          "source": "工具 get_job_analysis 返回：\"gap\": \"硕士 2026 年 12 月毕业，尚未毕业，无法满足全职到岗与 1-3 年经验要求\"",
+          "source": "工具 get_job_analysis 返回 gaps：\"硕士 2026 年 12 月毕业，尚未毕业，无法满足全职到岗与 1-3 年经验要求\"",
           "supported": true
         },
         {
-          "claim": "RAG 相关经验为高优先级差距",
-          "source": "工具 get_job_analysis 返回：\"gap\": \"无 RAG 相关经验...\", \"importance\": \"高\"",
-          "supported": true
-        },
-        {
-          "claim": "智能客服业务场景经验为高优先级差距",
-          "source": "工具 get_job_analysis 返回：\"gap\": \"无智能客服业务场景经验...\", \"importance\": \"高\"",
-          "supported": true
-        },
-        {
-          "claim": "正式工作经验不足为高优先级差距",
-          "source": "工具 get_job_analysis 返回：\"gap\": \"正式工作经验严重不足...\", \"importance\": \"高\"",
-          "supported": true
-        },
-        {
-          "claim": "缺 Java 与 TypeScript 为中优先级差距",
-          "source": "工具 get_job_analysis 返回：\"gap\": \"缺 Java 与 TypeScript...\", \"importance\": \"中\"",
-          "supported": true
-        },
-        {
-          "claim": "硕士 2026 年 12 月毕业尚未毕业为中优先级差距",
-          "source": "工具 get_job_analysis 返回：\"gap\": \"硕士 2026 年 12 月毕业，尚未毕业...\", \"importance\": \"中\"",
+          "claim": "岗位要求 1-3 年全职 AI 应用开发",
+          "source": "工具 get_job_analysis 返回 gaps：\"无 1-3 年全职 AI 应用开发经历\"",
           "supported": true
         }
       ],
@@ -2072,7 +1967,33 @@
       "checks": {
         "confirm": false
       },
-      "claims": [],
+      "claims": [
+        {
+          "claim": "美团 - 大模型应用工程师（北京）30-50K",
+          "source": "用户本轮的消息：帮我把这个 JD 加到岗位库：美团 - 大模型应用工程师（北京）30-50K。",
+          "supported": true
+        },
+        {
+          "claim": "要求 Python",
+          "source": "用户本轮的消息：要求：Python，熟悉 LangChain 和 RAG，有 Agent 落地经验。",
+          "supported": true
+        },
+        {
+          "claim": "要求熟悉 LangChain",
+          "source": "用户本轮的消息：要求：Python，熟悉 LangChain 和 RAG，有 Agent 落地经验。",
+          "supported": true
+        },
+        {
+          "claim": "要求熟悉 RAG",
+          "source": "用户本轮的消息：要求：Python，熟悉 LangChain 和 RAG，有 Agent 落地经验。",
+          "supported": true
+        },
+        {
+          "claim": "要求有 Agent 落地经验",
+          "source": "用户本轮的消息：要求：Python，熟悉 LangChain 和 RAG，有 Agent 落地经验。",
+          "supported": true
+        }
+      ],
       "cost_usd": 0.000202,
       "error": null,
       "passed": false
@@ -2140,43 +2061,38 @@
       },
       "claims": [
         {
-          "claim": "字节跳动这个岗位（代码质量Agent开发工程师，id=7）",
-          "source": "工具 search_jobs 返回：{\"id\": 7, \"title\": \"代码质量Agent开发工程师一开发者服务\", \"company\": \"字节跳动\"}",
-          "supported": true
-        },
-        {
-          "claim": "匹配分 51",
+          "claim": "字节跳动岗位（代码质量Agent开发工程师，id=7）匹配分51",
           "source": "工具 get_job_analysis 返回：{\"match_score\": 51}",
           "supported": true
         },
         {
-          "claim": "共 5 条差距",
-          "source": "工具 get_job_analysis 返回 gaps 数组包含 5 条",
+          "claim": "该岗位共5条差距",
+          "source": "工具 get_job_analysis 返回 gaps 数组含5项",
           "supported": true
         },
         {
           "claim": "缺 Golang / Java 后端主力语言，无相关项目痕迹",
-          "source": "工具 get_job_analysis 返回：\"缺失岗位必需的后端主力语言 Golang 与 Java，且无任何相关项目或代码痕迹\"",
+          "source": "gaps[0]: 缺失岗位必需的后端主力语言 Golang 与 Java，且无任何相关项目或代码痕迹",
           "supported": true
         },
         {
           "claim": "缺 Java 生态：Spring、MyBatis 无经验",
-          "source": "工具 get_job_analysis 返回：\"缺失 Java 生态技术栈：Spring、MyBatis 均无经验\"",
+          "source": "gaps[1]: 缺失 Java 生态技术栈：Spring、MyBatis 均无经验",
           "supported": true
         },
         {
           "claim": "缺中间件与存储：Redis、Elasticsearch、MySQL、SQL Server 全无（仅有 SQLite、PostgreSQL 基础）",
-          "source": "工具 get_job_analysis 返回：\"缺失中间件与存储组件经验：Redis、Elasticsearch、MySQL、SQL Server 全部未出现，仅有 SQLite 与 PostgreSQL 基础\"",
+          "source": "gaps[2]: 缺失中间件与存储组件经验：Redis、Elasticsearch、MySQL、SQL Server 全部未出现，仅有 SQLite 与 PostgreSQL 基础",
           "supported": true
         },
         {
           "claim": "无大规模系统架构经验（高并发/分布式/服务治理）",
-          "source": "工具 get_job_analysis 返回：\"无大规模系统架构经验，项目均为个人/小规模上线应用，未涉及高并发、分布式、服务治理等场景\"",
+          "source": "gaps[3]: 无大规模系统架构经验，项目均为个人/小规模上线应用，未涉及高并发、分布式、服务治理等场景",
           "supported": true
         },
         {
-          "claim": "正式工作经验仅 3 个月前端口，与后端研发/架构职责方向不一致",
-          "source": "工具 get_job_analysis 返回：\"正式工作经验仅 3 个月前端口页面编写，与岗位要求的后端研发、架构设计、技术攻坚职责方向不一致\"",
+          "claim": "正式工作经验仅3个月前端口，与后端研发/架构职责方向不一致",
+          "source": "gaps[4]: 正式工作经验仅 3 个月前端口页面编写，与岗位要求的后端研发、架构设计、技术攻坚职责方向不一致",
           "supported": true
         },
         {
@@ -2301,17 +2217,17 @@
       },
       "claims": [
         {
-          "claim": "目标岗位是AI应用工程师、大模型应用开发、AI全栈工程师",
+          "claim": "目标岗位：AI应用工程师、大模型应用开发、AI全栈工程师",
           "source": "target_roles: [\"AI应用工程师\", \"大模型应用开发\", \"AI全栈工程师\"]",
           "supported": true
         },
         {
-          "claim": "目标城市是西安、北京、上海、深圳、杭州、广州",
+          "claim": "目标城市：西安、北京、上海、深圳、杭州、广州",
           "source": "target_cities: [\"西安 北京 上海 深圳 杭州 广州\"]",
           "supported": true
         },
         {
-          "claim": "目标公司类型是AI创业公司、中型互联网、外企在华",
+          "claim": "目标公司类型：AI创业公司、中型互联网、外企在华",
           "source": "target_companies: [\"AI创业公司\", \"中型互联网\", \"外企在华\"]",
           "supported": true
         }
@@ -2457,7 +2373,7 @@
         },
         {
           "claim": "编程语言栈不匹配：岗位要 Java / Go / TypeScript，你主力是 Python + JavaScript",
-          "source": "工具 get_job_analysis 返回 gaps：\"编程语言栈不匹配：岗位要求 Java / Go / TypeScript，候选人主力为 Python + JavaScript，无 Java、Go、TypeScript 项目经验\"",
+          "source": "工具 get_job_analysis 返回 gaps：\"编程语言栈不匹配：岗位要求 Java / Go / TypeScript，候选人主力为 Python + JavaScript\"",
           "supported": true
         },
         {
@@ -2598,7 +2514,12 @@
       },
       "claims": [
         {
-          "claim": "排第一的是 RAG（9 个岗位要求）",
+          "claim": "排第一的是 RAG",
+          "source": "工具 get_skill_ranking 返回：[{\"skill\": \"RAG\", \"job_count\": 9}, ...]",
+          "supported": true
+        },
+        {
+          "claim": "RAG 有 9 个岗位要求",
           "source": "工具 get_skill_ranking 返回：[{\"skill\": \"RAG\", \"job_count\": 9}, ...]",
           "supported": true
         }
@@ -2705,28 +2626,28 @@
       "claims": [
         {
           "claim": "分析结果里没有包含工作地点信息",
-          "source": "工具 search_jobs 返回的岗位数据字段为 id、title、company、required_skills、preferred_skills；get_job_analysis 返回 match_score、gaps、action_items，均无城市/地点字段",
-          "supported": true
+          "source": "无",
+          "supported": false
         },
         {
           "claim": "岗位数据字段只有岗位名称、公司、必备技能、加分技能，以及匹配分析（分数/差距/行动项）",
-          "source": "search_jobs 返回字段：id、title、company、required_skills、preferred_skills；get_job_analysis 返回：match_score、gaps、action_items",
-          "supported": true
+          "source": "无",
+          "supported": false
         },
         {
           "claim": "没有城市字段",
-          "source": "search_jobs 与 get_job_analysis 返回结果中均无城市/地点字段",
-          "supported": true
+          "source": "无",
+          "supported": false
         },
         {
           "claim": "这几个岗位的公司是去哪儿、聚水潭、腾讯、法本",
-          "source": "search_jobs 返回：id 5 company 去哪儿，id 12 company 聚水潭，id 13 company 腾讯，id 14 company 法本",
+          "source": "工具 search_jobs 返回：{\"id\": 5, \"company\": \"去哪儿\"}, {\"id\": 12, \"company\": \"聚水潭\"}, {\"id\": 13, \"company\": \"腾讯\"}, {\"id\": 14, \"company\": \"法本\"}",
           "supported": true
         }
       ],
       "cost_usd": 0.002087,
       "error": null,
-      "passed": true
+      "passed": false
     },
     {
       "id": "multi_best_match",
@@ -2884,48 +2805,38 @@
       },
       "claims": [
         {
-          "claim": "匹配分最高的岗位是 AlAgent 算法工程师（岗位 id 1，74 分）",
-          "source": "get_job_analysis 返回 match_score 74；此前助手答：你匹配分最高的岗位是 AlAgent 算法工程师（岗位 id 1），匹配分 74",
+          "claim": "匹配分最高的岗位是 AlAgent 算法工程师（岗位 id 1），匹配分 74",
+          "source": "工具 get_job_analysis 返回：{\"match_score\": 74}",
           "supported": true
         },
         {
           "claim": "缺多模态（VLM）项目经验，岗位 preferred 明确列出",
-          "source": "岗位 id 1 preferred_skills 含「多模态模型(VLM)项目经验」；get_job_analysis gaps：缺少多模态模型 (VLM) 项目经验，岗位 preferred 明确列出",
-          "supported": true
-        },
-        {
-          "claim": "你的项目全是纯文本 LLM 应用",
-          "source": "get_job_analysis gaps：候选人全部项目均为纯文本 LLM 应用",
+          "source": "岗位 id 1 preferred_skills 含\"多模态模型(VLM)项目经验\"；get_job_analysis gaps 含\"缺少多模态模型 (VLM) 项目经验，岗位 preferred 明确列出\"",
           "supported": true
         },
         {
           "claim": "缺 RAG / 知识库问答 / 结构化数据分析经验，岗位 preferred 明确列出",
-          "source": "岗位 id 1 preferred_skills 含「RAG、知识库问答或结构化数据分析」；get_job_analysis gaps：缺少 RAG / 知识库问答 / 结构化数据分析类项目经验，岗位 preferred 明确列出",
+          "source": "岗位 id 1 preferred_skills 含\"RAG、知识库问答或结构化数据分析\"；get_job_analysis gaps 含\"缺少 RAG / 知识库问答 / 结构化数据分析类项目经验，岗位 preferred 明确列出\"",
           "supported": true
         },
         {
-          "claim": "你的项目是对话与匹配分析，未涉及检索增强",
-          "source": "get_job_analysis gaps：候选人项目为对话与匹配分析，未涉及检索增强",
+          "claim": "无正式算法/Agent 岗位工作经历，仅 3 个月前端口实习",
+          "source": "get_profile experiences 仅一条\"前端工程师，某科技公司，2023年（3个月）\"；get_job_analysis gaps 含\"无正式算法/Agent 岗位工作经历，仅 3 个月前端口实习\"",
           "supported": true
         },
         {
-          "claim": "无正式算法/Agent 岗位工作经历，仅 3 个月前端口实习，其余为个人项目",
-          "source": "get_job_analysis gaps：无正式算法/Agent 岗位工作经历，仅 3 个月前端口实习，其余为个人项目",
-          "supported": true
-        },
-        {
-          "claim": "大语言模型基本原理缺系统性证明，无模型训练、微调、推理机制相关经历或课程/论文体现，岗位将其列为必备技能",
-          "source": "get_job_analysis gaps：大语言模型基本原理缺乏系统性证明：无模型训练、微调、推理机制相关经历或课程/论文体现，岗位将其列为必备技能",
+          "claim": "大语言模型基本原理缺系统性证明，岗位将其列为必备技能",
+          "source": "岗位 id 1 required_skills 含\"大语言模型基本原理\"；get_job_analysis gaps 含\"大语言模型基本原理缺乏系统性证明...岗位将其列为必备技能\"",
           "supported": true
         },
         {
           "claim": "AI 辅助开发工具仅体现 Claude Code，未体现 Cursor 等",
-          "source": "get_job_analysis gaps：AI 辅助开发工具仅体现 Claude Code，未体现 Cursor 等其他工具",
+          "source": "get_profile skills 含\"Claude Code\"，无 Cursor；get_job_analysis gaps 含\"AI 辅助开发工具仅体现 Claude Code，未体现 Cursor 等其他工具\"",
           "supported": true
         },
         {
           "claim": "硕士 2026 年 12 月毕业",
-          "source": "get_profile 返回 education 硕士 year 2026年12月",
+          "source": "get_profile education 含\"硕士...2026年12月\"",
           "supported": true
         }
       ],

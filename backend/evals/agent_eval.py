@@ -40,22 +40,32 @@ from evals.run import DATASET_DIR, RESULTS_DIR, _sum_usage  # noqa: E402
 
 # ---------- 适配器：怎样和被测的助手对话 ----------
 
-class StatelessAgentSession:
-    """第三阶段之前的助手：无状态，历史由调用方传入，没有写操作和确认机制。"""
+class AgentSession:
+    """当前的助手：对话存在 checkpointer 里，写操作先中断等确认，偏好存在 Store 里。
+    评测用内存版本，每道题一个独立的对话，题目给出的偏好预先写进 Store。
+
+    第三阶段之前的无状态助手（基线）在 commit 2174560，结果见
+    evals/results/agent_eval_stateless_20261009_2337.json。"""
 
     def __init__(self, case: dict):
-        from app.agent.job_agent import get_agent
+        from langgraph.checkpoint.memory import InMemorySaver
+        from langgraph.store.memory import InMemoryStore
 
-        self.agent = get_agent()
-        self.history = []
+        from app.agent.agent import build_agent
+        from app.agent.memory import NAMESPACE
+
+        store = InMemoryStore()
+        for i, content in enumerate(case.get("memories", [])):
+            store.put(NAMESPACE, f"seed-{i}", {"content": content})
+        self.agent = build_agent(InMemorySaver(), store)
+        self.config = {"configurable": {"thread_id": case["id"]}}
 
     def send(self, message: str) -> dict:
-        from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
+        from langchain_core.messages import AIMessage, ToolMessage
 
-        inputs = self.history + [HumanMessage(content=message)]
-        result = self.agent.invoke({"messages": inputs})
-        new = result["messages"][len(inputs):]
-        self.history = list(result["messages"])
+        before = len((self.agent.get_state(self.config).values or {}).get("messages", []))
+        result = self.agent.invoke({"messages": [("user", message)]}, self.config)
+        new = result["messages"][before + 1:]
         answer = next((m.content for m in reversed(new) if isinstance(m, AIMessage) and m.content), "")
         return {
             "answer": answer,
@@ -76,7 +86,7 @@ def _interrupt_of(result: dict) -> dict | None:
     return None
 
 
-ADAPTERS = {"stateless": StatelessAgentSession}
+ADAPTERS = {"agent": AgentSession}
 
 
 # ---------- 执行 ----------
@@ -142,7 +152,7 @@ def rejudge(path: Path, concurrency: int):
 
 def main():
     p = argparse.ArgumentParser(description="CareerMatch AI 助手评测")
-    p.add_argument("--adapter", default="stateless", choices=list(ADAPTERS))
+    p.add_argument("--adapter", default="agent", choices=list(ADAPTERS))
     p.add_argument("--cases", type=int, default=None, help="只跑前 N 道题")
     p.add_argument("--concurrency", type=int, default=5)
     p.add_argument("--no-judge", action="store_true")
