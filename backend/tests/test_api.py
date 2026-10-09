@@ -170,3 +170,17 @@ def test_checklist_crud(client):
     assert client.patch(f"/api/checklist/{item_id}", json={"status": "done"}).json()["status"] == "done"
     client.delete(f"/api/checklist/{item_id}")
     assert len(client.get("/api/checklist").json()) == 1
+
+
+def test_insufficient_llm_balance_has_clear_message(client, monkeypatch):
+    def no_balance(_):
+        raise openai.APIStatusError("Insufficient Balance",
+                                    response=httpx.Response(402, request=httpx.Request("POST", "https://llm.test")),
+                                    body=None)
+
+    monkeypatch.setattr(jobs_service, "parse_jd", no_balance)
+
+    r = client.post("/api/jobs", json={"raw_jd": "x"})
+
+    assert (r.status_code, r.json()["code"]) == (503, "LLM_QUOTA")
+

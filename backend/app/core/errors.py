@@ -57,6 +57,8 @@ def classify(exc: Exception) -> tuple[int, str, str]:
         return 503, "LLM_RATE_LIMITED", "AI 服务当前繁忙（被限流），请稍后重试"
     if isinstance(exc, openai.AuthenticationError):
         return 502, "LLM_AUTH", "AI 服务鉴权失败，请检查 API Key 配置"
+    if isinstance(exc, openai.APIStatusError) and exc.status_code == 402:
+        return 503, "LLM_QUOTA", "AI 服务余额不足，请充值后再试"
     if isinstance(exc, openai.APIStatusError):
         return 502, "LLM_UPSTREAM", f"AI 服务返回错误（状态码 {exc.status_code}），请稍后重试"
     if isinstance(exc, openai.APIConnectionError):
