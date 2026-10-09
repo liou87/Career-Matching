@@ -15,9 +15,6 @@ BACKEND_DIR = Path(__file__).resolve().parents[2]
 # 写回环境变量，所以先把 .env 整体加载进环境变量，再由 Settings 读取
 load_dotenv(BACKEND_DIR / ".env")
 
-LLM_ROLES = ("jd_parse", "analysis", "suggest", "merge", "agent")
-
-
 class Settings(BaseSettings):
     # 关掉 pydantic 对 model_ 前缀的保护，下面按角色配置的字段要用这个前缀
     model_config = SettingsConfigDict(extra="ignore", protected_namespaces=())
@@ -36,14 +33,20 @@ class Settings(BaseSettings):
     llm_base_url: str | None = None  # 不配就用供应商默认地址
     llm_timeout: float = 60  # 单次调用超时（秒）
     llm_max_retries: int = 2  # 超时、限流、5xx 时 SDK 层的重试次数
+    # DeepSeek 的 V4 系列默认开启思考模式，会额外消耗推理 token、拖慢响应。
+    # 旧别名 deepseek-chat 等价于 deepseek-flash + 关闭思考，这里保持同样的行为
+    llm_thinking: bool = False
 
     # ---------- 按角色配置模型 ----------
-    # 参考 open_deep_research：不同环节可以用不同模型，方便做降本实验
-    model_jd_parse: str = "deepseek-chat"
-    model_analysis: str = "deepseek-chat"
-    model_suggest: str = "deepseek-chat"
-    model_merge: str = "deepseek-chat"
-    model_agent: str = "deepseek-chat"
+    # 参考 open_deep_research：不同环节可以用不同模型，方便做降本实验。
+    # deepseek-chat 是已弃用的旧别名（实际由 deepseek-flash 响应），不要再用
+    model_jd_parse: str = "deepseek-flash"
+    model_analysis: str = "deepseek-flash"
+    model_suggest: str = "deepseek-flash"
+    model_merge: str = "deepseek-flash"
+    model_agent: str = "deepseek-flash"
+    # 评测里判断「编造」的裁判模型，用更强的模型
+    model_judge: str = "deepseek-v4-pro"
 
     max_tokens_jd_parse: int = 1024
     max_tokens_analysis: int = 2048
@@ -51,6 +54,15 @@ class Settings(BaseSettings):
     # 技能归并一次要处理几十条（15 个岗位约 75 条），输出约 3000 token
     max_tokens_merge: int = 8192
     max_tokens_agent: int = 2048
+    max_tokens_judge: int = 2048
+
+    # ---------- 价格（美元 / 百万 token） ----------
+    # 用于估算成本，取 DeepSeek 官方价格页的高峰时段价格（偏保守），
+    # 不在表里的模型不估算成本。价格变了只改这里
+    model_prices: dict[str, dict[str, float]] = {
+        "deepseek-flash": {"input": 0.30, "cached_input": 0.006, "output": 1.2},
+        "deepseek-v4-pro": {"input": 1.32, "cached_input": 0.044, "output": 3.96},
+    }
 
     # ---------- 匹配评分 ----------
     score_weights: dict[str, float] = {

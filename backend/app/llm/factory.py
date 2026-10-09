@@ -13,7 +13,7 @@ from langchain_core.language_models import BaseChatModel
 from app.core.config import settings
 from app.llm.callbacks import LLMCallLogger
 
-Role = Literal["jd_parse", "analysis", "suggest", "merge", "agent"]
+Role = Literal["jd_parse", "analysis", "suggest", "merge", "agent", "judge"]
 
 
 @lru_cache
@@ -22,6 +22,9 @@ def get_model(role: Role) -> BaseChatModel:
     kwargs = {}
     if settings.llm_base_url:
         kwargs["base_url"] = settings.llm_base_url
+    if settings.llm_provider == "deepseek":
+        # DeepSeek 的思考模式开关不是标准 OpenAI 参数，要放在 extra_body 里
+        kwargs["extra_body"] = {"thinking": {"type": "enabled" if settings.llm_thinking else "disabled"}}
 
     return init_chat_model(
         model_name,
