@@ -182,22 +182,27 @@ def _job_input(job: dict) -> dict:
 
 # ---------- 编造检测 ----------
 
-def run_judge(profile, records, concurrency) -> tuple[list[dict], int]:
-    """每个岗位只检查第一次成功的结果，控制裁判模型的调用量。"""
+def run_judge(profile, jobs_by_id, records, concurrency) -> tuple[list[dict], list[dict], int]:
+    """编造检测和差距检查。每个岗位只检查第一次成功的结果，控制裁判模型的调用量。"""
     first_ok = {}
     for r in sorted(records, key=lambda r: r["run"]):
         if r["ok"] and r["job_id"] not in first_ok:
             first_ok[r["job_id"]] = r
 
     def one(r):
+        tag = {"job_id": r["job_id"]}
         try:
-            return [{**v, "job_id": r["job_id"]} for v in judge_mod.judge(profile, r["result"])], 0
+            fabrication = [{**v, **tag} for v in judge_mod.judge(profile, r["result"])]
+            job = _job_input(jobs_by_id[r["job_id"]])
+            gaps = [{**v, **tag} for v in judge_mod.judge_gaps(profile, job, r["result"])]
+            return fabrication, gaps, 0
         except Exception:  # noqa: BLE001
-            return [], 1
+            return [], [], 1
 
     with ThreadPoolExecutor(concurrency) as pool:
         outs = list(pool.map(one, first_ok.values()))
-    return [v for verdicts, _ in outs for v in verdicts], sum(err for _, err in outs)
+    return ([v for fab, _, _ in outs for v in fab], [v for _, gaps, _ in outs for v in gaps],
+            sum(err for _, _, err in outs))
 
 
 # ---------- 报告 ----------
@@ -214,8 +219,11 @@ ROWS = [
     ("分数标准差（同岗位多次）", "stability.mean_std"),
     ("分数最大极差", "stability.max_range"),
     ("多次分数完全一致的岗位比例", "stability.identical_ratio"),
-    ("差距识别准确率", "gap_precision"),
-    ("差距识别召回率", "gap_recall"),
+    ("差距有效率（裁判）", "gap_valid_rate"),
+    ("凭空差距比例（裁判）", "gap_not_required_rate"),
+    ("误报缺失比例（裁判）", "gap_already_has_rate"),
+    ("差距识别准确率（人工标注）", "gap_precision"),
+    ("差距识别召回率（人工标注）", "gap_recall"),
     ("编造率", "fabrication_rate"),
 ]
 
@@ -249,7 +257,8 @@ def main():
     jobs, profile, labels = load_dataset(args.jobs, args.profile_from_db)
     print(f"评测集：{len(jobs)} 个岗位，人工标注 {len(labels)} 个，版本 {args.versions}，每岗位 {args.runs} 次")
 
-    all_records, all_verdicts, summary = {}, {}, {}
+    jobs_by_id = {j["job_id"]: j for j in _all_jobs()}
+    all_records, all_verdicts, all_gap_verdicts, summary = {}, {}, {}, {}
     for version in args.versions:
         target = make_target(VERSIONS[version], profile)
         start = time.time()
@@ -257,9 +266,14 @@ def main():
             records = run_langsmith(version, target, jobs, args.runs, args.concurrency)
         else:
             records = run_local(target, jobs, args.runs, args.concurrency)
-        verdicts, judge_errors = ([], 0) if args.no_judge else run_judge(profile, records, args.concurrency)
-        all_records[version], all_verdicts[version] = records, verdicts
-        summary[version] = {**summarize_version(records, labels, verdicts), "judge_errors": judge_errors}
+        verdicts, gap_verdicts, judge_errors = (
+            ([], [], 0) if args.no_judge else run_judge(profile, jobs_by_id, records, args.concurrency)
+        )
+        all_records[version], all_verdicts[version], all_gap_verdicts[version] = records, verdicts, gap_verdicts
+        summary[version] = {
+            **summarize_version(records, labels, verdicts, gap_verdicts),
+            "judge_errors": judge_errors,
+        }
         failed = sum(not r["ok"] for r in records)
         print(f"  {version}: {len(records)} 次，失败 {failed}，用时 {time.time() - start:.0f}s")
 
@@ -276,8 +290,8 @@ def main():
     RESULTS_DIR.mkdir(exist_ok=True)
     stem = RESULTS_DIR / f"eval_{datetime.now():%Y%m%d_%H%M}"
     stem.with_suffix(".json").write_text(
-        json.dumps({"meta": meta, "summary": summary, "records": all_records, "verdicts": all_verdicts},
-                   ensure_ascii=False, indent=2),
+        json.dumps({"meta": meta, "summary": summary, "records": all_records, "verdicts": all_verdicts,
+                    "gap_verdicts": all_gap_verdicts}, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
     report = to_markdown(meta, summary)

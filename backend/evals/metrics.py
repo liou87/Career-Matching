@@ -69,8 +69,9 @@ def stability(records: list[dict]) -> dict:
     }
 
 
-def summarize_version(records: list[dict], labels: dict[int, dict], verdicts: list[dict]) -> dict:
-    """汇总一个版本的全部记录。verdicts 是 judge 对每条建议的判断（可以为空）。"""
+def summarize_version(records: list[dict], labels: dict[int, dict], verdicts: list[dict],
+                      gap_verdicts: list[dict] = ()) -> dict:
+    """汇总一个版本的全部记录。verdicts、gap_verdicts 是裁判的判断（可以为空）。"""
     ok = [r for r in records if r["ok"]]
     latencies = [r["latency_ms"] for r in ok]
     costs = [r["cost_usd"] for r in ok if r["cost_usd"] is not None]
@@ -81,6 +82,7 @@ def summarize_version(records: list[dict], labels: dict[int, dict], verdicts: li
     recalls = [rc for _, rc in prs if rc is not None]
 
     fabricated = [v for v in verdicts if v["fabricated"]]
+    gap_counts = {c: sum(v["category"] == c for v in gap_verdicts) for c in ("valid", "not_required", "already_has")}
 
     return {
         "runs": len(records),
@@ -97,6 +99,10 @@ def summarize_version(records: list[dict], labels: dict[int, dict], verdicts: li
         "gap_labeled_runs": len(prs),
         "gap_precision": _round3(_mean(precisions)),
         "gap_recall": _round3(_mean(recalls)),
+        "gap_judged": len(gap_verdicts),
+        "gap_valid_rate": _ratio(gap_counts["valid"], len(gap_verdicts)),
+        "gap_not_required_rate": _ratio(gap_counts["not_required"], len(gap_verdicts)),
+        "gap_already_has_rate": _ratio(gap_counts["already_has"], len(gap_verdicts)),
         "judged_items": len(verdicts),
         "fabrication_rate": round(len(fabricated) / len(verdicts), 3) if verdicts else None,
     }
@@ -105,6 +111,10 @@ def summarize_version(records: list[dict], labels: dict[int, dict], verdicts: li
 def _mean(values):
     values = [v for v in values if v is not None]
     return sum(values) / len(values) if values else None
+
+
+def _ratio(part, total):
+    return round(part / total, 3) if total else None
 
 
 def _round(x):

@@ -36,6 +36,10 @@
       "gap_labeled_runs": 0,
       "gap_precision": null,
       "gap_recall": null,
+      "gap_judged": 138,
+      "gap_valid_rate": 0.949,
+      "gap_not_required_rate": 0.014,
+      "gap_already_has_rate": 0.036,
       "judged_items": 88,
       "fabrication_rate": 0.0,
       "judge_errors": 0
@@ -5107,6 +5111,1114 @@
         "index": 7,
         "fabricated": false,
         "evidence": "无",
+        "job_id": 15
+      }
+    ]
+  },
+  "gap_verdicts": {
+    "v3": [
+      {
+        "text": "多模态模型 (VLM) 项目经验",
+        "index": 0,
+        "jd_source": "多模态模型(VLM)项目经验",
+        "category": "valid",
+        "evidence": "JD加分技能明确要求多模态模型(VLM)项目经验，画像技能与项目均无VLM相关内容",
+        "job_id": 1
+      },
+      {
+        "text": "RAG / 知识库问答 / 结构化数据分析经验",
+        "index": 1,
+        "jd_source": "RAG、知识库问答或结构化数据分析",
+        "category": "valid",
+        "evidence": "JD加分技能明确要求RAG、知识库问答或结构化数据分析，画像技能与项目均无RAG/知识库问答/结构化数据分析经验",
+        "job_id": 1
+      },
+      {
+        "text": "Cursor 等 AI 辅助开发工具（仅体现 Claude Code）",
+        "index": 2,
+        "jd_source": "Cursor/Claude等AI辅助开发工具",
+        "category": "already_has",
+        "evidence": "JD加分技能为'Cursor/Claude等AI辅助开发工具'，画像已具备Claude Code，满足'Claude等'这一选项",
+        "job_id": 1
+      },
+      {
+        "text": "大语言模型基本原理的系统性背景（训练/微调/推理机制）",
+        "index": 3,
+        "jd_source": "大语言模型基本原理",
+        "category": "valid",
+        "evidence": "JD必需技能要求大语言模型基本原理，画像仅有LLM应用开发、Prompt Engineering等应用层技能，无训练/微调/推理机制等原理性背景",
+        "job_id": 1
+      },
+      {
+        "text": "微服务架构",
+        "index": 0,
+        "jd_source": "微服务架构",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求微服务架构，画像技能列表中无微服务相关经验",
+        "job_id": 2
+      },
+      {
+        "text": "分布式系统",
+        "index": 1,
+        "jd_source": "分布式系统",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求分布式系统，画像技能列表中无分布式系统相关经验",
+        "job_id": 2
+      },
+      {
+        "text": "容器化与云原生技术（Docker/K8s）",
+        "index": 2,
+        "jd_source": "容器化与云原生技术",
+        "category": "valid",
+        "evidence": "JD加分技能要求容器化与云原生技术，画像仅有Railway/Vercel等部署平台，无Docker/K8s等容器化技术",
+        "job_id": 2
+      },
+      {
+        "text": "任务调度与状态管理基础设施",
+        "index": 3,
+        "jd_source": "基础设施建设:设计和搭建 Agent 运行所需的基础设施，包括任务调度、状态管理、监控告警、容错机制，确保系统高可用",
+        "category": "valid",
+        "evidence": "JD职责要求任务调度与状态管理基础设施，画像仅有LangGraph状态机应用经验，无生产级任务调度与状态管理基础设施搭建经验",
+        "job_id": 2
+      },
+      {
+        "text": "监控告警与容错机制（生产级）",
+        "index": 4,
+        "jd_source": "基础设施建设:设计和搭建 Agent 运行所需的基础设施，包括任务调度、状态管理、监控告警、容错机制，确保系统高可用",
+        "category": "valid",
+        "evidence": "JD职责要求监控告警与容错机制，画像仅有LangSmith链路追踪和RetryPolicy应用，无生产级监控告警与容错机制搭建经验",
+        "job_id": 2
+      },
+      {
+        "text": "Multi-Agent 协作工程化",
+        "index": 5,
+        "jd_source": "多Agent协作实现:实现 Multi-Agent 系统的工程化，解决 Agent 间的通信、协调、冲突处理等问题",
+        "category": "valid",
+        "evidence": "JD职责要求Multi-Agent协作工程化，画像仅有单Agent的LangGraph状态机经验，无多Agent间通信协调经验",
+        "job_id": 2
+      },
+      {
+        "text": "工具集/插件系统开发",
+        "index": 6,
+        "jd_source": "工具链开发:开发 Agent 可调用的工具集和插件系统，扩展 Agent 的能力边界，支持业务快速迭代",
+        "category": "valid",
+        "evidence": "JD职责要求开发工具集和插件系统，画像仅有使用@tool和Function Calling调用工具的经验，无开发工具集/插件系统的经验",
+        "job_id": 2
+      },
+      {
+        "text": "后端语言（Java/Go 等第二语言）",
+        "index": 7,
+        "jd_source": "后端语言",
+        "category": "already_has",
+        "evidence": "JD必需技能要求后端语言，画像已具备Python及FastAPI后端开发能力，Python即为后端语言，满足要求",
+        "job_id": 2
+      },
+      {
+        "text": "Spark",
+        "index": 0,
+        "jd_source": "Spark",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出Spark，画像技能与项目均无Spark相关经验",
+        "job_id": 3
+      },
+      {
+        "text": "Java/Scala",
+        "index": 1,
+        "jd_source": "Python/Java/Scala",
+        "category": "already_has",
+        "evidence": "JD为多选一（Python/Java/Scala），画像已具备Python，满足其中之一",
+        "job_id": 3
+      },
+      {
+        "text": "Google ADK",
+        "index": 2,
+        "jd_source": "LangGraph/Google ADK",
+        "category": "already_has",
+        "evidence": "JD为多选一（LangGraph/Google ADK），画像已具备LangGraph（StateGraph、条件路由、Reducer、RetryPolicy、Send API），满足其中之一",
+        "job_id": 3
+      },
+      {
+        "text": "多Agent协作",
+        "index": 3,
+        "jd_source": "多Agent协作",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出多Agent协作，画像仅有单Agent的LangGraph状态机经验，无多Agent协作经验",
+        "job_id": 3
+      },
+      {
+        "text": "技能封装（可复用工具/技能抽象）",
+        "index": 4,
+        "jd_source": "技能封装",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出技能封装，画像无将工具/技能抽象为可复用封装的明确经验",
+        "job_id": 3
+      },
+      {
+        "text": "Text2SQL",
+        "index": 5,
+        "jd_source": "Text2SQL",
+        "category": "valid",
+        "evidence": "JD加分技能明确列出Text2SQL，画像仅有SQL与SQLite基础，无Text2SQL经验",
+        "job_id": 3
+      },
+      {
+        "text": "DeepResearch",
+        "index": 6,
+        "jd_source": "DeepResearch",
+        "category": "valid",
+        "evidence": "JD加分技能明确列出DeepResearch，画像无相关经验",
+        "job_id": 3
+      },
+      {
+        "text": "AIOps",
+        "index": 7,
+        "jd_source": "AIOps",
+        "category": "valid",
+        "evidence": "JD加分技能明确列出AIOps，画像无相关经验",
+        "job_id": 3
+      },
+      {
+        "text": "生成式UI",
+        "index": 8,
+        "jd_source": "生成式UI",
+        "category": "valid",
+        "evidence": "JD加分技能明确列出生成式UI，画像仅有传统前端React/Vue经验，无生成式UI经验",
+        "job_id": 3
+      },
+      {
+        "text": "长上下文处理",
+        "index": 9,
+        "jd_source": "长上下文处理",
+        "category": "valid",
+        "evidence": "JD加分技能明确列出长上下文处理，画像无相关经验",
+        "job_id": 3
+      },
+      {
+        "text": "推理成本优化",
+        "index": 10,
+        "jd_source": "推理成本优化",
+        "category": "valid",
+        "evidence": "JD加分技能明确列出推理成本优化，画像仅有耗时优化（12s→4s等），无推理成本优化经验",
+        "job_id": 3
+      },
+      {
+        "text": "自动化测试体系（岗位要求的评测工程化）",
+        "index": 11,
+        "jd_source": "建立自动化评测体系并持续迭代",
+        "category": "valid",
+        "evidence": "JD职责要求建立自动化评测体系，画像仅有项目内evals评测脚本，未体现体系化的自动化评测工程能力",
+        "job_id": 3
+      },
+      {
+        "text": "Java",
+        "index": 0,
+        "jd_source": "至少一种编程语言（如Java、Python等）",
+        "category": "already_has",
+        "evidence": "JD要求至少一种编程语言，Java、Python是举例，画像已具备Python，满足多选一要求",
+        "job_id": 4
+      },
+      {
+        "text": "RAG（检索增强生成）",
+        "index": 1,
+        "jd_source": "探索前沿AI技术，包括多模态大模型、Agent架构设计、RAG优化、工具调用链路设计等，并构建原型",
+        "category": "valid",
+        "evidence": "职责明确提到RAG优化，画像技能与项目中没有RAG相关经验",
+        "job_id": 4
+      },
+      {
+        "text": "多模态大模型",
+        "index": 2,
+        "jd_source": "探索前沿AI技术，包括多模态大模型、Agent架构设计、RAG优化、工具调用链路设计等，并构建原型",
+        "category": "valid",
+        "evidence": "职责明确提到多模态大模型，画像技能与项目中没有多模态大模型相关经验",
+        "job_id": 4
+      },
+      {
+        "text": "向量数据库 / Embedding 检索",
+        "index": 3,
+        "jd_source": "探索前沿AI技术，包括多模态大模型、Agent架构设计、RAG优化、工具调用链路设计等，并构建原型",
+        "category": "valid",
+        "evidence": "JD提到RAG优化，向量数据库/Embedding检索是RAG的核心实现，画像无此经验，属于比JD更具体的缺失",
+        "job_id": 4
+      },
+      {
+        "text": "Memory 组件（长期记忆/会话记忆工程化）",
+        "index": 4,
+        "jd_source": "Agent核心组件（Chains、Agents、Memory等）",
+        "category": "valid",
+        "evidence": "必需技能明确列出Memory组件，画像仅有会话历史持久化（SQLite），无Memory组件工程化经验",
+        "job_id": 4
+      },
+      {
+        "text": "深度学习/机器学习框架（PyTorch、TensorFlow）",
+        "index": 5,
+        "jd_source": "深度学习机器学习科研经历或竞赛获奖",
+        "category": "valid",
+        "evidence": "加分技能要求深度学习/机器学习科研经历，画像无深度学习框架（PyTorch/TensorFlow）及科研竞赛经历",
+        "job_id": 4
+      },
+      {
+        "text": "云原生/容器化部署（Docker、K8s）",
+        "index": 6,
+        "jd_source": "无",
+        "category": "not_required",
+        "evidence": "JD的必需技能、加分技能、职责三处均未提及云原生/容器化部署要求",
+        "job_id": 4
+      },
+      {
+        "text": "大规模分布式与高并发生产系统经验",
+        "index": 7,
+        "jd_source": "无",
+        "category": "not_required",
+        "evidence": "JD的必需技能、加分技能、职责三处均未提及大规模分布式与高并发生产系统经验",
+        "job_id": 4
+      },
+      {
+        "text": "Java",
+        "index": 0,
+        "jd_source": "Java",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出Java，候选人技能与项目均未出现Java，明显缺失。",
+        "job_id": 5
+      },
+      {
+        "text": "TypeScript",
+        "index": 1,
+        "jd_source": "TypeScript",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出TypeScript，候选人技能仅有JavaScript/React/Vue，未出现TypeScript，明显缺失。",
+        "job_id": 5
+      },
+      {
+        "text": "RAG",
+        "index": 2,
+        "jd_source": "RAG",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出RAG，且职责要求'深度参与Agent、RAG等大模型技术在客服场景中的工程落地'，候选人技能与项目均未出现RAG相关内容，明显缺失。",
+        "job_id": 5
+      },
+      {
+        "text": "Golang",
+        "index": 0,
+        "jd_source": "Golang",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出Golang，画像技能中无Golang",
+        "job_id": 6
+      },
+      {
+        "text": "Java",
+        "index": 1,
+        "jd_source": "Java",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出Java，画像技能中无Java",
+        "job_id": 6
+      },
+      {
+        "text": "C",
+        "index": 2,
+        "jd_source": "C",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出C，画像技能中无C",
+        "job_id": 6
+      },
+      {
+        "text": "C++",
+        "index": 3,
+        "jd_source": "C++",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出C++，画像技能中无C++",
+        "job_id": 6
+      },
+      {
+        "text": "PHP",
+        "index": 4,
+        "jd_source": "PHP",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出PHP，画像技能中无PHP",
+        "job_id": 6
+      },
+      {
+        "text": "Go",
+        "index": 5,
+        "jd_source": "Go",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出Go，画像技能中无Go",
+        "job_id": 6
+      },
+      {
+        "text": "SpringCloud",
+        "index": 6,
+        "jd_source": "SpringCloud",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出SpringCloud，画像技能中无SpringCloud",
+        "job_id": 6
+      },
+      {
+        "text": "MySQL",
+        "index": 7,
+        "jd_source": "MySQL",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出MySQL，画像仅有SQLite和PostgreSQL基础，无MySQL",
+        "job_id": 6
+      },
+      {
+        "text": "Kafka",
+        "index": 8,
+        "jd_source": "Kafka",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出Kafka，画像技能中无Kafka",
+        "job_id": 6
+      },
+      {
+        "text": "Redis",
+        "index": 9,
+        "jd_source": "Redis",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出Redis，画像技能中无Redis",
+        "job_id": 6
+      },
+      {
+        "text": "数据结构",
+        "index": 10,
+        "jd_source": "数据结构",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出数据结构，画像技能中未体现数据结构",
+        "job_id": 6
+      },
+      {
+        "text": "算法",
+        "index": 11,
+        "jd_source": "算法",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出算法，画像技能中未体现算法",
+        "job_id": 6
+      },
+      {
+        "text": "操作系统",
+        "index": 12,
+        "jd_source": "操作系统",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出操作系统，画像技能中未体现操作系统",
+        "job_id": 6
+      },
+      {
+        "text": "Golang",
+        "index": 0,
+        "jd_source": "Golang",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求Golang，画像技能列表中无Golang。",
+        "job_id": 7
+      },
+      {
+        "text": "Java",
+        "index": 1,
+        "jd_source": "Java",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求Java，画像技能列表中无Java。",
+        "job_id": 7
+      },
+      {
+        "text": "Elasticsearch",
+        "index": 2,
+        "jd_source": "Elasticsearch",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求Elasticsearch，画像技能列表中无Elasticsearch。",
+        "job_id": 7
+      },
+      {
+        "text": "MySQL",
+        "index": 3,
+        "jd_source": "MySQL",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求MySQL，画像仅有SQLite和PostgreSQL基础，无MySQL。",
+        "job_id": 7
+      },
+      {
+        "text": "MyBatis",
+        "index": 4,
+        "jd_source": "MyBatis",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求MyBatis，画像技能列表中无MyBatis。",
+        "job_id": 7
+      },
+      {
+        "text": "Redis",
+        "index": 5,
+        "jd_source": "Redis",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求Redis，画像技能列表中无Redis。",
+        "job_id": 7
+      },
+      {
+        "text": "SQL Server",
+        "index": 6,
+        "jd_source": "SQL Server",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求SQL Server，画像技能列表中无SQL Server。",
+        "job_id": 7
+      },
+      {
+        "text": "Spring",
+        "index": 7,
+        "jd_source": "Spring",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求Spring，画像技能列表中无Spring。",
+        "job_id": 7
+      },
+      {
+        "text": "Go",
+        "index": 0,
+        "jd_source": "Go",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求Go，画像技能列表中无Go，仅前端与Python相关技能",
+        "job_id": 8
+      },
+      {
+        "text": "MySQL",
+        "index": 1,
+        "jd_source": "MySQL",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求MySQL，画像仅有SQLite和PostgreSQL基础，无MySQL",
+        "job_id": 8
+      },
+      {
+        "text": "Redis",
+        "index": 2,
+        "jd_source": "Redis",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求Redis，画像技能列表中无Redis",
+        "job_id": 8
+      },
+      {
+        "text": "消息队列",
+        "index": 3,
+        "jd_source": "消息队列",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求消息队列，画像技能列表中无任何消息队列相关技能",
+        "job_id": 8
+      },
+      {
+        "text": "Docker",
+        "index": 4,
+        "jd_source": "Docker",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求Docker，画像技能列表中无Docker",
+        "job_id": 8
+      },
+      {
+        "text": "Kubernetes",
+        "index": 5,
+        "jd_source": "Kubernetes",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求Kubernetes，画像技能列表中无Kubernetes",
+        "job_id": 8
+      },
+      {
+        "text": "DevOps",
+        "index": 6,
+        "jd_source": "DevOps",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求DevOps，画像仅有Git、Railway、Vercel等部署工具，无DevOps体系经验",
+        "job_id": 8
+      },
+      {
+        "text": "多Agent架构",
+        "index": 7,
+        "jd_source": "多Agent架构",
+        "category": "valid",
+        "evidence": "JD加分技能明确要求多Agent架构，画像仅有单Agent的LangGraph状态机经验，无多Agent架构",
+        "job_id": 8
+      },
+      {
+        "text": "多模型工作流搭建",
+        "index": 8,
+        "jd_source": "多模型工作流搭建",
+        "category": "valid",
+        "evidence": "JD加分技能明确要求多模型工作流搭建，画像仅使用DeepSeek单一模型，无多模型工作流",
+        "job_id": 8
+      },
+      {
+        "text": "Agent工具链（工程化）",
+        "index": 9,
+        "jd_source": "Agent工具链",
+        "category": "valid",
+        "evidence": "JD加分技能明确要求Agent工具链，画像有LangChain/LangGraph等框架但无工程化Agent工具链经验",
+        "job_id": 8
+      },
+      {
+        "text": "RAG（检索增强生成）",
+        "index": 0,
+        "jd_source": "落地RAG、工具调用、任务自动化，要盖研报分析、因子处理、数据复盘等场景",
+        "category": "valid",
+        "evidence": "JD职责明确要求落地RAG，画像技能与项目均未出现RAG或检索增强生成相关内容。",
+        "job_id": 9
+      },
+      {
+        "text": "向量数据库 / 向量检索",
+        "index": 1,
+        "jd_source": "落地RAG、工具调用、任务自动化，要盖研报分析、因子处理、数据复盘等场景",
+        "category": "valid",
+        "evidence": "RAG落地通常依赖向量检索/向量数据库，画像中无向量数据库或向量检索相关技能，属于JD要求的更具体实现能力。",
+        "job_id": 9
+      },
+      {
+        "text": "量化投研领域知识（因子、策略、回测）",
+        "index": 2,
+        "jd_source": "基于大模型与Agent框架，研发量化投研专属智能体",
+        "category": "valid",
+        "evidence": "JD职责要求研发量化投研智能体，画像无量化、因子、策略、回测等投研领域知识。",
+        "job_id": 9
+      },
+      {
+        "text": "金融科技 / 量化经验",
+        "index": 3,
+        "jd_source": "量化经验",
+        "category": "valid",
+        "evidence": "JD加分技能明确列出量化经验，画像无量化或金融科技相关经验。",
+        "job_id": 9
+      },
+      {
+        "text": "clawhub 发布 skills 经验",
+        "index": 4,
+        "jd_source": "在clawhub上发布skills",
+        "category": "valid",
+        "evidence": "JD加分技能明确要求在clawhub上发布skills，画像中无此项经验。",
+        "job_id": 9
+      },
+      {
+        "text": "模型推理优化与输出精度调优（微调/推理加速）",
+        "index": 5,
+        "jd_source": "跟进AI前沿技术，优化模型推理与输出精度",
+        "category": "valid",
+        "evidence": "JD职责要求优化模型推理与输出精度，画像仅有Prompt Engineering和LangSmith调试，无微调或推理加速等模型层优化经验。",
+        "job_id": 9
+      },
+      {
+        "text": "分布式搜索引擎开发",
+        "index": 0,
+        "jd_source": "分布式搜索引擎开发",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求分布式搜索引擎开发，画像技能与项目均无搜索引擎相关经验",
+        "job_id": 10
+      },
+      {
+        "text": "Solr",
+        "index": 1,
+        "jd_source": "Solr或Elasticsearch",
+        "category": "valid",
+        "evidence": "JD必需技能要求Solr或Elasticsearch，画像无Solr经验（加分技能Solr项目经验也缺失）",
+        "job_id": 10
+      },
+      {
+        "text": "Elasticsearch",
+        "index": 2,
+        "jd_source": "Solr或Elasticsearch",
+        "category": "valid",
+        "evidence": "JD必需技能要求Solr或Elasticsearch，画像无Elasticsearch经验",
+        "job_id": 10
+      },
+      {
+        "text": "搜索性能优化",
+        "index": 3,
+        "jd_source": "搜索性能优化",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求搜索性能优化，画像无搜索相关经验",
+        "job_id": 10
+      },
+      {
+        "text": "索引设计",
+        "index": 4,
+        "jd_source": "索引设计",
+        "category": "valid",
+        "evidence": "JD必需技能及职责RAG优化均要求索引设计，画像无索引设计经验",
+        "job_id": 10
+      },
+      {
+        "text": "查询优化",
+        "index": 5,
+        "jd_source": "查询优化",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求查询优化，画像无搜索查询优化经验",
+        "job_id": 10
+      },
+      {
+        "text": "分片策略",
+        "index": 6,
+        "jd_source": "分片策略",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求分片策略，画像无相关经验",
+        "job_id": 10
+      },
+      {
+        "text": "缓存机制",
+        "index": 7,
+        "jd_source": "缓存机制",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求缓存机制，画像无缓存相关经验",
+        "job_id": 10
+      },
+      {
+        "text": "系统性能分析",
+        "index": 8,
+        "jd_source": "系统性能分析",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求系统性能分析，画像仅有应用层耗时优化，无系统级性能分析经验",
+        "job_id": 10
+      },
+      {
+        "text": "多语言AI应用开发",
+        "index": 9,
+        "jd_source": "多语言AI应用开发",
+        "category": "valid",
+        "evidence": "JD必需技能及职责均要求多语言AI应用开发，画像项目均为中文场景，无多语言应用经验",
+        "job_id": 10
+      },
+      {
+        "text": "英文沟通能力",
+        "index": 10,
+        "jd_source": "英文沟通能力",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求英文沟通能力，画像未体现英文沟通能力",
+        "job_id": 10
+      },
+      {
+        "text": "Infrastructure as Code (IaC)",
+        "index": 11,
+        "jd_source": "Infrastructure as Code (IaC)",
+        "category": "valid",
+        "evidence": "JD必需技能及职责均要求IaC，画像无IaC经验",
+        "job_id": 10
+      },
+      {
+        "text": "Terraform",
+        "index": 12,
+        "jd_source": "Terraform或CloudFormation",
+        "category": "valid",
+        "evidence": "JD必需技能要求Terraform或CloudFormation，画像无Terraform经验",
+        "job_id": 10
+      },
+      {
+        "text": "CloudFormation",
+        "index": 13,
+        "jd_source": "Terraform或CloudFormation",
+        "category": "valid",
+        "evidence": "JD必需技能要求Terraform或CloudFormation，画像无CloudFormation经验",
+        "job_id": 10
+      },
+      {
+        "text": "AWS架构设计",
+        "index": 14,
+        "jd_source": "AWS架构设计",
+        "category": "valid",
+        "evidence": "JD必需技能要求AWS架构设计，画像仅有Railway/Vercel部署经验，无AWS经验",
+        "job_id": 10
+      },
+      {
+        "text": "跨团队协作",
+        "index": 15,
+        "jd_source": "跨团队协作",
+        "category": "valid",
+        "evidence": "JD必需技能及职责均要求跨团队协作，画像仅有一段3个月前端实习，无跨团队协作体现",
+        "job_id": 10
+      },
+      {
+        "text": "需求分析",
+        "index": 16,
+        "jd_source": "需求分析",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求需求分析，画像无需求分析经验体现",
+        "job_id": 10
+      },
+      {
+        "text": "任务拆解",
+        "index": 17,
+        "jd_source": "任务拆解",
+        "category": "valid",
+        "evidence": "JD必需技能及职责均要求任务拆解，画像无任务拆解经验体现",
+        "job_id": 10
+      },
+      {
+        "text": "技术方案设计",
+        "index": 18,
+        "jd_source": "技术方案设计",
+        "category": "valid",
+        "evidence": "JD必需技能及职责均要求技术方案设计，画像项目为个人开发，无主导技术方案设计体现",
+        "job_id": 10
+      },
+      {
+        "text": "项目推进",
+        "index": 19,
+        "jd_source": "项目推进",
+        "category": "valid",
+        "evidence": "JD必需技能及职责均要求项目推进，画像无项目推进经验体现",
+        "job_id": 10
+      },
+      {
+        "text": "成果交付",
+        "index": 20,
+        "jd_source": "成果交付",
+        "category": "valid",
+        "evidence": "JD必需技能及职责均要求成果交付，画像项目虽上线但无团队交付经验体现",
+        "job_id": 10
+      },
+      {
+        "text": "软件安全与合规意识",
+        "index": 21,
+        "jd_source": "软件安全与合规意识",
+        "category": "valid",
+        "evidence": "JD必需技能及职责均要求软件安全与合规意识，画像无安全合规相关经验",
+        "job_id": 10
+      },
+      {
+        "text": "TypeScript",
+        "index": 0,
+        "jd_source": "TypeScript",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求TypeScript，画像技能列表只有JavaScript/React/Vue，无TypeScript",
+        "job_id": 11
+      },
+      {
+        "text": "Node.js",
+        "index": 1,
+        "jd_source": "Node.js",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求Node.js，画像技能列表无Node.js",
+        "job_id": 11
+      },
+      {
+        "text": "OpenAI Agents SDK",
+        "index": 2,
+        "jd_source": "OpenAI Agents SDK",
+        "category": "valid",
+        "evidence": "JD加分技能明确列出OpenAI Agents SDK，画像仅有LangChain/LangGraph，无OpenAI Agents SDK",
+        "job_id": 11
+      },
+      {
+        "text": "MCP",
+        "index": 3,
+        "jd_source": "MCP",
+        "category": "valid",
+        "evidence": "JD加分技能明确列出MCP，画像技能列表无MCP",
+        "job_id": 11
+      },
+      {
+        "text": "图片/视频/音频等 AIGC 多模态能力接入",
+        "index": 4,
+        "jd_source": "接入大模型及图片、视频、音频等AIGC能力优化Agent的稳定性、执行效果、响应速度和成本",
+        "category": "valid",
+        "evidence": "JD职责要求接入图片/视频/音频等AIGC多模态能力，画像项目均为文本对话/文本分析，无多模态接入经验",
+        "job_id": 11
+      },
+      {
+        "text": "RAG（检索增强生成）",
+        "index": 0,
+        "jd_source": "RAG",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出RAG，候选人技能与项目均无RAG/检索增强生成相关证据",
+        "job_id": 12
+      },
+      {
+        "text": "MCP（Model Context Protocol）",
+        "index": 1,
+        "jd_source": "MCP",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出MCP，候选人技能与项目均无Model Context Protocol相关证据",
+        "job_id": 12
+      },
+      {
+        "text": "SKILL（岗位所列技能项，简历无对应证据）",
+        "index": 2,
+        "jd_source": "SKILL",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出SKILL，候选人技能与项目均无对应证据",
+        "job_id": 12
+      },
+      {
+        "text": "多Agent调度与协作机制设计",
+        "index": 3,
+        "jd_source": "设计多Agent系统及协作机制",
+        "category": "valid",
+        "evidence": "JD职责要求设计多Agent系统及协作机制，候选人仅有单Agent的LangGraph状态机经验，无多Agent调度与协作设计证据",
+        "job_id": 12
+      },
+      {
+        "text": "浏览器/桌面自动化（RPA）Agent开发",
+        "index": 4,
+        "jd_source": "AI自动化操作浏览器/桌面自动化Agent开发经验",
+        "category": "valid",
+        "evidence": "JD加分技能明确要求浏览器/桌面自动化Agent开发经验，候选人无相关证据",
+        "job_id": 12
+      },
+      {
+        "text": "AI编排自动工作流 / RPA 经验",
+        "index": 5,
+        "jd_source": "AI编排自动工作流或RPA相关经验",
+        "category": "valid",
+        "evidence": "JD加分技能明确要求AI编排自动工作流或RPA经验，候选人无相关证据",
+        "job_id": 12
+      },
+      {
+        "text": "多模型调度与复杂系统架构",
+        "index": 6,
+        "jd_source": "多模型、多Agent调度及复杂系统架构经验",
+        "category": "valid",
+        "evidence": "JD加分技能明确要求多模型、多Agent调度及复杂系统架构经验，候选人仅有单模型单Agent经验",
+        "job_id": 12
+      },
+      {
+        "text": "ERP / SaaS 业务领域知识",
+        "index": 7,
+        "jd_source": "完成AIAgent系统与SaaSERP核心模块的集成落地",
+        "category": "valid",
+        "evidence": "JD职责要求与SaaS ERP核心模块集成落地，候选人无ERP/SaaS业务领域经验证据",
+        "job_id": 12
+      },
+      {
+        "text": "Java",
+        "index": 0,
+        "jd_source": "Java",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出Java，画像技能中无Java。",
+        "job_id": 13
+      },
+      {
+        "text": "Go",
+        "index": 1,
+        "jd_source": "Go",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出Go，画像技能中无Go。",
+        "job_id": 13
+      },
+      {
+        "text": "TypeScript",
+        "index": 2,
+        "jd_source": "TypeScript",
+        "category": "valid",
+        "evidence": "JD必需技能明确列出TypeScript，画像仅有JavaScript/React/Vue，无TypeScript。",
+        "job_id": 13
+      },
+      {
+        "text": "RAG",
+        "index": 3,
+        "jd_source": "RAG",
+        "category": "valid",
+        "evidence": "JD必需技能列出RAG，职责中也提到探索RAG技术，画像技能与项目均无RAG。",
+        "job_id": 13
+      },
+      {
+        "text": "MCP",
+        "index": 4,
+        "jd_source": "探索多Agent协作、RAG、MCP、工作流编排等技术在腾讯云场景中的应用",
+        "category": "valid",
+        "evidence": "JD职责明确提到MCP技术，画像中无MCP相关技能或经验。",
+        "job_id": 13
+      },
+      {
+        "text": "多Agent协作",
+        "index": 5,
+        "jd_source": "探索多Agent协作、RAG、MCP、工作流编排等技术在腾讯云场景中的应用",
+        "category": "valid",
+        "evidence": "JD职责明确提到多Agent协作，画像仅有单Agent的LangGraph经验，无多Agent协作。",
+        "job_id": 13
+      },
+      {
+        "text": "腾讯云产品开发经验",
+        "index": 6,
+        "jd_source": "腾讯云产品开发",
+        "category": "valid",
+        "evidence": "JD加分技能明确列出腾讯云产品开发，画像无腾讯云产品开发经验。",
+        "job_id": 13
+      },
+      {
+        "text": "云API / 云控制台对接经验",
+        "index": 7,
+        "jd_source": "对接腾讯云控制台、云API及相关产品能力，构建自然语言驱动的云产品查询、配置、运维与问题诊断体验",
+        "category": "valid",
+        "evidence": "JD职责明确要求对接腾讯云控制台、云API，画像无云API或云控制台对接经验。",
+        "job_id": 13
+      },
+      {
+        "text": "运维经验 / 自动化运维",
+        "index": 8,
+        "jd_source": "运维经验",
+        "category": "valid",
+        "evidence": "JD加分技能列出运维经验及自动化运维，画像无运维或自动化运维经验。",
+        "job_id": 13
+      },
+      {
+        "text": "企业级AI产品经验",
+        "index": 9,
+        "jd_source": "企业级AI产品",
+        "category": "valid",
+        "evidence": "JD加分技能列出企业级AI产品，画像项目为个人/小型应用，无企业级AI产品经验。",
+        "job_id": 13
+      },
+      {
+        "text": "Agent效果评测体系（有 evals 脚本，但非线上评测体系）",
+        "index": 10,
+        "jd_source": "建设Agent效果评测体系，持续优化任务成功率、响应准确性、交互效率及用户体验",
+        "category": "valid",
+        "evidence": "JD职责要求建设Agent效果评测体系，画像仅有evals脚本，未体现线上评测体系建设。",
+        "job_id": 13
+      },
+      {
+        "text": "MCP协议",
+        "index": 0,
+        "jd_source": "MCP协议",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求MCP协议，画像技能列表中无MCP协议相关条目。",
+        "job_id": 14
+      },
+      {
+        "text": "RAG",
+        "index": 1,
+        "jd_source": "RAG",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求RAG，画像技能与项目均无RAG相关经验。",
+        "job_id": 14
+      },
+      {
+        "text": "向量数据库",
+        "index": 2,
+        "jd_source": "向量数据库",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求向量数据库，画像中无向量数据库相关技能。",
+        "job_id": 14
+      },
+      {
+        "text": "Flask",
+        "index": 3,
+        "jd_source": "Flask",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求Flask，画像技能中仅有FastAPI，无Flask。",
+        "job_id": 14
+      },
+      {
+        "text": "高可用工程化（超时控制/优雅降级/幂等设计）",
+        "index": 4,
+        "jd_source": "高可用工程化",
+        "category": "valid",
+        "evidence": "JD必需技能要求高可用工程化，职责中提及超时控制、自动重试、优雅降级、幂等设计等，画像仅有RetryPolicy，缺少超时控制、优雅降级、幂等设计等完整工程化能力。",
+        "job_id": 14
+      },
+      {
+        "text": "Multi-Agent复杂编排落地经验",
+        "index": 5,
+        "jd_source": "Multi-Agent复杂编排项目落地经验",
+        "category": "valid",
+        "evidence": "JD加分技能明确要求Multi-Agent复杂编排项目落地经验，画像项目为单Agent状态机，无Multi-Agent编排落地经验。",
+        "job_id": 14
+      },
+      {
+        "text": "Harness Engineering",
+        "index": 6,
+        "jd_source": "Harness Engineering",
+        "category": "valid",
+        "evidence": "JD加分技能明确要求Harness Engineering，画像中无此项技能。",
+        "job_id": 14
+      },
+      {
+        "text": "开源项目贡献或技术博客",
+        "index": 7,
+        "jd_source": "开源项目贡献或技术博客",
+        "category": "valid",
+        "evidence": "JD加分技能明确要求开源项目贡献或技术博客，画像中无相关记录。",
+        "job_id": 14
+      },
+      {
+        "text": "Node.js/TypeScript",
+        "index": 0,
+        "jd_source": "Node.js/TypeScript",
+        "category": "valid",
+        "evidence": "JD必需技能明确要求Node.js/TypeScript，画像技能列表仅有JavaScript/React/Vue，无Node.js/TypeScript。",
+        "job_id": 15
+      },
+      {
+        "text": "OpenClaw",
+        "index": 1,
+        "jd_source": "OpenClaw/Claude Code/Cursor AI coding agent",
+        "category": "valid",
+        "evidence": "JD加分技能要求OpenClaw/Claude Code/Cursor AI coding agent，画像仅有Claude Code，无OpenClaw，且职责多处基于OpenClaw开发。",
+        "job_id": 15
+      },
+      {
+        "text": "MCP Server 开发",
+        "index": 2,
+        "jd_source": "MCP Server开发与维护",
+        "category": "valid",
+        "evidence": "JD职责明确要求MCP Server开发与维护，画像技能与项目均未提及MCP。",
+        "job_id": 15
+      },
+      {
+        "text": "记忆系统设计（短期/长期/语义/情景记忆）",
+        "index": 3,
+        "jd_source": "设计Agent的记忆架构(短期/长期/语义/情景记忆)",
+        "category": "valid",
+        "evidence": "JD职责要求设计短期/长期/语义/情景记忆架构，画像仅有会话历史持久化(SQLite)，无记忆系统设计经验。",
+        "job_id": 15
+      },
+      {
+        "text": "多 Agent orchestration / 协作协议",
+        "index": 4,
+        "jd_source": "构建Agent间的协作协议(多Agent orchestration)",
+        "category": "valid",
+        "evidence": "JD职责要求多Agent orchestration，画像仅有单Agent的LangGraph状态机，无多Agent协作经验。",
+        "job_id": 15
+      },
+      {
+        "text": "hybrid search（向量 + BM25）检索管线",
+        "index": 5,
+        "jd_source": "构建hybrid search(向量+BM25)检索管线",
+        "category": "valid",
+        "evidence": "JD职责要求hybrid search(向量+BM25)检索管线，画像无检索管线相关技能或项目。",
+        "job_id": 15
+      },
+      {
+        "text": "向量数据库 / Embedding 检索",
+        "index": 6,
+        "jd_source": "构建hybrid search(向量+BM25)检索管线",
+        "category": "valid",
+        "evidence": "JD职责要求向量检索管线，画像无向量数据库或Embedding检索经验。",
+        "job_id": 15
+      },
+      {
+        "text": "飞书/企微开放平台开发",
+        "index": 7,
+        "jd_source": "飞书/企微开放平台开发经验",
+        "category": "valid",
+        "evidence": "JD加分技能要求飞书/企微开放平台开发经验，画像无相关经验。",
+        "job_id": 15
+      },
+      {
+        "text": "Agent Bootstrap 文件体系（SOUL/AGENTS/USER/MEMORY/TOOLS）",
+        "index": 8,
+        "jd_source": "设计Agent的Bootstrap文件体系(SOUL/AGENTS/USER/MEMORY/TOOLS)",
+        "category": "valid",
+        "evidence": "JD职责要求设计Bootstrap文件体系，画像无相关经验。",
+        "job_id": 15
+      },
+      {
+        "text": "记忆整理机制（Dream/Consolidation/Atomization）",
+        "index": 9,
+        "jd_source": "实现记忆整理机制(Dream/Consolidation/Atomization)",
+        "category": "valid",
+        "evidence": "JD职责要求实现记忆整理机制，画像无相关经验。",
+        "job_id": 15
+      },
+      {
+        "text": "token 预算管理与模型路由",
+        "index": 10,
+        "jd_source": "对接LLM API(Claude/GPT/DeepSeek)，管理token预算与模型路由",
+        "category": "valid",
+        "evidence": "JD职责要求管理token预算与模型路由，画像仅有DeepSeek API对接，无token预算管理与模型路由经验。",
+        "job_id": 15
+      },
+      {
+        "text": "Agent 行为监控与质量评估体系",
+        "index": 11,
+        "jd_source": "Agent行为监控与质量评估",
+        "category": "valid",
+        "evidence": "JD职责要求Agent行为监控与质量评估，画像仅有LangSmith链路追踪与evals评测脚本，无Agent行为监控与质量评估体系。",
         "job_id": 15
       }
     ]

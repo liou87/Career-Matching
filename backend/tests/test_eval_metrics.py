@@ -73,3 +73,42 @@ def test_judge_checks_actions_and_gap_suggestions():
         "gaps": [{"gap": "g1", "suggestion": "结合项目 A"}, {"gap": "g2", "suggestion": ""}],
     }
     assert suggestion_texts(result) == ["做 X / 因为 Y", "结合项目 A"]
+
+
+def test_summarize_version_reports_gap_judgements():
+    gap_verdicts = [{"category": "valid"}] * 6 + [{"category": "not_required"}] * 3 + [{"category": "already_has"}]
+
+    s = summarize_version([], {}, [], gap_verdicts)
+
+    assert (s["gap_valid_rate"], s["gap_not_required_rate"], s["gap_already_has_rate"]) == (0.6, 0.3, 0.1)
+    assert summarize_version([], {}, [])["gap_valid_rate"] is None
+
+
+def test_judge_gaps_rejects_incomplete_verdicts(monkeypatch):
+    from evals import judge as judge_mod
+    from tests.fakes import FakeChain
+
+    partial = judge_mod.GapJudgeResult(
+        verdicts=[judge_mod.GapVerdict(index=0, jd_source="RAG", category="valid", evidence="-")]
+    )
+    monkeypatch.setattr(judge_mod, "gap_judge_chain", lambda: FakeChain(partial))
+
+    with pytest.raises(ValueError, match="对不上"):
+        judge_mod.judge_gaps({}, {}, {"missing_skills": ["RAG", "K8s"]})
+
+
+def test_judge_gaps_corrects_self_contradicting_verdicts(monkeypatch):
+    from evals import judge as judge_mod
+    from tests.fakes import FakeChain
+
+    verdicts = judge_mod.GapJudgeResult(verdicts=[
+        # 摘录到了 JD 原文却判「JD 没要求」，自相矛盾，按 valid 计
+        judge_mod.GapVerdict(index=0, jd_source="Text2SQL", category="not_required", evidence="只是加分项"),
+        judge_mod.GapVerdict(index=1, jd_source="无", category="not_required", evidence="JD 没提"),
+    ])
+    monkeypatch.setattr(judge_mod, "gap_judge_chain", lambda: FakeChain(verdicts))
+
+    out = judge_mod.judge_gaps({}, {}, {"missing_skills": ["Text2SQL", "Kafka"]})
+
+    assert [(v["category"], v.get("corrected", False)) for v in out] == [("valid", True), ("not_required", False)]
+
