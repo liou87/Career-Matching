@@ -3,7 +3,7 @@
 missing_skills 聚合成一份"高频差距排行榜"，打印并存成
 evals/results/aggregate_result.json。
 
-不修改 services/graph.py、services/batch_graph.py、routers 或任何现有文件，
+不修改 app/graphs/match.py、app/graphs/batch.py、app/api 或任何现有文件，
 只读 batch_eval.py 已经产出的结果文件、调用现成的 aggregate_gaps。
 
 运行（在 backend 目录下，需要先跑过 evals/batch_eval.py 产出输入文件）：
@@ -15,7 +15,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from services.aggregate import aggregate_gaps
+from app.services.aggregate import aggregate_gaps
 
 RESULTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results")
 

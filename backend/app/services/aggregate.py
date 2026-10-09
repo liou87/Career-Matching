@@ -11,21 +11,12 @@ LangGraph等Agent框架"），直接按字符串去重/计数会把同一个技�
 """
 import json
 from collections import defaultdict
+from functools import lru_cache
 
-from dotenv import load_dotenv
-from langchain_deepseek import ChatDeepSeek
 from langchain_core.prompts import ChatPromptTemplate
 
-from .schemas import SkillMergeResult
-
-# 这个模块不再 import ai_service，之前是靠那边的 import 链间接触发
-# load_dotenv() 才能读到 DEEPSEEK_API_KEY，现在要自己重新加载一次。
-load_dotenv()
-
-# 不复用 ai_service.llm：那边 max_tokens=2048 是按单个岗位的匹配分析输出量
-# 定的，这里一次要归并几十条 missing_skills（比如 15 个岗位约 75 条），
-# 输出规模不是一个量级（约 3000 token），复用会被截断。
-merge_llm = ChatDeepSeek(model="deepseek-chat", max_tokens=8192, temperature=0)
+from app.llm.factory import get_model
+from app.llm.schemas import SkillMergeResult
 
 CANONICAL_SKILLS = [
     "RAG", "Multi-Agent协作", "LangChain/LangGraph", "MCP",
@@ -83,7 +74,11 @@ MERGE_PROMPT = ChatPromptTemplate.from_messages([
 - index 必须跟输入列表的序号一一对应，不能遗漏任何一条。"""),
 ])
 
-merge_chain = MERGE_PROMPT | merge_llm.with_structured_output(SkillMergeResult)
+@lru_cache
+def merge_chain():
+    # 用 merge 角色的模型：一次要归并几十条，输出上限比单岗位分析大得多，
+    # 见 core/config.py 的 max_tokens_merge
+    return MERGE_PROMPT | get_model("merge").with_structured_output(SkillMergeResult)
 
 
 def aggregate_gaps(batch_results: list[dict]) -> list[dict]:
@@ -96,7 +91,7 @@ def aggregate_gaps(batch_results: list[dict]) -> list[dict]:
             items.append({"index": len(items), "job_id": r["job_id"], "text": s})
 
     # 2. 一次 LLM 调用做映射（从固定词表里选，不是自由生成）
-    mapping = merge_chain.invoke({
+    mapping = merge_chain().invoke({
         "items": json.dumps(items, ensure_ascii=False),
         "canonical_skills": json.dumps(CANONICAL_SKILLS, ensure_ascii=False),
     })

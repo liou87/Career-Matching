@@ -1,11 +1,9 @@
 """
 批量并发版：用 LangGraph 的 Send API 把 analyze_match_v3 fan-out 到多个岗位
-并发跑，而不是像 evals/graph_eval.py、routers/analysis.py 那样一次只处理
-一个岗位。这里只是编排层，实际分析逻辑完全复用 services/graph.py 里已经
-验证过的 analyze_match_v3，不重复实现。
+并发跑，而不是像单岗位分析那样一次只处理一个。这里只是编排层，实际分析
+逻辑完全复用 graphs/match.py 里已经验证过的 analyze_match_v3，不重复实现。
 
-目前只在 evals/batch_eval.py 里被调用，没有接入 routers（是否要把
-"批量重跑所有岗位"做成一个真实接口，是另一个决定，这里先不做）。
+调用方：api/analysis.py 的批量分析接口、evals/batch_eval.py。
 """
 import json
 import operator
@@ -14,7 +12,8 @@ from typing import TypedDict, Annotated
 from langgraph.graph import StateGraph, START, END
 from langgraph.types import Send
 
-from .graph import analyze_match_v3
+from app.core.config import settings
+from app.graphs.match import analyze_match_v3
 
 
 class BatchState(TypedDict):
@@ -49,11 +48,12 @@ _g.add_edge("analyze_one", END)
 batch_graph = _g.compile()
 
 
-def analyze_all(profile: dict, jobs: list[dict], max_concurrency: int = 5) -> list[dict]:
+def analyze_all(profile: dict, jobs: list[dict], max_concurrency: int | None = None) -> list[dict]:
     initial_state = {
         "profile": json.dumps(profile, ensure_ascii=False),
         "jobs": jobs,
         "results": [],
     }
-    final_state = batch_graph.invoke(initial_state, config={"max_concurrency": max_concurrency})
+    concurrency = max_concurrency or settings.batch_max_concurrency
+    final_state = batch_graph.invoke(initial_state, config={"max_concurrency": concurrency})
     return final_state["results"]

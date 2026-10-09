@@ -1,6 +1,6 @@
 """
 批量并发测试：把 evals/graph_eval.py 里逐条串行调用 analyze_match_v3 的方式，
-换成 services/batch_graph.py 里基于 Send API 的并发批处理（analyze_all），
+换成 app/graphs/batch.py 里基于 Send API 的并发批处理（analyze_all），
 测一下并发跑全部岗位相比串行能快多少、失败率有没有变化。
 
 复用其他 evals 脚本里同样的 load_profile / _job_to_dict 逻辑（跟
@@ -8,8 +8,8 @@ baseline_eval.py、two_stage_eval.py、graph_eval.py 保持同一套约定，
 本文件内自成一份，不跨文件 import，理由跟那几个文件一样——
 每个 eval 脚本独立可运行，不互相依赖）。
 
-不修改 services/graph.py、services/batch_graph.py、services/ai_service.py、
-routers 或任何现有文件，只读数据库、调用现成的 analyze_all。
+不修改 app/graphs/match.py、app/graphs/batch.py、app/llm/legacy.py、
+app/api 或任何现有文件，只读数据库、调用现成的 analyze_all。
 
 运行（在 backend 目录下）：
     python evals/batch_eval.py
@@ -21,9 +21,9 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from database import SessionLocal
-import models
-from services.batch_graph import analyze_all
+from app.db import models
+from app.db.session import SessionLocal
+from app.graphs.batch import analyze_all
 
 RESULTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results")
 
@@ -69,7 +69,7 @@ def load_profile() -> dict:
 
 
 def _job_to_dict(job: models.Job) -> dict:
-    # 跟 routers/analysis.py 里 _job_to_dict 的字段完全一致
+    # 跟 app/api/analysis.py 里 _job_to_dict 的字段完全一致
     return {
         "title": job.title,
         "company": job.company,

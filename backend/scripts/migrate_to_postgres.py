@@ -10,7 +10,7 @@ from pathlib import Path
 from sqlalchemy import create_engine, func, select, text
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-import models  # noqa: E402  注册所有表到 Base.metadata
+from app.db import models  # noqa: E402  注册所有表到 Base.metadata
 
 SQLITE_PATH = Path(__file__).resolve().parent.parent / "job_helper.db"
 

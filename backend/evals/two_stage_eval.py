@@ -4,7 +4,7 @@ _job_to_dict、同样的岗位查询），调用的是两步拆分版 analyze_ma
 （节点1客观打分识别差距 -> 节点2基于候选人已有项目生成建议，要求给出
 why_valuable 并禁止"系统学习X"这类通用建议）。
 
-直接从 services.ai_service 导入 analyze_match_v2（线上真实逻辑），
+直接从 app.llm.legacy 导入 analyze_match_v2（线上真实逻辑），
 不再经过 sandbox/b2_chain.py 那层转发，避免测的和线上跑的不是同一份代码。
 
 不修改任何现有代码，只读数据库、调用现成的 analyze_match_v2。
@@ -18,9 +18,9 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from database import SessionLocal
-import models
-from services.ai_service import analyze_match_v2
+from app.db import models
+from app.db.session import SessionLocal
+from app.llm.legacy import analyze_match_v2
 
 RESULTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results")
 
@@ -69,7 +69,7 @@ def load_profile() -> dict:
 
 
 def _job_to_dict(job: models.Job) -> dict:
-    # 跟 routers/analysis.py 里 _job_to_dict 的字段完全一致
+    # 跟 app/api/analysis.py 里 _job_to_dict 的字段完全一致
     return {
         "title": job.title,
         "company": job.company,

@@ -85,3 +85,17 @@ class SkillMapping(BaseModel):
 
 class SkillMergeResult(BaseModel):
     mappings: list[SkillMapping] = Field(description="输入列表中每一条都必须有对应映射，不能遗漏")
+
+# ---------- JD 解析 ----------
+
+class ParsedJD(BaseModel):
+    title: str = Field(description="职位名称")
+    company: Optional[str] = Field(default=None, description="公司名称")
+    city: Optional[str] = Field(default=None, description="城市，多城市用逗号分隔")
+    salary_min: Optional[int] = Field(default=None, description="月薪下限，整数，单位千元；无法确定填 null")
+    salary_max: Optional[int] = Field(default=None, description="月薪上限，整数，单位千元；无法确定填 null")
+    required_skills: list[str] = Field(default_factory=list, description="必须技能")
+    preferred_skills: list[str] = Field(default_factory=list, description="加分技能")
+    experience_required: Optional[str] = Field(default=None, description="经验要求，如'1-3年'或'应届生可'")
+    education_required: Optional[str] = Field(default=None, description="学历要求，如'本科及以上'")
+    responsibilities: list[str] = Field(default_factory=list, description="岗位职责")

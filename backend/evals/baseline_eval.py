@@ -14,9 +14,9 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from database import SessionLocal
-import models
-from services.ai_service import analyze_match_v1 as analyze_match
+from app.db import models
+from app.db.session import SessionLocal
+from app.llm.legacy import analyze_match_v1 as analyze_match
 
 RESULTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results")
 
@@ -62,7 +62,7 @@ def load_profile() -> dict:
 
 
 def _job_to_dict(job: models.Job) -> dict:
-    # 跟 routers/analysis.py 里 _job_to_dict 的字段完全一致
+    # 跟 app/api/analysis.py 里 _job_to_dict 的字段完全一致
     return {
         "title": job.title,
         "company": job.company,

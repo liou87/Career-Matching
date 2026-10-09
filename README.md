@@ -30,20 +30,21 @@ CareerMatch（求职助手）用 AI 管理求职全流程：维护个人画像�
 
 ```text
 backend/
-  main.py                  # FastAPI 入口
-  models.py / schemas.py   # SQLAlchemy 表 / Pydantic 模型
-  routers/                 # profile / jobs / analysis / checklist / agent
-  services/
-    ai_service.py          # JD 解析；匹配分析 v1、v2（对照实验保留）
-    graph.py               # 匹配分析 v3（LangGraph，当前线上版本）
-    batch_graph.py         # 批量分析与技能合并
-    job_agent.py           # AI 助手 Agent 与工具
+  main.py                  # 部署入口，转发到 app/main.py
+  app/
+    core/config.py         # 集中配置，环境变量可覆盖
+    api/                   # profile / jobs / analysis / checklist / agent
+    db/                    # SQLAlchemy 表与连接
+    llm/                   # 模型工厂、链、结构化输出；legacy.py 为 v1/v2 对照实验
+    graphs/                # 匹配分析 v3 与批量分析（LangGraph）
+    services/              # JD 解析、评分、技能归并
+    agent/                 # AI 助手 Agent 与工具
   evals/                   # 各版本对比评测脚本与结果
   scripts/                 # SQLite 数据迁移到 Postgres
 frontend/
   src/pages/               # 各页面
   src/api.ts               # axios 实例
-docs/deploy.md             # Vercel 部署说明
+docs/                      # 部署说明、路线图
 start.bat                  # Windows 下一键启动前后端
 ```
 

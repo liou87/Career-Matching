@@ -1,16 +1,15 @@
-import os
-from pathlib import Path
-
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+from app.core.config import BACKEND_DIR, settings
+
 
 def _database_url() -> str:
     # 线上（Vercel）通过 DATABASE_URL 连 Postgres；本地没配就用 backend/ 下的 SQLite
-    url = os.getenv("DATABASE_URL")
+    url = settings.database_url
     if not url:
-        return f"sqlite:///{Path(__file__).resolve().parent / 'job_helper.db'}"
+        return f"sqlite:///{BACKEND_DIR / 'job_helper.db'}"
     # Neon 等给的是 postgres:// 或 postgresql://，SQLAlchemy 要显式指定 psycopg 驱动
     for prefix in ("postgres://", "postgresql://"):
         if url.startswith(prefix):

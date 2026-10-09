@@ -1,12 +1,12 @@
 """
 对比测试：结构跟 evals/two_stage_eval.py 完全一致（同样的画像来源、同样的
 _job_to_dict、同样的岗位查询、同样的统计口径），唯一区别是调用
-services.graph 里的 analyze_match_v3（LangGraph StateGraph 版本：同样是
+app.graphs.match 里的 analyze_match_v3（LangGraph StateGraph 版本：同样是
 节点1客观打分识别差距 -> 节点2基于候选人已有项目生成建议，只是编排方式从
 两条链的顺序调用换成了显式的状态图节点）。
 
-直接从 services.graph 导入 analyze_match_v3（线上真实逻辑），不修改
-ai_service.py、routers 或任何现有文件。
+直接从 app.graphs.match 导入 analyze_match_v3（线上真实逻辑），不修改
+ai_service.py、app/api 或任何现有文件。
 
 不修改任何现有代码，只读数据库、调用现成的 analyze_match_v3。
 
@@ -19,9 +19,9 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from database import SessionLocal
-import models
-from services.graph import analyze_match_v3
+from app.db import models
+from app.db.session import SessionLocal
+from app.graphs.match import analyze_match_v3
 
 RESULTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results")
 
@@ -70,7 +70,7 @@ def load_profile() -> dict:
 
 
 def _job_to_dict(job: models.Job) -> dict:
-    # 跟 routers/analysis.py 里 _job_to_dict 的字段完全一致
+    # 跟 app/api/analysis.py 里 _job_to_dict 的字段完全一致
     return {
         "title": job.title,
         "company": job.company,

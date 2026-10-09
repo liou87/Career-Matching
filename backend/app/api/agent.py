@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from services.job_agent import chat
-import schemas
+from app import schemas
+from app.agent.job_agent import chat
 
 router = APIRouter(prefix="/agent", tags=["agent"])
 

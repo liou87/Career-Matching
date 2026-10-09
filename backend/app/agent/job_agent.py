@@ -1,12 +1,13 @@
 import json
+from functools import lru_cache
 
 from langchain.agents import create_agent
 from langchain_core.tools import tool
 from langchain_core.messages import AIMessage, HumanMessage
 
-from database import SessionLocal
-import models
-from .ai_service import llm
+from app.db import models
+from app.db.session import SessionLocal
+from app.llm.factory import get_model
 
 
 @tool
@@ -121,11 +122,13 @@ SYSTEM = """你是 CareerMatch 的求职问答助手，基于用户已有的岗�
 - 回答用简体中文，简洁直接。
 """
 
-agent = create_agent(
-    model=llm,
-    tools=[search_jobs, get_skill_ranking, get_profile, get_job_analysis],
-    system_prompt=SYSTEM,
-)
+@lru_cache
+def get_agent():
+    return create_agent(
+        model=get_model("agent"),
+        tools=[search_jobs, get_skill_ranking, get_profile, get_job_analysis],
+        system_prompt=SYSTEM,
+    )
 
 
 def chat(message: str, history: list) -> dict:
@@ -139,7 +142,7 @@ def chat(message: str, history: list) -> dict:
             messages.append(AIMessage(content=content))
     messages.append(HumanMessage(content=message))
 
-    result = agent.invoke({"messages": messages})
+    result = get_agent().invoke({"messages": messages})
     result_messages = result["messages"]
 
     reply = ""

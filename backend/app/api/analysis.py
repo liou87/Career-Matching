@@ -4,43 +4,23 @@ from datetime import datetime, timedelta
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from database import get_db, SessionLocal
-from services.graph import analyze_match_v3
-from services.batch_graph import analyze_all
-from services.aggregate import aggregate_gaps
-import models, schemas
+from app import schemas
+from app.core.config import settings
+from app.db import models
+from app.db.session import get_db, SessionLocal
+from app.graphs.batch import analyze_all
+from app.graphs.match import analyze_match_v3
+from app.services.aggregate import aggregate_gaps
+from app.services.scoring import clamp_breakdown, clamp_score, weighted_score
 
 router = APIRouter(prefix="/analysis", tags=["analysis"])
 
-BATCH_TIMEOUT = timedelta(minutes=5)
+BATCH_TIMEOUT = timedelta(minutes=settings.batch_timeout_minutes)
 
 
 def _content_hash(profile: dict, job: dict) -> str:
     payload = json.dumps({"profile": profile, "job": job}, sort_keys=True, ensure_ascii=False)
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
-
-
-def _clamp_score(value) -> int:
-    try:
-        v = int(round(float(value)))
-    except (TypeError, ValueError):
-        v = 0
-    return max(0, min(100, v))
-
-
-def _clamp_breakdown(value) -> dict | None:
-    if not isinstance(value, dict):
-        return None
-    return {k: _clamp_score(value.get(k)) for k in ("skills", "experience", "education", "other")}
-
-
-def _weighted_score(breakdown: dict) -> int:
-    return _clamp_score(
-        breakdown["skills"] * 0.4
-        + breakdown["experience"] * 0.3
-        + breakdown["education"] * 0.15
-        + breakdown["other"] * 0.15
-    )
 
 
 def _profile_to_dict(profile: models.Profile) -> dict:
@@ -103,7 +83,7 @@ def run_batch(task_id: int):
         profile_dict = _profile_to_dict(profile)
         job_items = [{"job_id": j.id, "job": _job_to_dict(j)} for j in jobs]
 
-        results = analyze_all(profile_dict, job_items, max_concurrency=5)
+        results = analyze_all(profile_dict, job_items)
         ranking = aggregate_gaps(results)
 
         task.job_count = len(jobs)
@@ -202,8 +182,8 @@ def run_analysis(job_id: int, force: bool = False, db: Session = Depends(get_db)
 
     result = analyze_match_v3(profile_dict, job_dict)
 
-    breakdown = _clamp_breakdown(result.get("score_breakdown"))
-    match_score = _weighted_score(breakdown) if breakdown else _clamp_score(result.get("match_score"))
+    breakdown = clamp_breakdown(result.get("score_breakdown"))
+    match_score = weighted_score(breakdown) if breakdown else clamp_score(result.get("match_score"))
 
     analysis = models.Analysis(
         job_id=job_id,
