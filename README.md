@@ -37,18 +37,18 @@ backend/
   main.py                  # 部署入口，转发到 app/main.py
   app/
     core/config.py         # 集中配置，环境变量可覆盖
-    api/                   # profile / jobs / analysis / checklist / agent
+    api/                   # profile / jobs / analysis / checklist / agent / metrics
     db/                    # SQLAlchemy 表与连接
     llm/                   # 模型工厂、链、结构化输出；legacy.py 为 v1/v2 对照实验
     graphs/                # 匹配分析 v3 与批量分析（LangGraph）
     services/              # JD 解析、评分、技能归并
     agent/                 # AI 助手 Agent 与工具
-  evals/                   # 各版本对比评测脚本与结果
+  evals/                   # 离线评测框架、评测集与结果
   scripts/                 # SQLite 数据迁移到 Postgres
 frontend/
   src/pages/               # 各页面
   src/api.ts               # axios 实例
-docs/                      # 部署说明、路线图
+docs/                      # 部署、评测、路线图
 start.bat                  # Windows 下一键启动前后端
 ```
 
@@ -72,14 +72,12 @@ DEEPSEEK_API_KEY=sk-xxxxxx
 > 需要单独绑定支付方式。没有 Key 时 JD 解析、匹配分析、
 > 技能缺口总览和 AI 助手不可用，个人画像和清单不受影响。
 
-首次运行或拉取新代码后先执行数据库迁移，再启动服务：
+首次运行或拉取新代码后先执行数据库迁移，再启动服务（`start.bat` 已包含）：
 
 ```bash
 alembic upgrade head
 uvicorn main:app --reload --port 8000
 ```
-
-`start.bat` 已经包含了迁移这一步。
 
 ### 启动前端
 
@@ -126,23 +124,25 @@ pytest --cov=app
 | GET / POST     | `/checklist`                | 清单列表 / 批量新增            |
 | PATCH / DELETE | `/checklist/{id}`           | 更新状态或内容 / 删除          |
 | POST           | `/agent/chat`               | AI 助手对话                    |
+| GET            | `/metrics?days=7`           | 线上 LLM 调用指标              |
 
 ## 匹配分析的版本演进
 
-用 15 个真实岗位实测，评测脚本在 `backend/evals/`：
+15 个真实岗位各跑 3 次，模型 `deepseek-flash`，v3 为修复规则筛选后的结果。
+指标定义和完整数据见 [docs/evals.md](docs/evals.md)。
 
-| 指标                 | v1 单 prompt          | v2 两步链    | v3 LangGraph       |
-| -------------------- | --------------------- | ------------ | ------------------ |
-| match_score 计算错误 | 7/15                  | 0/15         | 0/15               |
-| 成功率               | 15/15                 | 14/15        | 15/15              |
-| 平均耗时             | ~6s                   | ~12s         | ~12s（排除岗 ~4s） |
-| 平均 token           | ~2.5K                 | ~4.7K        | ~4.7K              |
-| 建议质量             | “系统学习 LangChain” | 绑定已有项目 | 同左               |
+| 指标             | v1 单 prompt | v2 两步链 | v3 LangGraph |
+| ---------------- | ------------ | --------- | ------------ |
+| 分数算错         | 28 / 45      | 0 / 45    | 0 / 45       |
+| 空泛建议         | 6 / 135      | 0 / 135   | 0 / 99       |
+| 耗时 P50         | 6.3s         | 10.6s     | 10.2s        |
+| 单次成本（美元） | 0.0016       | 0.0027    | 0.0023       |
+
+评测还发现规则筛选把两个目标岗位误判为技术栈不符、导致拿不到建议，
+修复后误排除从 2 个降到 0 个。
 
 ## CareerMatch 已知局限
 
 - 单用户设计，没有账号体系，`/profile` 始终操作同一条记录。
   线上只靠一个访问口令保护。
-- 新增数据库列不会自动迁移：`create_all` 只建新表，不给已有表补列，
-  旧库升级后需要手动 `ALTER TABLE`。
 - 批量分析在请求内同步执行，岗位很多时可能超过 Vercel 函数时限。
