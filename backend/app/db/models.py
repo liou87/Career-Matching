@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import JSON, Column, DateTime, Integer, String, Text
+from sqlalchemy import JSON, Boolean, Column, DateTime, Integer, String, Text
 from sqlalchemy.sql import func
 
 from app.db.session import Base
@@ -82,3 +82,20 @@ class Checklist(Base):
     status = Column(String(10), default="todo")   # todo / done
     category = Column(String(20), default="gap")  # gap（差距） / action（行动建议）
     created_at = Column(DateTime, server_default=func.now())
+
+
+class LLMCall(Base):
+    """每次 LLM 调用一条记录，是线上指标（成功率、耗时、成本）的数据来源。"""
+    __tablename__ = "llm_calls"
+
+    id = Column(Integer, primary_key=True)
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+    request_id = Column(String(32), index=True)   # 同一个请求里的多次调用共用一个
+    role = Column(String(20))                     # jd_parse / analysis / suggest / merge / agent / judge
+    model = Column(String(50))
+    ok = Column(Boolean)
+    latency_ms = Column(Integer)
+    input_tokens = Column(Integer)
+    cached_input_tokens = Column(Integer)          # 命中 DeepSeek 上下文缓存的输入，价格低得多
+    output_tokens = Column(Integer)
+    error = Column(String(300))

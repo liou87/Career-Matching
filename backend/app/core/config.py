@@ -86,6 +86,9 @@ class Settings(BaseSettings):
     # LangSmith 由 LangChain 直接读环境变量（LANGSMITH_TRACING / LANGSMITH_API_KEY /
     # LANGSMITH_PROJECT），这里只用来判断请求结束时要不要等 trace 上传完
     langsmith_tracing: bool = False
+    # 每次 LLM 调用写一条记录到 llm_calls 表，供 /api/metrics 统计。离线评测时关掉，
+    # 免得评测流量混进线上指标
+    record_llm_calls: bool = True
 
     @field_validator("score_weights")
     @classmethod
