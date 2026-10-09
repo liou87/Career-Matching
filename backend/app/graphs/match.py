@@ -14,6 +14,7 @@ v1/v2 为什么还留着没删，见 llm/legacy.py 顶部的注释。
 analyze_match_v3 是当前 api/analysis.py 实际调用的版本。
 """
 import json
+import re
 from typing import Literal, Optional, TypedDict
 
 from langgraph.graph import END, START, StateGraph
@@ -35,12 +36,26 @@ class MatchState(TypedDict):
     suggestion: Optional[dict]   # 节点2 产出（或 explain 节点产出）
 
 
+_ASCII_TOKEN = re.compile(r"[a-z0-9+#.]+")
+
+
 def screen_node(state: MatchState):
-    """规则筛选，不调 LLM"""
-    required = state["job_raw"].get("required_skills") or []
-    text = " ".join(str(s) for s in required).lower()
-    hit = [k for k in settings.excluded_skills if k in text]
-    return {"excluded_by": hit}
+    """规则筛选，不调 LLM。
+
+    逐条看必需技能：命中排除的语言才算技术路线不符。但如果同一条要求里也列了
+    候选人已有的技能（如 "Python/Java/Scala"、"至少一种编程语言（如Java、Python等）"），
+    说明是多选一，不排除。这是离线评测发现的误判：修复前 15 个岗位里有 2 个
+    目标岗位因此拿不到任何建议，见 docs/evals.md。
+    技能按完整单词比对，避免 "SQL" 命中 "MySQL" 这类子串误判。
+    """
+    profile_skills = {s.lower() for s in json.loads(state["profile"]).get("skills") or []}
+    hit = []
+    for requirement in state["job_raw"].get("required_skills") or []:
+        text = str(requirement).lower()
+        keys = [k for k in settings.excluded_skills if k in text]
+        if keys and not set(_ASCII_TOKEN.findall(text)) & profile_skills:
+            hit.extend(keys)
+    return {"excluded_by": sorted(set(hit))}
 
 
 def analyze_node(state: MatchState):

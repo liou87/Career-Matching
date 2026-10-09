@@ -56,3 +56,24 @@ def test_gives_up_after_three_attempts(fake_chains):
     with pytest.raises(LLMOutputError):
         analyze_match_v3(PROFILE, JOB)
     assert len(fa.calls) == 3
+
+
+@pytest.mark.parametrize(
+    ("required", "excluded"),
+    [
+        (["Java", "Spring"], True),
+        (["Golang", "Java"], True),
+        (["Java + MySQL"], True),  # 画像有 SQL，但不能靠子串命中 MySQL 就放行
+        # 下面两条来自真实 JD：多选一，候选人有 Python，修复前会被误排除
+        (["Python/Java/Scala"], False),
+        (["至少一种编程语言（如Java、Python等）"], False),
+    ],
+)
+def test_screening_only_excludes_hard_requirements(fake_chains, required, excluded):
+    _, fs = fake_chains([make_analysis()])
+    profile = {**PROFILE, "skills": ["Python", "SQL"]}
+
+    analyze_match_v3(profile, {**JOB, "required_skills": required})
+
+    assert (len(fs.calls) == 0) is excluded
+
