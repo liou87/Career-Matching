@@ -164,7 +164,6 @@ def main():
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(records, f, ensure_ascii=False, indent=2)
 
-    total = len(job_data)
     avg_action_items = total_action_items / ok_count if ok_count else 0
 
     print(f"\n结果已写入 {out_path}")

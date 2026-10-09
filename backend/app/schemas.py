@@ -1,7 +1,7 @@
-from pydantic import BaseModel
-from typing import Optional
 from datetime import datetime
+from typing import Optional
 
+from pydantic import BaseModel, ConfigDict
 
 # ---------- Profile ----------
 
@@ -36,8 +36,7 @@ class ProfileOut(ProfileCreate):
     id: int
     updated_at: Optional[datetime] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # ---------- Job ----------
@@ -63,8 +62,7 @@ class JobOut(BaseModel):
     status: str = "active"
     parsed_at: Optional[datetime] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # ---------- Analysis ----------
@@ -99,8 +97,7 @@ class AnalysisOut(BaseModel):
     summary: str
     created_at: Optional[datetime] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # ---------- Batch Analysis ----------
@@ -122,8 +119,7 @@ class BatchAnalysisOut(BaseModel):
     ranking: Optional[list[SkillRankingItem]] = None
     error: Optional[str] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # ---------- Agent ----------
@@ -169,5 +165,4 @@ class ChecklistOut(BaseModel):
     category: str = "gap"
     created_at: Optional[datetime] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

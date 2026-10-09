@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+
 from app import schemas
 from app.agent.job_agent import chat
 

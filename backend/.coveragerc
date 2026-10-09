@@ -1,0 +1,3 @@
+[run]
+# legacy.py 是 v1/v2 对照实验代码，由 evals/ 下的评测脚本运行，不计入单元测试覆盖率
+omit = app/llm/legacy.py

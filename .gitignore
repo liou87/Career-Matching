@@ -23,3 +23,8 @@ backend/sandbox/
 
 # Personal notes, not part of the app
 INTERVIEW_NOTES.md
+
+# Test artifacts
+.coverage
+htmlcov/
+.pytest_cache/

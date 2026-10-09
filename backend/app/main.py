@@ -12,6 +12,7 @@ from app.api import agent, analysis, checklist, jobs, profile
 from app.core.config import settings
 from app.core.errors import error_response, register_error_handlers
 from app.core.logging import request_id_var, setup_logging
+
 setup_logging()
 logger = logging.getLogger(__name__)
 

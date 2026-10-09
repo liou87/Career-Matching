@@ -5,11 +5,12 @@ from datetime import datetime, timedelta
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+
 from app import schemas
 from app.core.config import settings
 from app.core.errors import classify
 from app.db import models
-from app.db.session import get_db, SessionLocal
+from app.db.session import SessionLocal, get_db
 from app.graphs.batch import analyze_all
 from app.graphs.match import analyze_match_v3
 from app.services.aggregate import aggregate_gaps

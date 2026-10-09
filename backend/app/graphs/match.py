@@ -14,9 +14,9 @@ v1/v2 为什么还留着没删，见 llm/legacy.py 顶部的注释。
 analyze_match_v3 是当前 api/analysis.py 实际调用的版本。
 """
 import json
-from typing import TypedDict, Optional, Literal
+from typing import Literal, Optional, TypedDict
 
-from langgraph.graph import StateGraph, START, END
+from langgraph.graph import END, START, StateGraph
 from langgraph.types import RetryPolicy
 from pydantic import ValidationError
 

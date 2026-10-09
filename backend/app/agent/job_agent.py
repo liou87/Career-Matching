@@ -2,8 +2,8 @@ import json
 from functools import lru_cache
 
 from langchain.agents import create_agent
-from langchain_core.tools import tool
 from langchain_core.messages import AIMessage, HumanMessage
+from langchain_core.tools import tool
 
 from app.db import models
 from app.db.session import SessionLocal

@@ -1,0 +1,8 @@
+line-length = 120
+extend-exclude = ["sandbox"]
+
+[lint]
+# E/F：语法和明显错误；I：import 排序；B：常见的潜在 bug
+select = ["E4", "E7", "E9", "F", "I", "B"]
+# FastAPI 的 Depends(...) 写在参数默认值里是官方用法
+ignore = ["B008"]
