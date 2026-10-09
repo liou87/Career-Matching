@@ -79,7 +79,7 @@ def analyze_match_v2(profile: dict, job: dict) -> dict:
     p = json.dumps(profile, ensure_ascii=False, indent=2)
     j = json.dumps(job, ensure_ascii=False, indent=2)
 
-    a = chains.analysis_chain().invoke({"profile": p, "job": j})
+    a = chains.analysis_chain_v2().invoke({"profile": p, "job": j})
 
     suggestion_payload = {
         "profile": p,

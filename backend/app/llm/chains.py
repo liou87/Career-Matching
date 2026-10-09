@@ -1,6 +1,9 @@
 """
 匹配分析的两条链：节点1 客观比对打分，节点2 基于已识别的差距生成建议。
-线上的 v3（graphs/match.py）和对照实验 v2（llm/legacy.py）共用这两条链。
+
+线上的 v3（graphs/match.py）用 analysis_chain / suggestion_chain。
+对照实验 v2（llm/legacy.py）用冻结的 analysis_chain_v2，保证历史评测可以复现：
+之后对分析 prompt 的改动只进 v3。
 """
 from functools import lru_cache
 
@@ -9,16 +12,26 @@ from langchain_core.prompts import ChatPromptTemplate
 from app.llm.factory import get_model
 from app.llm.schemas import AnalysisResult, SuggestionResult
 
-ANALYSIS_PROMPT = ChatPromptTemplate.from_messages([
-    ("system", "你是求职顾问，负责客观比对候选人与岗位。只做分析和打分，不要给任何建议。"),
-    ("user", """候选人信息：
+_ANALYSIS_SYSTEM = "你是求职顾问，负责客观比对候选人与岗位。只做分析和打分，不要给任何建议。"
+_ANALYSIS_USER = """候选人信息：
 {profile}
 
 目标岗位：
 {job}
 
 四个维度分别打分（0-100），不要给整体印象分。
-gaps 要具体、落到点上，按 importance 从高到低排序。"""),
+gaps 要具体、落到点上，按 importance 从高到低排序。"""
+
+# v2 冻结版本，不再修改
+ANALYSIS_PROMPT_V2 = ChatPromptTemplate.from_messages([("system", _ANALYSIS_SYSTEM), ("user", _ANALYSIS_USER)])
+
+# v3：评测发现模型会把多选一要求里的其他选项列为缺失（误报缺失约 3.6%），加一条约束
+ANALYSIS_PROMPT = ChatPromptTemplate.from_messages([
+    ("system", _ANALYSIS_SYSTEM),
+    ("user", _ANALYSIS_USER + """
+missing_skills 和 gaps 只写候选人确实缺少的。JD 里多选一的要求（如"Python/Java/Scala"、
+"LangGraph/Google ADK"、"至少一种编程语言（如Java、Python等）"），候选人满足其中任意一项就算满足，
+不要把其余选项列为缺失。"""),
 ])
 
 SUGGESTION_PROMPT = ChatPromptTemplate.from_messages([
@@ -49,6 +62,11 @@ SUGGESTION_PROMPT = ChatPromptTemplate.from_messages([
 @lru_cache
 def analysis_chain():
     return ANALYSIS_PROMPT | get_model("analysis").with_structured_output(AnalysisResult)
+
+
+@lru_cache
+def analysis_chain_v2():
+    return ANALYSIS_PROMPT_V2 | get_model("analysis").with_structured_output(AnalysisResult)
 
 
 @lru_cache
