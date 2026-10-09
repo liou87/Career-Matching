@@ -5,3 +5,5 @@ backend/sandbox/
 **/*.db
 **/.env
 **/__pycache__/
+backend/migrations/
+backend/alembic.ini

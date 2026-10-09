@@ -68,9 +68,14 @@ DEEPSEEK_API_KEY=sk-xxxxxx
 > 需要单独绑定支付方式。没有 Key 时 JD 解析、匹配分析、
 > 技能缺口总览和 AI 助手不可用，个人画像和清单不受影响。
 
+首次运行或拉取新代码后先执行数据库迁移，再启动服务：
+
 ```bash
+alembic upgrade head
 uvicorn main:app --reload --port 8000
 ```
+
+`start.bat` 已经包含了迁移这一步。
 
 ### 启动前端
 

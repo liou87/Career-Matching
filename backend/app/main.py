@@ -12,13 +12,8 @@ from app.api import agent, analysis, checklist, jobs, profile
 from app.core.config import settings
 from app.core.errors import error_response, register_error_handlers
 from app.core.logging import request_id_var, setup_logging
-from app.db import models
-from app.db.session import engine
-
 setup_logging()
 logger = logging.getLogger(__name__)
-
-models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Job Helper API")
 register_error_handlers(app)

@@ -51,6 +51,8 @@ def main():
                 ))
 
     print("迁移完成")
+    print("接着给目标库打上迁移版本标记，之后的表结构变更才能用 alembic 管理：")
+    print('  DATABASE_URL="<同一个连接串>" alembic stamp head')
 
 
 if __name__ == "__main__":
