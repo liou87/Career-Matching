@@ -1,7 +1,7 @@
 """AI 助手的工具：只测确定性的数据查询部分，不调 LLM。"""
 import json
 
-from app.agent.job_agent import get_skill_ranking, search_jobs
+from app.agent.tools import get_skill_ranking, search_jobs
 from app.db import models
 
 

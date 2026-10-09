@@ -124,21 +124,15 @@ class BatchAnalysisOut(BaseModel):
 
 # ---------- Agent ----------
 
-class ChatMessage(BaseModel):
-    role: str   # user / assistant
-    content: str
-
 class AgentChatIn(BaseModel):
     message: str
-    history: list[ChatMessage] = []
+    thread_id: Optional[str] = None   # 不传就开一个新对话
 
-class ToolCallOut(BaseModel):
-    name: str
-    args: dict
 
-class AgentChatOut(BaseModel):
-    reply: str
-    tool_calls: list[ToolCallOut] = []
+class AgentResumeIn(BaseModel):
+    thread_id: str
+    approve: bool
+    reason: Optional[str] = None      # 拒绝时告诉助手的原因
 
 
 # ---------- Checklist ----------

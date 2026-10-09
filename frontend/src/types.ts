@@ -69,16 +69,40 @@ export interface BatchAnalysis {
   error?: string | null;
 }
 
-export interface ToolCall {
-  name: string;
-  args: Record<string, unknown>;
-}
-
 export interface AgentMessage {
   role: "user" | "assistant";
   content: string;
-  tool_calls?: ToolCall[];
+  tool_calls?: string[];   // 这条回答过程中调用过的工具名
 }
+
+/** 等待用户确认的写操作 */
+export interface PendingAction {
+  name: string;
+  args: Record<string, unknown>;
+  description?: string;
+}
+
+export interface AgentThread {
+  thread_id: string;
+  messages: AgentMessage[];
+  pending: PendingAction[];
+}
+
+export interface Memory {
+  id: string;
+  content: string;
+  updated_at: string;
+}
+
+/** /api/agent/chat 和 /api/agent/resume 的 SSE 事件 */
+export type AgentEvent =
+  | { type: "thread"; thread_id: string }
+  | { type: "token"; text: string }
+  | { type: "tool_call"; name: string; args: Record<string, unknown> }
+  | { type: "tool_result"; name: string }
+  | { type: "interrupt"; actions: PendingAction[] }
+  | { type: "done"; thread_id: string }
+  | { type: "error"; code: string; detail: string };
 
 export interface ChecklistItem {
   id: number;

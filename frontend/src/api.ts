@@ -51,4 +51,46 @@ api.interceptors.response.use(undefined, async error => {
   return Promise.reject(error);
 });
 
+/**
+ * 读取 SSE 流式接口（AI 助手）。axios 在浏览器里拿不到流式响应体，这里用 fetch，
+ * 口令和 401 重试的规则与上面一致。每解析出一个事件就回调一次。
+ */
+export async function streamPost<E>(path: string, body: unknown, onEvent: (event: E) => void): Promise<void> {
+  const send = (token: string | null) => fetch(`/api${path}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { "X-Access-Token": encodeURIComponent(token) } : {}),
+    },
+    body: JSON.stringify(body),
+  });
+
+  let res = await send(memoryToken ?? readToken());
+  if (res.status === 401) {
+    const token = await askToken();
+    if (!token) throw new Error("需要访问口令");
+    res = await send(token);
+  }
+  if (!res.ok || !res.body) {
+    const detail = await res.json().then(d => d.detail).catch(() => null);
+    throw new Error(detail || `请求失败（${res.status}）`);
+  }
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    // 事件之间用空行分隔，最后一段可能还没收完，留到下一轮
+    const parts = buffer.split("\n\n");
+    buffer = parts.pop() ?? "";
+    for (const part of parts) {
+      const line = part.split("\n").find(l => l.startsWith("data: "));
+      if (line) onEvent(JSON.parse(line.slice(6)) as E);
+    }
+  }
+}
+
 export default api;

@@ -1,13 +1,24 @@
+"""
+AI 助手的工具。
+
+- 读工具直接执行。
+- 写工具（WRITE_TOOLS）由 HumanInTheLoopMiddleware 拦截：模型发起调用后先中断，
+  用户在界面上确认才真正执行，拒绝则不执行并把原因告诉模型。
+"""
 import json
-from functools import lru_cache
+from typing import Literal, Optional
 
-from langchain.agents import create_agent
-from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.tools import tool
+from pydantic import BaseModel, Field
 
+from app.core.errors import DomainError
 from app.db import models
 from app.db.session import SessionLocal
-from app.llm.factory import get_model
+from app.services import analysis as analysis_service
+from app.services import checklist as checklist_service
+from app.services import jobs as jobs_service
+
+# ---------- 读工具（与第三阶段之前完全一致，保证评测前后可比） ----------
 
 
 @tool
@@ -69,17 +80,7 @@ def get_profile() -> str:
         profile = db.query(models.Profile).first()
         if not profile:
             return "还没有填写个人画像"
-        data = {
-            "name": profile.name,
-            "education": profile.education,
-            "skills": profile.skills,
-            "experiences": profile.experiences,
-            "projects": profile.projects,
-            "target_roles": profile.target_roles,
-            "target_cities": profile.target_cities,
-            "target_companies": profile.target_companies,
-        }
-        return json.dumps(data, ensure_ascii=False)
+        return json.dumps(analysis_service.profile_to_dict(profile), ensure_ascii=False)
     finally:
         db.close()
 
@@ -107,54 +108,58 @@ def get_job_analysis(job_id: int) -> str:
         db.close()
 
 
-SYSTEM = """你是 CareerMatch 的求职问答助手，基于用户已有的岗位库、个人画像和历史分析结果回答问题。
-
-可用工具：
-- search_jobs：按关键词模糊搜索岗位库里的岗位（title/company/required_skills/preferred_skills 都会匹配）
-- get_skill_ranking：查最近一次批量分析得到的技能缺口排行
-- get_profile：查看用户的个人画像
-- get_job_analysis：查看某个岗位的匹配分析结果（需要 job_id；不确定 job_id 时先用 search_jobs 查到）
-
-规则：
-- 涉及具体数据（岗位、技能、分数、画像内容）时必须调用工具获取，不要凭空编造。
-- 工具返回"还没有"这类提示时，直接告诉用户去对应页面先生成数据，不要编造内容替代。
-- 描述用户已有技能时，只列 get_profile 返回的内容，不要推测或补充。
-- 回答用简体中文，简洁直接。
-"""
-
-@lru_cache
-def get_agent():
-    return create_agent(
-        model=get_model("agent"),
-        tools=[search_jobs, get_skill_ranking, get_profile, get_job_analysis],
-        system_prompt=SYSTEM,
-    )
+# ---------- 写工具（执行前需要用户确认） ----------
 
 
-def chat(message: str, history: list) -> dict:
-    messages = []
-    for h in history:
-        role = h.get("role")
-        content = h.get("content", "")
-        if role == "user":
-            messages.append(HumanMessage(content=content))
-        elif role == "assistant":
-            messages.append(AIMessage(content=content))
-    messages.append(HumanMessage(content=message))
+class ChecklistEntry(BaseModel):
+    content: str = Field(description="要做的事，具体可执行")
+    importance: Optional[Literal["高", "中", "低"]] = Field(default=None, description="重要程度")
+    category: Literal["gap", "action"] = Field(default="action", description="gap：差距；action：行动建议")
 
-    result = get_agent().invoke({"messages": messages})
-    result_messages = result["messages"]
 
-    reply = ""
-    for m in reversed(result_messages):
-        if isinstance(m, AIMessage):
-            reply = m.content
-            break
+@tool
+def add_to_checklist(items: list[ChecklistEntry]) -> str:
+    """把差距或行动建议加入用户的提升清单。调用后系统会先请用户确认，确认后才真正写入。"""
+    db = SessionLocal()
+    try:
+        rows = checklist_service.add_items(db, [i.model_dump() for i in items])
+        return f"已加入提升清单 {len(rows)} 条：" + "；".join(r.content for r in rows)
+    finally:
+        db.close()
 
-    tool_calls = []
-    for m in result_messages:
-        if isinstance(m, AIMessage) and m.tool_calls:
-            for tc in m.tool_calls:
-                tool_calls.append({"name": tc["name"], "args": tc["args"]})
 
-    return {"reply": reply, "tool_calls": tool_calls}
+@tool
+def analyze_job(job_id: int, force: bool = False) -> str:
+    """对一个岗位跑匹配分析（约 10 秒，会调用大模型）。画像和岗位没变时复用上次结果，
+    用户明确要求「重新分析」时 force 设为 true。调用后系统会先请用户确认。"""
+    db = SessionLocal()
+    try:
+        a = analysis_service.analyze_job(db, job_id, force=force)
+        return json.dumps({
+            "job_id": job_id,
+            "match_score": a.match_score,
+            "missing_skills": a.missing_skills,
+            "gaps": [g["gap"] for g in a.gaps or []],
+            "action_items": [x["item"] for x in a.action_items or []],
+            "summary": a.summary,
+        }, ensure_ascii=False)
+    except DomainError as e:
+        return e.message
+    finally:
+        db.close()
+
+
+@tool
+def add_job(raw_jd: str) -> str:
+    """把用户粘贴的 JD 原文解析后加入岗位库（会调用大模型解析）。调用后系统会先请用户确认。"""
+    db = SessionLocal()
+    try:
+        job = jobs_service.create_job(db, raw_jd)
+        return json.dumps({"id": job.id, "title": job.title, "company": job.company, "city": job.city},
+                          ensure_ascii=False)
+    finally:
+        db.close()
+
+
+READ_TOOLS = [search_jobs, get_skill_ranking, get_profile, get_job_analysis]
+WRITE_TOOLS = [add_to_checklist, analyze_job, add_job]

@@ -19,12 +19,21 @@ if config.config_file_name is not None:
 target_metadata = Base.metadata
 
 
+def include_object(obj, name, type_, reflected, compare_to):
+    """只管理 app/db/models.py 里定义的表。LangGraph 的 checkpointer 和 Store
+    自己建表、自己迁移（app/agent/persistence.py），autogenerate 不能把它们当成多余的表删掉。"""
+    if type_ == "table" and reflected and compare_to is None:
+        return False
+    return True
+
+
 def run_migrations_offline() -> None:
     context.configure(
         url=str(engine.url),
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
+        include_object=include_object,
         render_as_batch=engine.dialect.name == "sqlite",
     )
     with context.begin_transaction():
@@ -36,6 +45,7 @@ def run_migrations_online() -> None:
         context.configure(
             connection=connection,
             target_metadata=target_metadata,
+            include_object=include_object,
             # SQLite 不支持大部分 ALTER TABLE，用 batch 模式（建新表再拷数据）
             render_as_batch=connection.dialect.name == "sqlite",
         )

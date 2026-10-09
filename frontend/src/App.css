@@ -327,6 +327,23 @@ label { display: block; font-size: 13px; font-weight: 500; color: var(--color-mu
 .chat-bubble h1, .chat-bubble h2, .chat-bubble h3 { font-size: 14px; font-weight: 600; margin: 8px 0 4px; }
 
 .chat-input-row { display: flex; gap: 10px; align-items: flex-end; }
+
+.page-header-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.chat-pending {
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary-bg);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+.chat-pending-title { font-weight: 600; margin-bottom: 6px; }
+.chat-pending-item { margin-bottom: 4px; line-height: 1.6; word-break: break-all; }
+.memory-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px;
+}
+.memory-row:last-child { border-bottom: none; }
 .chat-input-row textarea { flex: 1; resize: none; }
 
 .tag-input-row { display: flex; gap: 8px; }
