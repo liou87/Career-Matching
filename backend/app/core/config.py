@@ -76,6 +76,12 @@ class Settings(BaseSettings):
     # 岗位必需技能里命中这些词，就判定为技术路线不符，跳过建议生成
     excluded_skills: list[str] = ["java", "golang", "go语言"]
 
+    # ---------- AI 接口的限流和预算 ----------
+    # 只管会调用 AI 的接口；设为 0 关闭对应检查
+    ai_rate_limit: int = 20             # 每个 IP 在一个窗口内最多的 AI 请求数
+    ai_rate_window_minutes: int = 10
+    daily_token_budget: int = 2_000_000  # 全站每天的 token 上限（按北京时间零点算一天）
+
     # ---------- 岗位检索 ----------
     # embedding 走 OpenAI 兼容接口，默认硅基流动的 bge-m3；没配 Key 时只用关键词检索
     embedding_api_key: str | None = Field(

@@ -12,6 +12,12 @@ Vite 开发服务器会把 `/api` 代理到本机 8000 端口。
 - `DEEPSEEK_API_KEY`：DeepSeek API Key。
 - `DATABASE_URL`：Postgres 连接串，接入 Neon 后自动注入。
 - `ACCESS_TOKEN`：访问口令。不配置则任何人都能访问并消耗 API 额度。
+- `PUBLIC_READ`：默认 `true`。配了口令时访客可以浏览（只读演示），
+  调用 AI 和修改数据仍要口令；设为 `false` 则所有接口都要口令。
+- `AI_RATE_LIMIT`、`AI_RATE_WINDOW_MINUTES`：每个 IP 在窗口内最多的 AI 请求数，
+  默认 10 分钟 20 次。
+- `DAILY_TOKEN_BUDGET`：全站每天的 token 上限，默认 200 万，按北京时间零点重置，
+  超出后当天停用 AI。设为 0 关闭。
 - `SILICONFLOW_API_KEY`：可选，岗位语义检索用的 embedding（BAAI/bge-m3）。
   不配置时岗位搜索只用关键词。
 - `LOG_JSON`：日志一行一条 JSON，方便在 Vercel Logs 里检索。在 Vercel 上

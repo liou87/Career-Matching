@@ -37,6 +37,16 @@ class ConflictError(DomainError):
     code = "CONFLICT"
 
 
+class RateLimitedError(DomainError):
+    status = 429
+    code = "RATE_LIMITED"
+
+
+class BudgetExceededError(DomainError):
+    status = 503
+    code = "BUDGET_EXCEEDED"
+
+
 class LLMOutputError(Exception):
     """LLM 没有返回符合结构的结果，比如 with_structured_output 返回 None。
 

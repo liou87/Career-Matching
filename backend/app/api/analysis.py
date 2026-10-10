@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from app import schemas
 from app.core.config import settings
 from app.core.errors import classify
+from app.core.guard import ai_guard
 from app.db import models
 from app.db.session import SessionLocal, get_db
 from app.graphs.batch import analyze_all
@@ -75,7 +76,7 @@ def run_batch(task_id: int):
         db.close()
 
 
-@router.post("/batch")
+@router.post("/batch", dependencies=[Depends(ai_guard)])
 def start_batch_analysis(db: Session = Depends(get_db)):
     # 超时的 running 任务（进程被中途回收）不算数，否则会一直挡住新任务
     existing = (
@@ -128,7 +129,7 @@ def get_batch_status(task_id: int, db: Session = Depends(get_db)):
 
 # ---------- 单个岗位分析 ----------
 
-@router.post("/{job_id}", response_model=schemas.AnalysisOut)
+@router.post("/{job_id}", response_model=schemas.AnalysisOut, dependencies=[Depends(ai_guard)])
 def run_analysis(job_id: int, force: bool = False, db: Session = Depends(get_db)):
     return analyze_job(db, job_id, force=force)
 

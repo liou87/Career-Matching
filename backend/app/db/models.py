@@ -114,3 +114,13 @@ class JobChunk(Base):
     embedding = Column(JSON)            # 没有 embedding 服务或计算失败时为空，只参与关键词检索
     embedding_model = Column(String(50))
     created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class AIRequest(Base):
+    """每次调用 AI 的接口请求一条记录，用于按 IP 限流。"""
+    __tablename__ = "ai_requests"
+
+    id = Column(Integer, primary_key=True)
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+    client_ip = Column(String(64), index=True)
+    path = Column(String(200))
