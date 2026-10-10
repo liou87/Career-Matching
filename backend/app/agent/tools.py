@@ -27,8 +27,11 @@ from app.services import retrieval
 def search_jobs(query: str = "", city: Optional[str] = None, company: Optional[str] = None, limit: int = 5) -> str:
     """搜索岗位库。query 用自然语言或关键词描述想找的岗位（技能、方向、职责都行），
     按语义和关键词综合排序；city、company 按城市、公司筛选（包含即可）。
-    query 留空时按筛选条件列出岗位。返回 total（满足筛选条件的岗位总数）和
-    results（最多 limit 条，含 id、标题、公司、城市、薪资、必需技能、命中的片段原文）。"""
+    query 留空时按筛选条件列出岗位。返回：
+    - total：满足城市/公司筛选条件的岗位总数（不看 query）
+    - matched：其中与 query 关键词相关的岗位数
+    - results：按相关度排序的前 limit 条，含 id、标题、公司、城市、薪资、必需技能、命中的片段原文。
+      排在后面的结果可能只是弱相关，以片段内容为准。"""
     db = SessionLocal()
     try:
         mode = "hybrid" if embeddings.enabled() else "keyword"

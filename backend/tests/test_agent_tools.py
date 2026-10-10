@@ -37,7 +37,7 @@ def test_search_returns_matching_snippets(db):
 def test_search_skips_archived_jobs(db):
     _add(db, "已删除的 RAG 岗", ["RAG"], status="archived")
 
-    assert _search(query="RAG") == {"total": 0, "mode": "keyword", "results": []}
+    assert _search(query="RAG") == {"total": 0, "matched": 0, "mode": "keyword", "results": []}
 
 
 def test_search_filters_by_city_and_reports_total(db):
@@ -65,3 +65,13 @@ def test_list_job_scores_sorted_with_unanalysed_last(db):
 
 def test_skill_ranking_without_batch_returns_hint():
     assert "还没有技能缺口分析结果" in get_skill_ranking.invoke({})
+
+
+def test_search_reports_matched_separately_from_total(db):
+    _add(db, "RAG 工程师", ["RAG"])
+    _add(db, "前端工程师", ["React"])
+
+    out = _search(query="RAG")
+
+    assert (out["total"], out["matched"]) == (2, 1)
+

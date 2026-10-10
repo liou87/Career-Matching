@@ -129,7 +129,10 @@ def rrf(rankings: list[list[int]], k: int) -> list[int]:
 
 def search(db: Session, query: str = "", city: str | None = None, company: str | None = None,
            limit: int = 5, mode: str = "hybrid") -> dict:
-    """返回 {"total": 过滤后的岗位总数, "mode": 实际使用的方式, "results": [...]}。"""
+    """返回 {"total": 满足城市/公司筛选的岗位数, "matched": 其中与 query 关键词相关的岗位数,
+    "mode": 实际使用的方式, "results": 按相关度排序的前 limit 条}。
+
+    只有向量一路时没有「是否相关」的硬边界，matched 为 None。"""
     jobs = db.query(models.Job).filter(models.Job.status == "active").order_by(models.Job.id).all()
     if city:
         jobs = [j for j in jobs if city.lower() in (j.city or "").lower()]
@@ -140,11 +143,13 @@ def search(db: Session, query: str = "", city: str | None = None, company: str |
     snippets: dict[int, list[str]] = {}
     if not query.strip():
         ranking, used = [j.id for j in jobs], "filter"
+        matched = len(jobs)
     elif mode == "substring":
         ranking, used = _substring(jobs, query), "substring"
+        matched = len(ranking)
     else:
         chunks = db.query(models.JobChunk).filter(models.JobChunk.job_id.in_(by_id)).order_by(models.JobChunk.id).all()
-        ranking, used = _ranked(chunks, query, mode, snippets)
+        ranking, used, matched = _ranked(chunks, query, mode, snippets)
 
     results = []
     for job_id in ranking[:limit]:
@@ -155,17 +160,19 @@ def search(db: Session, query: str = "", city: str | None = None, company: str |
             "required_skills": j.required_skills,
             "snippets": snippets.get(job_id, []),
         })
-    return {"total": len(jobs), "mode": used, "results": results}
+    return {"total": len(jobs), "matched": matched, "mode": used, "results": results}
 
 
-def _ranked(chunks: list[models.JobChunk], query: str, mode: str, snippets: dict) -> tuple[list[int], str]:
-    rankings, used = [], []
+def _ranked(chunks: list[models.JobChunk], query: str, mode: str,
+            snippets: dict) -> tuple[list[int], str, int | None]:
+    rankings, used, matched = [], [], None
 
     if mode in ("keyword", "hybrid"):
         scores = BM25([tokenize(c.text) for c in chunks]).scores(tokenize(query))
         kw = _rank_by_chunks(chunks, scores, positive_only=True)
         rankings.append([job_id for job_id, _ in kw])
         used.append("keyword")
+        matched = len(kw)
         _add_snippets(snippets, chunks, kw)
 
     if mode in ("vector", "hybrid") and embeddings.enabled():
@@ -181,9 +188,9 @@ def _ranked(chunks: list[models.JobChunk], query: str, mode: str, snippets: dict
                 logger.warning("query_embedding_failed", exc_info=True)
 
     if not rankings:
-        return [], "none"
+        return [], "none", 0
     ranking = rankings[0] if len(rankings) == 1 else rrf(rankings, settings.search_rrf_k)
-    return ranking, "+".join(used)
+    return ranking, "+".join(used), matched
 
 
 def _add_snippets(snippets: dict, chunks: list[models.JobChunk], ranked: list[tuple[int, int]]) -> None:
