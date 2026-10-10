@@ -22,6 +22,8 @@ class Settings(BaseSettings):
     # ---------- 部署 ----------
     database_url: str | None = None  # 不配就用 backend/job_helper.db
     access_token: str | None = None  # 不配就不校验口令
+    # 配了口令时，GET 请求是否公开（只读演示）：访客能浏览，调用 AI 和写数据仍要口令
+    public_read: bool = True
 
     # ---------- LLM 供应商 ----------
     # 走 LangChain 的 init_chat_model，换供应商只改这几项（provider 名称见

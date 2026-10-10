@@ -21,7 +21,7 @@ let asking: Promise<string | null> | null = null;
 
 function askToken(): Promise<string | null> {
   asking ??= Promise.resolve().then(() => {
-    const t = window.prompt("请输入访问口令")?.trim() || null;
+    const t = window.prompt("这是只读演示。输入访问口令后可以使用 AI 和修改数据：")?.trim() || null;
     if (t) { memoryToken = t; saveToken(t); }
     asking = null;
     return t;
@@ -68,7 +68,7 @@ export async function streamPost<E>(path: string, body: unknown, onEvent: (event
   let res = await send(memoryToken ?? readToken());
   if (res.status === 401) {
     const token = await askToken();
-    if (!token) throw new Error("需要访问口令");
+    if (!token) throw new Error("这是只读演示，使用 AI 助手需要访问口令");
     res = await send(token);
   }
   if (!res.ok || !res.body) {

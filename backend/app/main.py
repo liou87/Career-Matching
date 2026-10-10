@@ -24,14 +24,22 @@ register_error_handlers(app)
 HEALTH_PATH = "/api/health"
 
 
+READ_METHODS = {"GET", "HEAD", "OPTIONS"}
+
+
 # 单用户、无账号体系，公网部署时用一个口令挡住外人（防止刷 DeepSeek 额度）。
-# 没配 ACCESS_TOKEN（本地开发）时不校验。
+# 没配 ACCESS_TOKEN（本地开发）时不校验；配了且开启 public_read 时是只读演示：
+# 浏览公开，所有写操作和调用 AI 的接口（都不是 GET）要口令。
 @app.middleware("http")
 async def check_access_token(request: Request, call_next):
     token = settings.access_token
-    if token and request.url.path != HEALTH_PATH:
+    public = request.url.path == HEALTH_PATH or (settings.public_read and request.method in READ_METHODS)
+    if token and not public:
         # 前端做过 encodeURIComponent（请求头只能放 ASCII），口令可以含中文
         given = unquote(request.headers.get("X-Access-Token", ""))
+        if not given:
+            message = "这是只读演示，使用 AI 和修改数据需要访问口令" if settings.public_read else "需要访问口令"
+            return error_response(request, 401, "UNAUTHORIZED", message)
         if not hmac.compare_digest(given.encode(), token.encode()):
             return error_response(request, 401, "UNAUTHORIZED", "访问口令错误")
     return await call_next(request)

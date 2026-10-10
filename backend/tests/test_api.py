@@ -30,15 +30,25 @@ def test_health_is_public_even_with_token(client, monkeypatch):
     assert client.get("/api/health").status_code == 200
 
 
-def test_access_token(client, monkeypatch):
+def test_read_only_demo(client, monkeypatch):
     monkeypatch.setattr(settings, "access_token", "口令")
 
-    denied = client.get("/api/jobs")
-    assert denied.status_code == 401
-    assert denied.json()["code"] == "UNAUTHORIZED"
+    assert client.get("/api/jobs").status_code == 200          # 浏览公开
+    denied = client.put("/api/profile", json=PROFILE)            # 写操作要口令
+    assert denied.status_code == 401 and "只读演示" in denied.json()["detail"]
+    wrong = client.put("/api/profile", json=PROFILE, headers={"X-Access-Token": quote("错的")})
+    assert wrong.json()["detail"] == "访问口令错误"
 
     # 前端会对口令做 encodeURIComponent，中文口令也能用
-    assert client.get("/api/jobs", headers={"X-Access-Token": quote("口令")}).status_code == 200
+    ok = client.put("/api/profile", json=PROFILE, headers={"X-Access-Token": quote("口令")})
+    assert ok.status_code == 200
+
+
+def test_private_mode_requires_token_for_reads(client, monkeypatch):
+    monkeypatch.setattr(settings, "access_token", "口令")
+    monkeypatch.setattr(settings, "public_read", False)
+
+    assert client.get("/api/jobs").status_code == 401
 
 
 def test_error_response_carries_request_id(client, monkeypatch):
