@@ -3,6 +3,10 @@
 所有接口都带 `/api` 前缀，例如 `/api/jobs`。健康检查是 `/api/health`。
 配置了 `ACCESS_TOKEN` 时，请求头要带 `X-Access-Token`（值做 URL 编码）。
 
+配置口令后默认是只读演示：GET 请求公开，其他请求要口令。
+调用 AI 的接口还受 IP 限流和每日 token 预算约束，超出时分别返回
+`429 RATE_LIMITED` 和 `503 BUDGET_EXCEEDED`。
+
 错误响应统一为 `{"detail": 提示, "code": 错误码, "request_id": ...}`，
 LLM 相关的错误码有 `LLM_TIMEOUT`、`LLM_RATE_LIMITED`、`LLM_QUOTA`、
 `LLM_BAD_OUTPUT` 等，见 `backend/app/core/errors.py`。
@@ -21,6 +25,8 @@ LLM 相关的错误码有 `LLM_TIMEOUT`、`LLM_RATE_LIMITED`、`LLM_QUOTA`、
 | GET            | `/analysis/batch/latest`    | 最近一次完成的技能缺口排行       |
 | GET / POST     | `/checklist`                | 清单列表 / 批量新增              |
 | PATCH / DELETE | `/checklist/{id}`           | 更新状态或内容 / 删除            |
+| POST           | `/interview/{job_id}`       | 生成面试题，`?force=true` 重新生成 |
+| GET            | `/interview/{job_id}/latest`| 该岗位最近一次的面试题           |
 | GET            | `/metrics?days=7`           | 线上 LLM 调用指标                |
 
 ## CareerMatch AI 助手接口
