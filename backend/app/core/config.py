@@ -74,6 +74,16 @@ class Settings(BaseSettings):
     # 岗位必需技能里命中这些词，就判定为技术路线不符，跳过建议生成
     excluded_skills: list[str] = ["java", "golang", "go语言"]
 
+    # ---------- 岗位检索 ----------
+    # embedding 走 OpenAI 兼容接口，默认硅基流动的 bge-m3；没配 Key 时只用关键词检索
+    embedding_api_key: str | None = Field(
+        default=None, validation_alias=AliasChoices("EMBEDDING_API_KEY", "SILICONFLOW_API_KEY")
+    )
+    embedding_base_url: str = "https://api.siliconflow.cn/v1"
+    embedding_model: str = "BAAI/bge-m3"
+    embedding_timeout: float = 20
+    search_rrf_k: int = 60  # RRF 融合的常数，取文献里的常用值
+
     # ---------- 批量分析 ----------
     batch_max_concurrency: int = 5
     batch_timeout_minutes: int = 5  # 超过这个时间仍是 running 的任务视为中断

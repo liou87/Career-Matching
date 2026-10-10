@@ -6,3 +6,7 @@ extend-exclude = ["sandbox"]
 select = ["E4", "E7", "E9", "F", "I", "B"]
 # FastAPI 的 Depends(...) 写在参数默认值里是官方用法
 ignore = ["B008"]
+
+[lint.per-file-ignores]
+# Alembic 自动生成的迁移文件，import 的格式由模板决定
+"migrations/versions/*" = ["I001"]

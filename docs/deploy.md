@@ -12,6 +12,8 @@ Vite 开发服务器会把 `/api` 代理到本机 8000 端口。
 - `DEEPSEEK_API_KEY`：DeepSeek API Key。
 - `DATABASE_URL`：Postgres 连接串，接入 Neon 后自动注入。
 - `ACCESS_TOKEN`：访问口令。不配置则任何人都能访问并消耗 API 额度。
+- `SILICONFLOW_API_KEY`：可选，岗位语义检索用的 embedding（BAAI/bge-m3）。
+  不配置时岗位搜索只用关键词。
 - `LOG_JSON`：日志一行一条 JSON，方便在 Vercel Logs 里检索。在 Vercel 上
   默认开启，不用手动设置。
 - `LANGSMITH_TRACING`、`LANGSMITH_API_KEY`、`LANGSMITH_PROJECT`：可选，
@@ -61,6 +63,13 @@ DATABASE_URL="postgresql://..." alembic upgrade head   # 再更新线上库，�
 
 > [!WARNING]
 > 先迁移线上库、再推送依赖新表结构的代码，否则新代码上线后会因为缺列报错。
+
+新入库的岗位会自动建检索索引。第一次上线检索功能、或者配置 embedding 之后，
+在本地对线上库补算一次已有岗位的索引：
+
+```bash
+DATABASE_URL="postgresql://..." SILICONFLOW_API_KEY="sk-..." python scripts/index_jobs.py
+```
 
 ## 迁移本地数据到 Postgres
 

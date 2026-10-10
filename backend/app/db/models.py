@@ -99,3 +99,18 @@ class LLMCall(Base):
     cached_input_tokens = Column(Integer)          # 命中 DeepSeek 上下文缓存的输入，价格低得多
     output_tokens = Column(Integer)
     error = Column(String(300))
+
+
+class JobChunk(Base):
+    """岗位检索用的片段：每个岗位按字段切成几段，各存一份文本和向量。
+    向量存成普通 JSON 列、在 Python 里算相似度：岗位只有几十到几百个时足够快，
+    本地 SQLite 和线上 Postgres 共用一套代码。规模大了再换 pgvector。"""
+    __tablename__ = "job_chunks"
+
+    id = Column(Integer, primary_key=True)
+    job_id = Column(Integer, index=True)
+    field = Column(String(30))          # header / required / preferred / requirements / responsibility
+    text = Column(Text)
+    embedding = Column(JSON)            # 没有 embedding 服务或计算失败时为空，只参与关键词检索
+    embedding_model = Column(String(50))
+    created_at = Column(DateTime, default=datetime.utcnow)

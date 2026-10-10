@@ -14,41 +14,44 @@ from pydantic import BaseModel, Field
 from app.core.errors import DomainError
 from app.db import models
 from app.db.session import SessionLocal
+from app.llm import embeddings
 from app.services import analysis as analysis_service
 from app.services import checklist as checklist_service
 from app.services import jobs as jobs_service
+from app.services import retrieval
 
-# ---------- 读工具（与第三阶段之前完全一致，保证评测前后可比） ----------
+# ---------- 读工具 ----------
 
 
 @tool
-def search_jobs(keyword: str) -> str:
-    """查 jobs 表，title/company/required_skills/preferred_skills 模糊匹配，返回 id/title/company/required_skills/preferred_skills，最多5条，json 字符串"""
+def search_jobs(query: str = "", city: Optional[str] = None, company: Optional[str] = None, limit: int = 5) -> str:
+    """搜索岗位库。query 用自然语言或关键词描述想找的岗位（技能、方向、职责都行），
+    按语义和关键词综合排序；city、company 按城市、公司筛选（包含即可）。
+    query 留空时按筛选条件列出岗位。返回 total（满足筛选条件的岗位总数）和
+    results（最多 limit 条，含 id、标题、公司、城市、薪资、必需技能、命中的片段原文）。"""
     db = SessionLocal()
     try:
-        # JSON 列在库里是 \uXXXX 转义存的，SQL LIKE 匹配不到中文技能，
-        # 所以取出活跃岗位后在 Python 里对解码后的字段做匹配
-        kw = keyword.lower()
-        jobs = [
-            j for j in db.query(models.Job).filter(models.Job.status == "active").all()
-            if kw in " ".join([
-                j.title or "",
-                j.company or "",
-                *(j.required_skills or []),
-                *(j.preferred_skills or []),
-            ]).lower()
-        ][:5]
-        result = [
-            {
-                "id": j.id,
-                "title": j.title,
-                "company": j.company,
-                "required_skills": j.required_skills,
-                "preferred_skills": j.preferred_skills,
-            }
-            for j in jobs
-        ]
-        return json.dumps(result, ensure_ascii=False)
+        mode = "hybrid" if embeddings.enabled() else "keyword"
+        out = retrieval.search(db, query, city=city, company=company, limit=max(1, min(limit, 15)), mode=mode)
+        return json.dumps(out, ensure_ascii=False)
+    finally:
+        db.close()
+
+
+@tool
+def list_job_scores() -> str:
+    """列出岗位库里所有岗位及最近一次的匹配分（还没分析过的为 null），按匹配分从高到低排序。
+    回答「匹配分最高/最低的岗位」「哪些岗位还没分析」这类问题时用。"""
+    db = SessionLocal()
+    try:
+        jobs = db.query(models.Job).filter(models.Job.status == "active").all()
+        latest = {}
+        for a in db.query(models.Analysis).order_by(models.Analysis.created_at).all():
+            latest[a.job_id] = a.match_score
+        rows = [{"id": j.id, "title": j.title, "company": j.company, "city": j.city,
+                 "match_score": latest.get(j.id)} for j in jobs]
+        rows.sort(key=lambda r: (r["match_score"] is None, -(r["match_score"] or 0)))
+        return json.dumps({"total": len(rows), "jobs": rows}, ensure_ascii=False)
     finally:
         db.close()
 
@@ -161,5 +164,5 @@ def add_job(raw_jd: str) -> str:
         db.close()
 
 
-READ_TOOLS = [search_jobs, get_skill_ranking, get_profile, get_job_analysis]
+READ_TOOLS = [search_jobs, list_job_scores, get_skill_ranking, get_profile, get_job_analysis]
 WRITE_TOOLS = [add_to_checklist, analyze_job, add_job]

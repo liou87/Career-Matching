@@ -60,6 +60,16 @@ def _usage(response: LLMResult) -> dict | None:
         return None
 
 
+def record_call(role: str, model: str, ms: int | None, ok: bool, input_tokens: int | None = None,
+                error: str | None = None) -> None:
+    """不经过 LangChain 回调的调用（如 embedding）也记一条日志和一条 llm_calls 记录。"""
+    fields = {"role": role, "model": model, "ms": ms, "ok": ok, "input_tokens": input_tokens}
+    if error:
+        fields["error"] = error
+    (logger.info if ok else logger.warning)("llm_call", extra={"fields": fields})
+    _record(fields)
+
+
 def _record(fields: dict) -> None:
     """写一条调用记录。失败只记警告：指标丢一条可以接受，不能因此让请求失败。"""
     if not settings.record_llm_calls:
