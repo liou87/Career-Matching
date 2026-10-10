@@ -71,3 +71,13 @@ def test_multi_turn_tools_count_across_turns():
     first = _turn(tools=[("get_job_analysis", {"job_id": 1})])
     second = _turn("这个岗位主要缺 RAG")
     assert check_case(case, second, [first, second]) == {"tools": True, "args": True, "confirm": True}
+
+
+def test_equivalent_tool_paths_and_conditional_args():
+    case = {"expect": {"tools_one_of": ["get_job_analysis", "list_job_scores"],
+                       "args_if_called": {"get_job_analysis": {"job_id": 5}}, "mention": ["64"]}}
+    via_scores = _turn("匹配分 64", [("list_job_scores", {})])
+    wrong_job = _turn("匹配分 64", [("get_job_analysis", {"job_id": 4})])
+
+    assert check_case(case, via_scores, [via_scores]) == {"tools": True, "args": None, "confirm": True, "mention": True}
+    assert check_case(case, wrong_job, [wrong_job])["args"] is False
