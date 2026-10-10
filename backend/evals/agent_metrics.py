@@ -6,7 +6,7 @@ from collections import defaultdict
 
 from app.services.metrics import percentile
 
-WRITE_TOOLS = {"add_to_checklist", "analyze_job", "add_job", "manage_memory"}
+WRITE_TOOLS = {"add_to_checklist", "analyze_job", "add_job", "generate_interview_questions", "manage_memory"}
 
 
 def check_case(case: dict, last: dict, all_turns: list[dict]) -> dict:
