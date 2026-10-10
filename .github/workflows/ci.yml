@@ -38,3 +38,27 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run build
+
+  # 本地没有 Docker 时，由这里验证 docker-compose 能真正跑起来
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose up -d --build
+      - name: Wait for the stack
+        run: |
+          for i in $(seq 1 60); do curl -fsS http://localhost:8080/api/health && break; sleep 3; done
+          curl -fsS http://localhost:8080/api/health
+      - name: Smoke test
+        run: |
+          curl -fsS http://localhost:8080/ | grep -q 'id="root"'
+          curl -fsS http://localhost:8080/skill-gaps | grep -q 'id="root"'
+          test "$(curl -fsS http://localhost:8080/api/jobs)" = "[]"
+          curl -fsS -X PUT http://localhost:8080/api/profile -H 'Content-Type: application/json' -d '{"name":"ci"}'
+          curl -fsS http://localhost:8080/api/profile | grep -q '"name":"ci"'
+          # 触发 LangGraph 在 Postgres 上建表（checkpointer 和 Store）
+          test "$(curl -fsS http://localhost:8080/api/agent/memories)" = "[]"
+      - if: failure()
+        run: docker compose logs
+      - if: always()
+        run: docker compose down -v

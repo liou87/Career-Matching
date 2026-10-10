@@ -1,0 +1,42 @@
+# 自托管：Postgres + 后端 + 前端（nginx），浏览器打开 http://localhost:8080
+# 在仓库根目录建 .env 填 DEEPSEEK_API_KEY 等，或直接 export 环境变量
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: careermatch
+      POSTGRES_PASSWORD: careermatch
+      POSTGRES_DB: careermatch
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U careermatch"]
+      interval: 2s
+      retries: 30
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql://careermatch:careermatch@db:5432/careermatch
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      SILICONFLOW_API_KEY: ${SILICONFLOW_API_KEY:-}
+      ACCESS_TOKEN: ${ACCESS_TOKEN:-}
+      LOG_JSON: "true"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 3s
+      retries: 40
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  pgdata:

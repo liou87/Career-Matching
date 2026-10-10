@@ -1,0 +1,11 @@
+# 密钥和本地数据不进镜像
+.env
+*.db
+__pycache__/
+.venv/
+venv/
+sandbox/
+tests/
+evals/
+.coverage
+.pytest_cache/
