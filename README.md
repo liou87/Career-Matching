@@ -19,13 +19,15 @@ CareerMatch（求职助手）用 AI 管理求职全流程：维护个人画像�
   按“多少个岗位缺这项技能”排序。
 - **提升清单**：从分析结果里勾选差距或行动建议存进清单，
   分栏展示，可标记完成、编辑、删除。
-- **AI 助手**：对话式问答，Agent 通过工具查询岗位库、画像、
-  单岗分析和技能缺口排行，回答“我现在最该学什么”这类问题。
+- **AI 助手**：流式对话，Agent 通过工具查询岗位库、画像、分析和排行，
+  也能替你加清单、分析岗位、添加岗位、记住求职偏好，写操作都要你确认。
+  对话刷新后可恢复，偏好跨对话保留。
 
 ## CareerMatch 技术栈
 
 - **后端**：FastAPI、SQLAlchemy，本地用 SQLite，线上用 Postgres；
-  AI 部分用 LangChain 和 LangGraph，模型走 DeepSeek。
+  AI 部分用 LangChain 和 LangGraph（checkpointer、人工确认中断），
+  长期记忆用 LangMem，模型走 DeepSeek。
 - **工程**：pydantic-settings 集中配置、Alembic 迁移、结构化日志、
   pytest、ruff、GitHub Actions。
 - **前端**：React 19、TypeScript、Vite、React Router、axios。
@@ -42,13 +44,13 @@ backend/
     llm/                   # 模型工厂、链、结构化输出；legacy.py 为 v1/v2 对照实验
     graphs/                # 匹配分析 v3 与批量分析（LangGraph）
     services/              # JD 解析、评分、技能归并
-    agent/                 # AI 助手 Agent 与工具
+    agent/                 # AI 助手：工具、记忆、持久化、流式输出
   evals/                   # 离线评测框架、评测集与结果
   scripts/                 # SQLite 数据迁移到 Postgres
 frontend/
   src/pages/               # 各页面
   src/api.ts               # axios 实例
-docs/                      # 部署、评测、路线图
+docs/                      # 部署、接口、评测、路线图
 start.bat                  # Windows 下一键启动前后端
 ```
 
@@ -109,38 +111,27 @@ pytest --cov=app
 
 ## CareerMatch 接口
 
-所有接口都带 `/api` 前缀，例如 `/api/jobs`。健康检查是 `/api/health`。
-
-| 方法           | 路径                        | 说明                           |
-| -------------- | --------------------------- | ------------------------------ |
-| GET / PUT      | `/profile`                  | 获取/更新个人画像              |
-| GET / POST     | `/jobs`                     | 岗位列表 / 粘贴 JD 解析入库    |
-| GET / DELETE   | `/jobs/{id}`                | 岗位详情 / 软删除              |
-| POST           | `/analysis/{job_id}`        | 匹配分析，`?force=true` 强制重跑 |
-| GET            | `/analysis/{job_id}/latest` | 该岗位最近一次分析结果         |
-| POST           | `/analysis/batch`           | 发起批量分析，返回 `task_id`   |
-| GET            | `/analysis/batch/{task_id}` | 轮询批量分析状态               |
-| GET            | `/analysis/batch/latest`    | 最近一次完成的技能缺口排行     |
-| GET / POST     | `/checklist`                | 清单列表 / 批量新增            |
-| PATCH / DELETE | `/checklist/{id}`           | 更新状态或内容 / 删除          |
-| POST           | `/agent/chat`               | AI 助手对话                    |
-| GET            | `/metrics?days=7`           | 线上 LLM 调用指标              |
+所有接口都带 `/api` 前缀，AI 助手走 SSE 流式返回。
+完整列表和事件格式见 [docs/api.md](docs/api.md)。
 
 ## 匹配分析的版本演进
 
-15 个真实岗位各跑 3 次，模型 `deepseek-flash`，v3 为修复规则筛选后的结果。
+15 个真实岗位各跑 3 次，模型 `deepseek-flash`，v3 为当前线上版本。
 指标定义和完整数据见 [docs/evals.md](docs/evals.md)。
 
 | 指标             | v1 单 prompt | v2 两步链 | v3 LangGraph |
 | ---------------- | ------------ | --------- | ------------ |
 | 分数算错         | 28 / 45      | 0 / 45    | 0 / 45       |
 | 空泛建议         | 6 / 135      | 0 / 135   | 0 / 99       |
-| 耗时 P50         | 6.3s         | 10.6s     | 10.2s        |
-| 单次成本（美元） | 0.0016       | 0.0027    | 0.0023       |
-| 差距有效率       | 96.2%        | 95.3%     | 94.9%        |
+| 耗时 P50         | 6.3s         | 10.6s     | 9.9s         |
+| 单次成本（美元） | 0.0016       | 0.0027    | 0.0022       |
+| 差距有效率       | 96.2%        | 95.3%     | 99.2%        |
 
-评测还发现规则筛选把两个目标岗位误判为技术栈不符、导致拿不到建议，
-修复后误排除从 2 个降到 0 个。
+评测还发现并修复了两个问题：规则筛选把两个目标岗位误判为技术栈不符；
+分析模型把多选一要求里的其他选项列为缺失。
+
+AI 助手另有 35 道题的评测：改造后通过率从 63% 升到 86%，
+写操作先确认从 0/8 到 8/8，偏好记忆从 0/3 到 3/3。
 
 ## CareerMatch 已知局限
 
