@@ -364,3 +364,10 @@ label { display: block; font-size: 13px; font-weight: 500; color: var(--color-mu
   .content { padding: 16px; }
   .two-col { grid-template-columns: 1fr; }
 }
+
+.interview-question { padding: 12px 0; border-bottom: 1px solid var(--border); }
+.interview-question:last-of-type { border-bottom: none; }
+.interview-question-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 6px; }
+.interview-jd { font-size: 12px; color: var(--text-faint); }
+.interview-question-text { font-weight: 500; font-size: 14px; margin-bottom: 4px; }
+.interview-points { margin: 0 0 0 20px; font-size: 13px; color: var(--text-muted); line-height: 1.7; }

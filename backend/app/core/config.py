@@ -47,6 +47,7 @@ class Settings(BaseSettings):
     model_suggest: str = "deepseek-flash"
     model_merge: str = "deepseek-flash"
     model_agent: str = "deepseek-flash"
+    model_interview: str = "deepseek-flash"
     # 评测里判断「编造」的裁判模型，用更强的模型
     model_judge: str = "deepseek-v4-pro"
 
@@ -57,6 +58,7 @@ class Settings(BaseSettings):
     max_tokens_merge: int = 8192
     max_tokens_agent: int = 2048
     max_tokens_judge: int = 2048
+    max_tokens_interview: int = 4096
 
     # ---------- 价格（美元 / 百万 token） ----------
     # 用于估算成本，取 DeepSeek 官方价格页的高峰时段价格（偏保守），

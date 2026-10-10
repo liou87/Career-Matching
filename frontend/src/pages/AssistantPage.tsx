@@ -20,6 +20,8 @@ const TOOL_LABELS: Record<string, string> = {
   analyze_job: "分析岗位",
   add_job: "添加岗位",
   manage_memory: "保存偏好",
+  generate_interview_questions: "生成面试题",
+  list_job_scores: "查看所有匹配分",
 };
 
 function readThreadId(): string | null {
@@ -42,6 +44,8 @@ function describeAction(a: PendingAction): string {
     }
     case "analyze_job":
       return `岗位 ${args.job_id}${args.force ? "（重新分析，约 10 秒）" : "（约 10 秒）"}`;
+    case "generate_interview_questions":
+      return `岗位 ${args.job_id}${args.force ? "（重新生成）" : ""}，约 15 秒`;
     case "add_job":
       return `${String(args.raw_jd ?? "").slice(0, 80)}…`;
     case "manage_memory":

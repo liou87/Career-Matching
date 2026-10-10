@@ -124,3 +124,15 @@ class AIRequest(Base):
     created_at = Column(DateTime, default=datetime.utcnow, index=True)
     client_ip = Column(String(64), index=True)
     path = Column(String(200))
+
+
+class InterviewPrepRecord(Base):
+    """面试题生成结果。画像、岗位、参考的分析都没变时直接复用。"""
+    __tablename__ = "interview_preps"
+
+    id = Column(Integer, primary_key=True)
+    job_id = Column(Integer, index=True)
+    content_hash = Column(String(64), index=True)
+    analysis_id = Column(Integer)
+    questions = Column(JSON)
+    created_at = Column(DateTime, default=datetime.utcnow)

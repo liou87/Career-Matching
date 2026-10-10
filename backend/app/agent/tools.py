@@ -17,6 +17,7 @@ from app.db.session import SessionLocal
 from app.llm import embeddings
 from app.services import analysis as analysis_service
 from app.services import checklist as checklist_service
+from app.services import interview as interview_service
 from app.services import jobs as jobs_service
 from app.services import retrieval
 
@@ -167,5 +168,24 @@ def add_job(raw_jd: str) -> str:
         db.close()
 
 
+@tool
+def generate_interview_questions(job_id: int, force: bool = False) -> str:
+    """为一个岗位生成面试题和答题要点（会调用大模型，需要这个岗位已有匹配分析）。
+    已生成过且画像、岗位没变时直接返回上次的结果；用户要求重新生成时 force 设为 true。
+    调用后系统会先请用户确认。"""
+    db = SessionLocal()
+    try:
+        record = interview_service.generate(db, job_id, force=force)
+        return json.dumps([
+            {"question": q["question"], "relation": q["relation"], "jd_requirement": q["jd_requirement"],
+             "answer_points": q["answer_points"]}
+            for q in record.questions
+        ], ensure_ascii=False)
+    except DomainError as e:
+        return e.message
+    finally:
+        db.close()
+
+
 READ_TOOLS = [search_jobs, list_job_scores, get_skill_ranking, get_profile, get_job_analysis]
-WRITE_TOOLS = [add_to_checklist, analyze_job, add_job]
+WRITE_TOOLS = [add_to_checklist, analyze_job, add_job, generate_interview_questions]

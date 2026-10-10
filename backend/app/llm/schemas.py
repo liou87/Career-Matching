@@ -100,3 +100,26 @@ class ParsedJD(BaseModel):
     experience_required: Optional[str] = Field(default=None, description="经验要求，如'1-3年'或'应届生可'")
     education_required: Optional[str] = Field(default=None, description="学历要求，如'本科及以上'")
     responsibilities: list[str] = Field(default_factory=list, description="岗位职责")
+
+
+# ---------- 面试题 ----------
+
+class InterviewQuestion(BaseModel):
+    # 先摘录 JD 要求再出题：评测时用它核对题目是否真的对应 JD
+    jd_requirement: str = Field(description="这道题考察的 JD 要求，从 JD 的必需技能、加分技能或职责里原样摘录")
+    question: str = Field(description="面试官可能问的问题，要具体到这个岗位，不要问自我介绍、优缺点这类通用问题")
+    category: Literal["技术深度", "项目经历", "场景设计", "行为"]
+    relation: Literal["strength", "gap", "neutral"] = Field(
+        description="strength：画像里有对应的项目或经历；gap：属于候选人的差距；neutral：两者都不是"
+    )
+    answer_points: list[str] = Field(
+        min_length=2, max_length=4,
+        description="答题要点。只能引用画像里真实存在的项目和经历；差距题写如何坦诚说明以及补齐计划",
+    )
+
+
+class InterviewPrep(BaseModel):
+    questions: list[InterviewQuestion] = Field(
+        min_length=6, max_length=10,
+        description="按优先级排序：先考察 JD 的核心要求；优势题和差距题都要有",
+    )

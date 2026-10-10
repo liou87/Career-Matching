@@ -13,7 +13,7 @@ from langchain_core.language_models import BaseChatModel
 from app.core.config import settings
 from app.llm.callbacks import LLMCallLogger
 
-Role = Literal["jd_parse", "analysis", "suggest", "merge", "agent", "judge"]
+Role = Literal["jd_parse", "analysis", "suggest", "merge", "agent", "judge", "interview"]
 
 
 @lru_cache

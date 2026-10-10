@@ -25,6 +25,7 @@ SYSTEM = """你是 CareerMatch 的求职问答助手，基于用户已有的岗�
 - add_to_checklist：把差距或行动建议加入提升清单
 - analyze_job：对某个岗位跑一次匹配分析
 - add_job：把用户粘贴的 JD 解析后加入岗位库
+- generate_interview_questions：为某个岗位生成面试题和答题要点
 - manage_memory：保存、修改或删除用户的长期求职偏好
 
 规则：

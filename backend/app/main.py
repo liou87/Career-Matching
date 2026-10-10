@@ -8,7 +8,7 @@ from fastapi import APIRouter, FastAPI, Request
 from langchain_core.tracers.langchain import wait_for_all_tracers
 from starlette.concurrency import run_in_threadpool
 
-from app.api import agent, analysis, checklist, jobs, metrics, profile
+from app.api import agent, analysis, checklist, interview, jobs, metrics, profile
 from app.core.config import settings
 from app.core.errors import error_response, register_error_handlers
 from app.core.logging import request_id_var, setup_logging
@@ -85,6 +85,7 @@ api.include_router(analysis.router)
 api.include_router(checklist.router)
 api.include_router(agent.router)
 api.include_router(metrics.router)
+api.include_router(interview.router)
 
 
 @api.get("/health")

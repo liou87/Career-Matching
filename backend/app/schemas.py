@@ -160,3 +160,22 @@ class ChecklistOut(BaseModel):
     created_at: Optional[datetime] = None
 
     model_config = ConfigDict(from_attributes=True)
+
+
+# ---------- Interview ----------
+
+class InterviewQuestionOut(BaseModel):
+    jd_requirement: str
+    question: str
+    category: str
+    relation: str   # strength / gap / neutral
+    answer_points: list[str] = []
+
+
+class InterviewPrepOut(BaseModel):
+    id: int
+    job_id: int
+    questions: list[InterviewQuestionOut]
+    created_at: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)

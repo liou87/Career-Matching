@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import InterviewPrepCard from "../components/InterviewPrepCard";
 import { useSearchParams } from "react-router-dom";
 import api from "../api";
 import type { Job, Analysis, ScoreBreakdown } from "../types";
@@ -296,6 +297,8 @@ export default function AnalysisPage() {
               </div>
             )}
           </div>
+
+          <InterviewPrepCard jobId={analysis.job_id} />
         </>
       )}
     </div>

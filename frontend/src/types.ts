@@ -113,3 +113,18 @@ export interface ChecklistItem {
   category: "gap" | "action";
   created_at: string;
 }
+
+export interface InterviewQuestion {
+  jd_requirement: string;
+  question: string;
+  category: string;
+  relation: "strength" | "gap" | "neutral";
+  answer_points: string[];
+}
+
+export interface InterviewPrep {
+  id: number;
+  job_id: number;
+  questions: InterviewQuestion[];
+  created_at: string;
+}
