@@ -71,7 +71,7 @@ class AgentSession:
             "answer": answer,
             "tool_calls": [{"name": tc["name"], "args": tc["args"]}
                            for m in new if isinstance(m, AIMessage) for tc in m.tool_calls],
-            "tool_outputs": [{"name": m.name, "content": str(m.content)[:3000]}
+            "tool_outputs": [{"name": m.name, "content": str(m.content)[:10000]}
                              for m in new if isinstance(m, ToolMessage)],
             "interrupt": _interrupt_of(result),
         }

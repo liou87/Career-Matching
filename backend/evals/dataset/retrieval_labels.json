@@ -1,0 +1,118 @@
+{
+  "sem_backend_scale": [
+    {
+      "id": 2,
+      "reason": "required_skills含\"微服务架构\"、\"分布式系统\"，职责含\"架构设计、代码实现、性能优化\"及\"确保系统高可用\"，明确符合服务端工程与分布式经验"
+    },
+    {
+      "id": 6,
+      "reason": "职责含\"协助团队攻克各种高并发、数据隔离、系统解耦等方面的技术难关\"，且为服务端开发岗位，明确符合"
+    },
+    {
+      "id": 8,
+      "reason": "职责含\"基于Go/Python实现高可用、高性能的功能模块\"，技能含Docker/Kubernetes/消息队列，明确符合服务端工程"
+    },
+    {
+      "id": 10,
+      "reason": "required_skills含\"分布式搜索引擎开发\"、\"搜索性能优化\"、\"分片策略\"、\"缓存机制\"，明确符合分布式经验"
+    },
+    {
+      "id": 14,
+      "reason": "required_skills含\"高可用工程化\"，职责含\"高可用与工程化治理\"、\"超时控制、自动重试、优雅降级、幂等设计\"，明确符合服务端工程"
+    }
+  ],
+  "sem_evaluation": [
+    {
+      "id": 1,
+      "reason": "职责含\"构建和维护评测数据集(Benchmark)，定义评估指标，量化分析Agent效果并持续改进\""
+    },
+    {
+      "id": 3,
+      "reason": "职责含\"建立自动化评测体系并持续迭代\""
+    },
+    {
+      "id": 5,
+      "reason": "required_skills含\"评测\"，职责含\"效果验证\""
+    },
+    {
+      "id": 10,
+      "reason": "required_skills含\"AI LLM生成结果评估\"，职责含\"建立自动化与人工结合的评估体系\""
+    },
+    {
+      "id": 13,
+      "reason": "职责含\"建设Agent效果评测体系，持续优化任务成功率、响应准确性\""
+    },
+    {
+      "id": 14,
+      "reason": "职责含\"效果评测\"（RAG检索链路效果评测）"
+    },
+    {
+      "id": 15,
+      "reason": "职责含\"Agent行为监控与质量评估\""
+    }
+  ],
+  "sem_finance": [
+    {
+      "id": 9,
+      "reason": "职责明确提到'研发量化投研专属智能体'、'研报分析、因子处理'，preferred_skills含'量化经验、金融科技经验'"
+    }
+  ],
+  "sem_new_grad": [
+    {
+      "id": 2,
+      "reason": "标题明确标注\"校招\""
+    }
+  ],
+  "sem_devtools": [
+    {
+      "id": 7,
+      "reason": "标题为\"代码质量Agent开发工程师一开发者服务\"，职责关注质量智能领域前沿AI技术，明确符合代码质量方向"
+    },
+    {
+      "id": 13,
+      "reason": "岗位为Agent开发工程师(腾讯云产品交互方向)，preferred_skills明确包含\"开发者工具\"，符合开发者工具方向"
+    }
+  ],
+  "sem_multi_agent": [
+    {
+      "id": 2,
+      "reason": "职责明确包含'多Agent协作实现:实现 Multi-Agent 系统的工程化'"
+    },
+    {
+      "id": 3,
+      "reason": "required_skills明确包含'多Agent协作'"
+    },
+    {
+      "id": 4,
+      "reason": "职责明确包含'开发适用于生产场景的Multi-Agent系统'"
+    },
+    {
+      "id": 6,
+      "reason": "职责明确包含'探索多Agent协作模式'"
+    },
+    {
+      "id": 8,
+      "reason": "preferred_skills包含'多Agent架构'，有直接依据"
+    },
+    {
+      "id": 10,
+      "reason": "职责明确包含'多Agent协作架构的设计与实现'"
+    },
+    {
+      "id": 12,
+      "reason": "职责明确包含'设计多Agent系统及协作机制'"
+    },
+    {
+      "id": 13,
+      "reason": "职责明确包含'探索多Agent协作'"
+    },
+    {
+      "id": 14,
+      "reason": "职责明确包含'设计、开发并维护企业级Multi-Agent系统'"
+    },
+    {
+      "id": 15,
+      "reason": "职责明确包含'构建Agent间的协作协议(多Agent orchestration)'"
+    }
+  ]
+}

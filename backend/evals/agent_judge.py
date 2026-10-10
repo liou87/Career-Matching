@@ -12,7 +12,8 @@ from pydantic import BaseModel, Field
 
 from app.llm.factory import get_model
 
-MAX_CONTEXT_CHARS = 12000
+# 第四阶段的 search_jobs 会返回命中片段，输出变长，资料上限要够裁判看全
+MAX_CONTEXT_CHARS = 30000
 
 
 class Claim(BaseModel):

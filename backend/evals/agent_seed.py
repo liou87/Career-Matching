@@ -1,6 +1,6 @@
 """
 AI 助手评测用的种子数据：把评测集写进一个独立的数据库，保证每次评测环境一致，
-也不碰本地真实数据。内容包括 15 个岗位、脱敏画像、v3 的单岗分析结果和技能缺口排行。
+也不碰本地真实数据。内容包括 15 个岗位（含检索索引）、脱敏画像、v3 的单岗分析结果和技能缺口排行。
 """
 import json
 from datetime import datetime
@@ -8,6 +8,7 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 
 from app.db import models
+from app.services.retrieval import index_job
 from evals.run import DATASET_DIR, RESULTS_DIR
 
 # 单岗分析取自修复规则筛选后的 v3 评测（每个岗位第 1 次运行的结果）
@@ -35,6 +36,10 @@ def seed(db: Session) -> None:
             strengths=res["strengths"], gaps=res["gaps"], action_items=res["action_items"],
             summary=res["summary"],
         ))
+    # 新版 search_jobs 依赖检索索引；配置了 embedding 时一并计算向量
+    db.flush()
+    for job in db.query(models.Job).all():
+        index_job(db, job)
     db.add(models.BatchAnalysis(
         status="done", job_count=len(jobs), success_count=len(jobs), ranking=ranking,
         started_at=datetime.utcnow(), finished_at=datetime.utcnow(),

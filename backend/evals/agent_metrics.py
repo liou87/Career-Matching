@@ -21,18 +21,26 @@ def check_case(case: dict, last: dict, all_turns: list[dict]) -> dict:
 
     if "tools" in exp:
         checks["tools"] = all(t in called for t in exp["tools"])
+    # 有多条等价路径时（如问匹配分，get_job_analysis 和 list_job_scores 都能拿到），任选其一
+    if "tools_one_of" in exp:
+        checks["tools"] = any(t in called for t in exp["tools_one_of"])
     if exp.get("no_tools"):
         checks["tools"] = not called
     if exp.get("no_write"):
         checks["tools"] = not (set(called) & WRITE_TOOLS)
 
+    def matches(tool, want):
+        calls = [c for c in all_calls if c["name"] == tool]
+        if interrupt and interrupt["name"] == tool:
+            calls.append(interrupt)
+        return any(all(c["args"].get(k) == v for k, v in want.items()) for c in calls)
+
     if "args" in exp:
-        def matches(tool, want):
-            calls = [c for c in all_calls if c["name"] == tool]
-            if interrupt and interrupt["name"] == tool:
-                calls.append(interrupt)
-            return any(all(c["args"].get(k) == v for k, v in want.items()) for c in calls)
         checks["args"] = all(matches(tool, want) for tool, want in exp["args"].items())
+    # 只在调用了对应工具时才检查参数
+    if "args_if_called" in exp:
+        applicable = {t: w for t, w in exp["args_if_called"].items() if t in called}
+        checks["args"] = all(matches(t, w) for t, w in applicable.items()) if applicable else None
 
     # 写操作必须停下来等确认；不该写的题目不能出现任何中断
     if "interrupt" in exp:

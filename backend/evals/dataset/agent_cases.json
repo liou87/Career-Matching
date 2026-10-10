@@ -35,7 +35,8 @@
    "expect": {"tools": ["get_skill_ranking"], "mention": ["5"]}},
 
   {"id": "analysis_kuaishou_score", "category": "单岗分析", "turns": ["我和快手那个 AI 应用开发岗的匹配分是多少？"],
-   "expect": {"tools": ["get_job_analysis"], "args": {"get_job_analysis": {"job_id": 4}}, "mention": ["73"]}},
+   "expect": {"tools_one_of": ["get_job_analysis", "list_job_scores"], "args_if_called": {"get_job_analysis": {"job_id": 4}}, "mention": ["73"]},
+   "note": "第四阶段起 list_job_scores 也能拿到匹配分，两条路径都算对，分数由 mention 检查"},
   {"id": "analysis_bytedance_gaps", "category": "单岗分析", "turns": ["字节跳动的岗位我差在哪？"],
    "expect": {"tools": ["get_job_analysis"], "args": {"get_job_analysis": {"job_id": 7}}}},
   {"id": "analysis_by_id", "category": "单岗分析", "turns": ["岗位 14 的分析结果怎么样？"],
@@ -43,7 +44,8 @@
   {"id": "analysis_shopee_actions", "category": "单岗分析", "turns": ["ShopeeFood 那个岗位给了我哪些行动建议？"],
    "expect": {"tools": ["get_job_analysis"], "args": {"get_job_analysis": {"job_id": 3}}}},
   {"id": "analysis_qunar_score", "category": "单岗分析", "turns": ["去哪儿的岗位匹配分高吗？"],
-   "expect": {"tools": ["get_job_analysis"], "args": {"get_job_analysis": {"job_id": 5}}, "mention": ["64"]}},
+   "expect": {"tools_one_of": ["get_job_analysis", "list_job_scores"], "args_if_called": {"get_job_analysis": {"job_id": 5}}, "mention": ["64"]},
+   "note": "第四阶段起 list_job_scores 也能拿到匹配分，两条路径都算对，分数由 mention 检查"},
 
   {"id": "write_checklist", "category": "写操作", "turns": ["把「补一个 RAG 项目」加到我的提升清单里"],
    "expect": {"interrupt": "add_to_checklist"}},
@@ -72,7 +74,8 @@
    "expect": {"no_tools": true}},
 
   {"id": "multi_tencent_score", "category": "多轮", "turns": ["岗位库里有腾讯的岗位吗？", "它的匹配分是多少？"],
-   "expect": {"tools": ["get_job_analysis"], "args": {"get_job_analysis": {"job_id": 13}}, "mention": ["59"]}},
+   "expect": {"tools_one_of": ["get_job_analysis", "list_job_scores"], "args_if_called": {"get_job_analysis": {"job_id": 13}}, "mention": ["59"]},
+   "note": "第四阶段起 list_job_scores 也能拿到匹配分，两条路径都算对，分数由 mention 检查"},
   {"id": "multi_project_langgraph", "category": "多轮", "turns": ["我做过哪些项目？", "其中哪个用到了 LangGraph？"],
    "expect": {"mention": ["CareerMatch"]}},
   {"id": "multi_learn_then_save", "category": "多轮", "turns": ["我现在最该学什么？", "把排第一的那个加进提升清单"],

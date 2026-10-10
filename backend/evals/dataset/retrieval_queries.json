@@ -1,0 +1,22 @@
+[
+  {"id": "city_shenzhen", "type": "rule", "text": "深圳的岗位", "keyword": "深圳", "rule": {"field": "city", "aliases": ["深圳"]}},
+  {"id": "city_beijing", "type": "rule", "text": "北京有哪些岗位", "keyword": "北京", "rule": {"field": "city", "aliases": ["北京"]}},
+  {"id": "company_bytedance", "type": "rule", "text": "字节跳动的岗位", "keyword": "字节跳动", "rule": {"field": "company", "aliases": ["字节"]}},
+  {"id": "company_tencent", "type": "rule", "text": "腾讯的岗位", "keyword": "腾讯", "rule": {"field": "company", "aliases": ["腾讯"]}},
+  {"id": "company_kuaishou", "type": "rule", "text": "快手的岗位", "keyword": "快手", "rule": {"field": "company", "aliases": ["快手"]}},
+  {"id": "skill_rag", "type": "rule", "text": "要求 RAG 的岗位", "keyword": "RAG", "rule": {"field": "skills", "aliases": ["rag", "检索增强"]}},
+  {"id": "skill_langgraph", "type": "rule", "text": "需要 LangGraph 的岗位", "keyword": "LangGraph", "rule": {"field": "skills", "aliases": ["langgraph"]}},
+  {"id": "skill_golang", "type": "rule", "text": "要求 Golang 的岗位", "keyword": "Golang", "rule": {"field": "skills", "aliases": ["golang", "go语言"]}},
+  {"id": "skill_typescript", "type": "rule", "text": "用到 TypeScript 的岗位", "keyword": "TypeScript", "rule": {"field": "skills", "aliases": ["typescript"]}},
+  {"id": "skill_function_calling", "type": "rule", "text": "需要 Function Calling 的岗位", "keyword": "Function Calling", "rule": {"field": "skills", "aliases": ["function calling", "函数调用", "工具调用"]}},
+  {"id": "skill_mcp", "type": "rule", "text": "要求 MCP 的岗位", "keyword": "MCP", "rule": {"field": "skills", "aliases": ["mcp"]}},
+  {"id": "skill_search_engine", "type": "rule", "text": "需要搜索引擎或 Elasticsearch 经验的岗位", "keyword": "Elasticsearch", "rule": {"field": "skills", "aliases": ["elasticsearch", "solr", "搜索引擎"]}},
+  {"id": "skill_multimodal", "type": "rule", "text": "要求多模态能力的岗位", "keyword": "多模态", "rule": {"field": "skills", "aliases": ["多模态", "vlm"]}},
+  {"id": "title_backend", "type": "rule", "text": "后端开发岗位", "keyword": "后端", "rule": {"field": "title", "aliases": ["后端"]}},
+  {"id": "sem_backend_scale", "type": "semantic", "text": "偏服务端工程、需要高并发或分布式经验的岗位", "keyword": "分布式"},
+  {"id": "sem_evaluation", "type": "semantic", "text": "要做模型评测或效果评估的岗位", "keyword": "评测"},
+  {"id": "sem_finance", "type": "semantic", "text": "和金融、投研相关的岗位", "keyword": "金融"},
+  {"id": "sem_new_grad", "type": "semantic", "text": "适合应届生或校招的岗位", "keyword": "校招"},
+  {"id": "sem_devtools", "type": "semantic", "text": "做开发者工具或代码质量方向的岗位", "keyword": "代码"},
+  {"id": "sem_multi_agent", "type": "semantic", "text": "需要搭建多 Agent 协作系统的岗位", "keyword": "多Agent"}
+]
