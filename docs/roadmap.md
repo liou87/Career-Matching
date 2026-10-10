@@ -89,11 +89,11 @@
 
 预计 2 天。
 
-- [ ] 只读演示模式：浏览公开，调用 LLM 和写数据需要口令
-- [ ] 基于 Postgres 的限流和每日 token 预算熔断
-- [ ] Docker Compose 一键启动应用和 Postgres
-- [ ] 文档：Mermaid 架构图、`docs/evals.md`、关键决策的 ADR
-- [ ] 可选：根据技能差距生成面试题
+- [x] 只读演示模式：配置口令后浏览公开，调用 AI 和写数据需要口令
+- [x] 基于数据库的 IP 限流（10 分钟 20 次）和每日 token 预算（200 万）
+- [x] Docker Compose 一键启动应用和 Postgres，由 CI 构建并做冒烟测试
+- [x] 文档：Mermaid 架构图、`docs/evals.md`、设计决策记录
+- [x] 面试题：从 JD 出发，用优势和差距排优先级，附评测
 
 ## CareerMatch 明确不做的事
 

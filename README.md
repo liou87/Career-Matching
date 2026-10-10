@@ -19,6 +19,8 @@ CareerMatch（求职助手）用 AI 管理求职全流程：维护个人画像�
   按“多少个岗位缺这项技能”排序。
 - **提升清单**：从分析结果里勾选差距或行动建议存进清单，
   分栏展示，可标记完成、编辑、删除。
+- **面试准备**：针对岗位 JD 出最可能被问到的题，标出对应你的优势还是差距，
+  附答题要点。
 - **AI 助手**：流式对话，Agent 通过工具查询岗位库、画像、分析和排行，
   也能替你加清单、分析岗位、添加岗位、记住求职偏好，写操作都要你确认。
   对话刷新后可恢复，偏好跨对话保留。
@@ -43,14 +45,15 @@ backend/
     db/                    # SQLAlchemy 表与连接
     llm/                   # 模型工厂、链、结构化输出；legacy.py 为 v1/v2 对照实验
     graphs/                # 匹配分析 v3 与批量分析（LangGraph）
-    services/              # JD 解析、评分、技能归并
+    services/              # JD 解析、评分、技能归并、检索、面试题
     agent/                 # AI 助手：工具、记忆、持久化、流式输出
   evals/                   # 离线评测框架、评测集与结果
-  scripts/                 # SQLite 数据迁移到 Postgres
+  scripts/                 # 数据迁移到 Postgres、检索索引补算
 frontend/
   src/pages/               # 各页面
   src/api.ts               # axios 实例
-docs/                      # 部署、接口、评测、路线图
+docs/                      # 架构、设计决策、部署、接口、评测、路线图
+docker-compose.yml         # 自托管：Postgres + 后端 + 前端
 start.bat                  # Windows 下一键启动前后端
 ```
 
@@ -58,25 +61,18 @@ start.bat                  # Windows 下一键启动前后端
 
 ### 启动后端
 
-```bash
-cd backend
-pip install -r requirements.txt
-```
-
-参考 `.env.example` 新建 `backend/.env`，填入 DeepSeek API Key：
-
-```dotenv
-DEEPSEEK_API_KEY=sk-xxxxxx
-```
+参考 `.env.example` 新建 `backend/.env`，填入 `DEEPSEEK_API_KEY=sk-...`。
 
 > [!NOTE]
 > Key 从 [platform.deepseek.com](https://platform.deepseek.com/) 获取，
 > 需要单独绑定支付方式。没有 Key 时 JD 解析、匹配分析、
 > 技能缺口总览和 AI 助手不可用，个人画像和清单不受影响。
 
-首次运行或拉取新代码后先执行数据库迁移，再启动服务（`start.bat` 已包含）：
+安装依赖，执行数据库迁移（拉取新代码后也要执行，`start.bat` 已包含），再启动：
 
 ```bash
+cd backend
+pip install -r requirements.txt
 alembic upgrade head
 uvicorn main:app --reload --port 8000
 ```
@@ -106,8 +102,19 @@ pytest --cov=app
 
 ## 部署 CareerMatch
 
-前后端用 Vercel Services 部署在同一个项目里，数据库用 Neon Postgres，
-公网访问需要口令。步骤见 [docs/deploy.md](docs/deploy.md)。
+前后端用 Vercel Services 部署在同一个项目里，数据库用 Neon Postgres。
+配置访问口令后是只读演示：浏览公开，调用 AI 和修改数据需要口令。
+步骤见 [docs/deploy.md](docs/deploy.md)。
+
+自托管用 Docker Compose（Postgres、后端、nginx 前端），在仓库根目录建 `.env`
+填好 `DEEPSEEK_API_KEY` 后运行，浏览器打开 <http://localhost:8080>：
+
+```bash
+docker compose up -d --build
+```
+
+架构见 [docs/architecture.md](docs/architecture.md)，
+关键设计取舍见 [docs/decisions.md](docs/decisions.md)。
 
 ## CareerMatch 接口
 
