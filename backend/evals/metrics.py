@@ -2,7 +2,9 @@
 离线评测指标。全部是纯函数，不调 LLM（编造率的 LLM 判断在 judge.py），
 单元测试见 tests/test_eval_metrics.py。
 """
+import re
 import statistics
+import unicodedata
 from collections import defaultdict
 
 from app.services.metrics import percentile
@@ -28,28 +30,49 @@ def generic_action_count(result: dict) -> int:
     )
 
 
-def gap_precision_recall(result: dict, label: dict) -> tuple[float | None, float | None]:
-    """差距识别的准确率和召回率。
+_SHORT_ASCII = re.compile(r"[a-z0-9+#.]{1,4}")
 
-    预测是模型给出的 missing_skills（自由文本），标注是人工确认的缺失技能及其别名。
-    一条标注被识别到：任意别名出现在任意一条预测里（不区分大小写）。
+
+def _fold(text: str) -> str:
+    return unicodedata.normalize("NFKC", text).lower()
+
+
+def alias_hit(alias: str, text: str) -> bool:
+    """别名是否出现在文本里。不区分大小写和全半角，忽略空白：
+    「多模态模型 (VLM)」和「多模态模型(vlm)」视为相同。
+    不超过 4 个字符的英文短词要求前后不连着字母数字，避免 Java 命中 JavaScript、Go 命中 Google。
+    """
+    a = re.sub(r"\s+", "", _fold(alias))
+    if not a:
+        return False
+    if _SHORT_ASCII.fullmatch(a):
+        return re.search(rf"(?<![a-z0-9]){re.escape(a)}(?![a-z0-9])", _fold(text)) is not None
+    return a in re.sub(r"\s+", "", _fold(text))
+
+
+def gap_matches(result: dict, label: dict) -> tuple[int, int, int, int]:
+    """差距识别的命中计数：(识别到的标注数, 标注数, 对的预测数, 预测数)。
+
+    预测是模型给出的 missing_skills（自由文本），标注是人工确认的缺失技能及其别名
+    （别名由 evals/aliases.py 按规则派生，人工校对）。
+    一条标注被识别到：任意别名出现在任意一条预测里（匹配规则见 alias_hit）。
     一条预测是对的：它包含任意一条标注的任意别名。
     """
-    predicted = [p.lower() for p in result.get("missing_skills") or []]
-    gold = [[a.lower() for a in m["aliases"]] for m in label["missing"]]
+    predicted = result.get("missing_skills") or []
+    gold = [m["aliases"] for m in label["missing"]]
 
     def hits(text: str, aliases: list[str]) -> bool:
-        return any(a in text for a in aliases)
+        return any(alias_hit(a, text) for a in aliases)
 
-    recall = (
-        sum(any(hits(p, aliases) for p in predicted) for aliases in gold) / len(gold)
-        if gold else None
-    )
-    precision = (
-        sum(any(hits(p, aliases) for aliases in gold) for p in predicted) / len(predicted)
-        if predicted else None
-    )
-    return precision, recall
+    found = sum(any(hits(p, aliases) for p in predicted) for aliases in gold)
+    correct = sum(any(hits(p, aliases) for aliases in gold) for p in predicted)
+    return found, len(gold), correct, len(predicted)
+
+
+def gap_precision_recall(result: dict, label: dict) -> tuple[float | None, float | None]:
+    """单次分析的差距识别准确率和召回率，没有预测或没有标注时对应一项为 None。"""
+    found, n_gold, correct, n_pred = gap_matches(result, label)
+    return (correct / n_pred if n_pred else None), (found / n_gold if n_gold else None)
 
 
 def stability(records: list[dict]) -> dict:
@@ -77,9 +100,9 @@ def summarize_version(records: list[dict], labels: dict[int, dict], verdicts: li
     costs = [r["cost_usd"] for r in ok if r["cost_usd"] is not None]
     actions = [a for r in ok for a in r["result"].get("action_items") or []]
 
-    prs = [gap_precision_recall(r["result"], labels[r["job_id"]]) for r in ok if r["job_id"] in labels]
-    precisions = [p for p, _ in prs if p is not None]
-    recalls = [rc for _, rc in prs if rc is not None]
+    matches = [gap_matches(r["result"], labels[r["job_id"]]) for r in ok if r["job_id"] in labels]
+    precisions = [correct / n_pred for _, _, correct, n_pred in matches if n_pred]
+    recalls = [found / n_gold for found, n_gold, _, _ in matches if n_gold]
 
     fabricated = [v for v in verdicts if v["fabricated"]]
     gap_counts = {c: sum(v["category"] == c for v in gap_verdicts) for c in ("valid", "not_required", "already_has")}
@@ -96,9 +119,12 @@ def summarize_version(records: list[dict], labels: dict[int, dict], verdicts: li
         "action_items": len(actions),
         "generic_actions": sum(generic_action_count(r["result"]) for r in ok),
         "stability": stability(records),
-        "gap_labeled_runs": len(prs),
+        "gap_labeled_runs": len(matches),
         "gap_precision": _round3(_mean(precisions)),
+        # 先算每次分析的召回率再平均：每个岗位权重相同
         "gap_recall": _round3(_mean(recalls)),
+        # 所有标注放在一起算：每条差距权重相同，差距多的岗位影响更大
+        "gap_recall_micro": _ratio(sum(m[0] for m in matches), sum(m[1] for m in matches)),
         "gap_judged": len(gap_verdicts),
         "gap_valid_rate": _ratio(gap_counts["valid"], len(gap_verdicts)),
         "gap_not_required_rate": _ratio(gap_counts["not_required"], len(gap_verdicts)),

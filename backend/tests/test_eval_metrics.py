@@ -1,8 +1,16 @@
 """离线评测的指标函数（evals/metrics.py），都是纯函数。"""
 import pytest
 
+from evals.aliases import derive_aliases
 from evals.judge import suggestion_texts
-from evals.metrics import gap_precision_recall, generic_action_count, score_mismatch, stability, summarize_version
+from evals.metrics import (
+    alias_hit,
+    gap_precision_recall,
+    generic_action_count,
+    score_mismatch,
+    stability,
+    summarize_version,
+)
 
 LABEL = {"missing": [
     {"skill": "RAG", "aliases": ["RAG", "检索增强"]},
@@ -17,6 +25,25 @@ def test_gap_precision_recall_matches_aliases_case_insensitively():
 
     assert recall == 1.0           # 两条标注都被识别到
     assert precision == pytest.approx(2 / 3)  # 「Go 语言」不在标注里
+
+
+def test_alias_hit_ignores_spacing_and_width_but_respects_short_words():
+    assert alias_hit("多模态模型(VLM)项目经验", "多模态模型 （VLM） 项目经验")
+    assert alias_hit("ToB SaaS", "ToB SaaS / 用研调研行业实习经验")
+    assert alias_hit("Java", "Java/Spring 后端")
+    assert not alias_hit("Java", "JavaScript")
+    assert not alias_hit("Go", "Google ADK")
+    assert alias_hit("Go", "Python 和 Go 语言")
+
+
+def test_derive_aliases_splits_alternatives_and_strips_suffixes():
+    assert derive_aliases("Solr项目经验") == ["Solr项目经验", "Solr"]
+    assert derive_aliases("Terraform或CloudFormation") == ["Terraform或CloudFormation", "Terraform", "CloudFormation"]
+    assert derive_aliases("Infrastructure as Code (IaC)") == [
+        "Infrastructure as Code (IaC)", "IaC", "Infrastructure as Code",
+    ]
+    assert derive_aliases("Go") == ["Go", "Golang"]
+    assert derive_aliases("参与开源项目") == ["参与开源项目"]
 
 
 def test_gap_precision_recall_handles_empty_lists():
@@ -65,6 +92,22 @@ def test_summarize_version_counts_failures_and_fabrication():
     assert s["latency_ms_p50"] == 1000  # 只统计成功的
     assert s["gap_recall"] == 0.5
     assert s["fabrication_rate"] == 0.25
+
+
+def test_gap_recall_per_job_vs_per_label():
+    def rec(job_id, missing):
+        return {"job_id": job_id, "ok": True, "latency_ms": 1, "cost_usd": None,
+                "usage": {"input_tokens": 0, "output_tokens": 0},
+                "result": {"match_score": 70, "missing_skills": missing}}
+
+    labels = {
+        1: {"missing": [{"skill": "RAG", "aliases": ["RAG"]}]},
+        2: {"missing": [{"skill": s, "aliases": [s]} for s in ("Kafka", "Redis", "Docker")]},
+    }
+    s = summarize_version([rec(1, ["RAG"]), rec(2, [])], labels, [])
+
+    assert s["gap_recall"] == 0.5          # 岗位 1 全对、岗位 2 全漏，两个岗位平均
+    assert s["gap_recall_micro"] == 0.25   # 4 条标注只识别到 1 条
 
 
 def test_judge_checks_actions_and_gap_suggestions():

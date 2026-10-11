@@ -223,7 +223,8 @@ ROWS = [
     ("凭空差距比例（裁判）", "gap_not_required_rate"),
     ("误报缺失比例（裁判）", "gap_already_has_rate"),
     ("差距识别准确率（人工标注）", "gap_precision"),
-    ("差距识别召回率（人工标注）", "gap_recall"),
+    ("差距识别召回率（人工标注，按岗位平均）", "gap_recall"),
+    ("差距识别召回率（人工标注，按条目）", "gap_recall_micro"),
     ("编造率", "fabrication_rate"),
 ]
 
