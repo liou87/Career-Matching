@@ -11,7 +11,7 @@
     ],
     "runs": 3,
     "jobs": 15,
-    "labeled_jobs": 0,
+    "labeled_jobs": 15,
     "profile": "dataset/profile.json",
     "langsmith": false
   },
@@ -33,9 +33,10 @@
         "max_range": 4,
         "identical_ratio": 0.733
       },
-      "gap_labeled_runs": 0,
-      "gap_precision": null,
-      "gap_recall": null,
+      "gap_labeled_runs": 45,
+      "gap_precision": 0.371,
+      "gap_recall": 0.767,
+      "gap_recall_micro": 0.826,
       "gap_judged": 138,
       "gap_valid_rate": 0.949,
       "gap_not_required_rate": 0.014,
