@@ -20,7 +20,7 @@ flowchart LR
         Match["匹配分析 v3：LangGraph 状态图"]
         Batch["批量分析：Send API 并发 + 技能归并"]
         Agent["AI 助手：create_agent + 人工确认 + 摘要"]
-        Retrieval["岗位检索：BM25 + 向量，RRF 融合"]
+        Retrieval["岗位检索：BM25（可选向量 + RRF）"]
         Interview["面试题生成"]
         Factory["LLM 工厂：按角色配置模型"]
     end
@@ -42,7 +42,7 @@ flowchart LR
     Agent --> Retrieval
     Batch --> Match
     Match & Batch & Agent & Interview --> Factory --> DS
-    Retrieval --> SF
+    Retrieval -. "可选" .-> SF
     Routes --> Tables
     Agent --> LG
     Factory --> Calls

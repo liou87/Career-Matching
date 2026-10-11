@@ -18,8 +18,11 @@ Vite 开发服务器会把 `/api` 代理到本机 8000 端口。
   默认 10 分钟 20 次。
 - `DAILY_TOKEN_BUDGET`：全站每天的 token 上限，默认 200 万，按北京时间零点重置，
   超出后当天停用 AI。设为 0 关闭。
-- `SILICONFLOW_API_KEY`：可选，岗位语义检索用的 embedding（BAAI/bge-m3）。
-  不配置时岗位搜索只用关键词。
+- `SILICONFLOW_API_KEY`：可选，岗位向量检索用的 embedding（BAAI/bge-m3）。
+  配置后新岗位入库时会计算向量，但搜索仍只用 BM25。
+- `SEARCH_MODE`：默认 `keyword`（只用 BM25）。设为 `hybrid` 且配置了
+  embedding 时，BM25 和向量用 RRF 融合。切换前先按下文给已有岗位补算向量。
+  选择依据见[检索评测](evals.md#评测-careermatch-的岗位检索)。
 - `LOG_JSON`：日志一行一条 JSON，方便在 Vercel Logs 里检索。在 Vercel 上
   默认开启，不用手动设置。
 - `LANGSMITH_TRACING`、`LANGSMITH_API_KEY`、`LANGSMITH_PROJECT`：可选，
