@@ -17,6 +17,10 @@ os.environ.update({
     "LLM_BASE_URL": "http://127.0.0.1:9",
     "LLM_MAX_RETRIES": "0",
     "LLM_TIMEOUT": "2",
+    # 本地 .env 里可能配了 embedding 的 Key，测试里一律关掉，避免真实调用；
+    # 向量一路的测试用假 embedding（tests/test_retrieval.py）
+    "EMBEDDING_API_KEY": "",
+    "SILICONFLOW_API_KEY": "",
     "LANGSMITH_TRACING": "false",
     "LANGCHAIN_TRACING_V2": "false",
 })
