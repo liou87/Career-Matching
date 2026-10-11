@@ -4,6 +4,7 @@
 """
 import os
 from pathlib import Path
+from typing import Literal
 
 from dotenv import load_dotenv
 from pydantic import AliasChoices, Field, field_validator
@@ -93,6 +94,9 @@ class Settings(BaseSettings):
     embedding_model: str = "BAAI/bge-m3"
     embedding_timeout: float = 20
     search_rrf_k: int = 60  # RRF 融合的常数，取文献里的常用值
+    # 线上检索方式。评测里 BM25 的 recall@5 是 0.963，混合 0.943，向量单独 0.792，
+    # 所以默认只用关键词；配了 embedding 时入库照样算向量，改成 hybrid 即可切换
+    search_mode: Literal["keyword", "hybrid"] = "keyword"
 
     # ---------- 批量分析 ----------
     batch_max_concurrency: int = 5

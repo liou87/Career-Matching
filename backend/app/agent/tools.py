@@ -11,6 +11,7 @@ from typing import Literal, Optional
 from langchain_core.tools import tool
 from pydantic import BaseModel, Field
 
+from app.core.config import settings
 from app.core.errors import DomainError
 from app.db import models
 from app.db.session import SessionLocal
@@ -35,7 +36,7 @@ def search_jobs(query: str = "", city: Optional[str] = None, company: Optional[s
       排在后面的结果可能只是弱相关，以片段内容为准。"""
     db = SessionLocal()
     try:
-        mode = "hybrid" if embeddings.enabled() else "keyword"
+        mode = "hybrid" if settings.search_mode == "hybrid" and embeddings.enabled() else "keyword"
         out = retrieval.search(db, query, city=city, company=company, limit=max(1, min(limit, 15)), mode=mode)
         return json.dumps(out, ensure_ascii=False)
     finally:

@@ -75,3 +75,16 @@ def test_search_reports_matched_separately_from_total(db):
 
     assert (out["total"], out["matched"]) == (2, 1)
 
+
+def test_search_mode_defaults_to_keyword_even_with_embeddings(db, monkeypatch):
+    from app.core.config import settings
+    from app.llm import embeddings
+
+    monkeypatch.setattr(embeddings, "enabled", lambda: True)
+    monkeypatch.setattr(embeddings, "embed", lambda texts: [[1.0, 0.0] for _ in texts])
+    _add(db, "RAG 工程师", ["RAG"])
+
+    assert _search(query="RAG")["mode"] == "keyword"
+    monkeypatch.setattr(settings, "search_mode", "hybrid")
+    assert _search(query="RAG")["mode"] == "keyword+vector"
+
