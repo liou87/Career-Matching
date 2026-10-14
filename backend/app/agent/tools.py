@@ -27,13 +27,17 @@ from app.services import retrieval
 
 @tool
 def search_jobs(query: str = "", city: Optional[str] = None, company: Optional[str] = None, limit: int = 5) -> str:
-    """搜索岗位库。query 用自然语言或关键词描述想找的岗位（技能、方向、职责都行），
-    按语义和关键词综合排序；city、company 按城市、公司筛选（包含即可）。
-    query 留空时按筛选条件列出岗位。返回：
+    """搜索用户岗位库里已保存的岗位。
+    问有哪些岗位、某个城市或公司的岗位、哪些岗位要求某项技能、岗位数量时用；
+    要按匹配分排序用 list_job_scores。
+    query 写想找的技能、方向或职责，关键词或短句都可以。结果按与 query 的关键词相关度排序，
+    同义词或换了说法的描述可能搜不到，没找到时可以换个说法再搜。
+    city、company 按城市、公司筛选（包含即可）；query 留空时只按筛选条件列出岗位。
+    返回：
     - total：满足城市/公司筛选条件的岗位总数（不看 query）
     - matched：其中与 query 关键词相关的岗位数
-    - results：按相关度排序的前 limit 条，含 id、标题、公司、城市、薪资、必需技能、命中的片段原文。
-      排在后面的结果可能只是弱相关，以片段内容为准。"""
+    - results：按相关度排序的前 limit 条（最多 15 条），含 id、标题、公司、城市、薪资、必需技能、
+      命中的片段原文。排在后面的结果可能只是弱相关，以片段内容为准。"""
     db = SessionLocal()
     try:
         mode = "hybrid" if settings.search_mode == "hybrid" and embeddings.enabled() else "keyword"
@@ -63,7 +67,13 @@ def list_job_scores() -> str:
 
 @tool
 def get_skill_ranking() -> str:
-    """读最近一条 status=done 的 BatchAnalysis 的 ranking，只返回 skill 和 job_count（不要 originals，太长），没有则返回提示"""
+    """查看技能缺口排行：用户缺的技能按「多少个岗位缺这项」从多到少排序，来自最近一次批量匹配分析。
+    用户问「最该先学什么」「最常见的短板」「整体缺哪些技能」时用；
+    问某一个岗位缺什么用 get_job_analysis，问哪些岗位要求某项技能用 search_jobs。
+    返回 [{skill: 技能名, job_count: 缺这项技能的岗位数}]，不包含具体是哪些岗位。
+    排行是上次批量分析时的快照，之后新加的岗位或改过的画像不会反映在里面。
+    还没跑过批量分析时返回一句提示。"""
+    # 只取 skill 和 job_count：originals（各岗位里的原始说法）太长，模型用不上
     db = SessionLocal()
     try:
         task = (
@@ -82,7 +92,9 @@ def get_skill_ranking() -> str:
 
 @tool
 def get_profile() -> str:
-    """读 profiles 表第一条"""
+    """查看用户的个人画像：姓名、教育、技能、实习/工作经历、项目，以及目标岗位、城市和公司。
+    问用户会什么、做过什么、想找什么样的工作，或者回答需要结合用户背景时用。
+    用户还没填写画像时返回一句提示。"""
     db = SessionLocal()
     try:
         profile = db.query(models.Profile).first()
@@ -95,7 +107,10 @@ def get_profile() -> str:
 
 @tool
 def get_job_analysis(job_id: int) -> str:
-    """读该岗位最近一条 analyses 记录，返回 match_score/gaps/action_items，没有则返回提示"""
+    """查看某个岗位最近一次的匹配分析：匹配分（0-100）、差距列表（含重要程度）和行动建议（含优先级）。
+    问某一个岗位匹配得怎么样、缺什么、该做什么准备时用；不确定 job_id 时先用 search_jobs 查到。
+    只比较各岗位的匹配分用 list_job_scores，看所有岗位共同的短板用 get_skill_ranking。
+    不包含已匹配的技能和优势。这个岗位还没分析过时返回一句提示。"""
     db = SessionLocal()
     try:
         analysis = (
