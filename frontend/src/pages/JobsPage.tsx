@@ -76,12 +76,15 @@ export default function JobsPage() {
               <select style={{ width: "auto" }} value={searchSite} onChange={e => setSearchSite(e.target.value as JobSite)}>
                 {JOB_SITES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
               </select>
-              <button
+              {/* 用普通链接而不是 window.open：脚本打开的新窗口会被弹窗拦截，有的浏览器连提示都没有 */}
+              <a
                 className="btn btn-primary"
-                onClick={() => window.open(buildJobSearchUrl(searchSite, searchRole, searchCity), "_blank", "noopener,noreferrer")}
+                href={buildJobSearchUrl(searchSite, searchRole, searchCity)}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 打开搜索结果
-              </button>
+              </a>
             </div>
             <p style={{ color: "var(--text-faint)", fontSize: 12, marginTop: 8 }}>
               新标签页打开该网站的搜索结果，挑中岗位后回来粘贴 JD 自动解析入库
