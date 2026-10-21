@@ -9,7 +9,7 @@ AI 助手评测：35 道题（30 单轮 + 5 多轮），检查工具选择、参
     python -m evals.agent_eval                 # 全部题目
     python -m evals.agent_eval --cases 5       # 只跑前 5 道，快速冒烟
     python -m evals.agent_eval --no-judge      # 跳过回答依据检查
-    python -m evals.agent_eval --rejudge evals/results/agent_eval_<...>.json   # 只重跑裁判
+    python -m evals.agent_eval --rejudge evals/results/agent_eval_<...>.json   # 不重跑助手：重跑裁判，其他检查按当前预期重算
 """
 import os
 import sys
@@ -35,7 +35,7 @@ from app.core.config import settings  # noqa: E402
 from app.db.session import Base, SessionLocal, engine  # noqa: E402
 from evals import agent_seed  # noqa: E402
 from evals.agent_judge import context_from_turns, judge_grounding  # noqa: E402
-from evals.agent_metrics import WRITE_TOOLS, check_case, summarize, to_markdown  # noqa: E402,F401
+from evals.agent_metrics import WRITE_TOOLS, case_passed, check_case, rescore, summarize, to_markdown  # noqa: E402,F401
 from evals.run import DATASET_DIR, RESULTS_DIR, _sum_usage  # noqa: E402
 
 # ---------- 适配器：怎样和被测的助手对话 ----------
@@ -112,11 +112,10 @@ def run_case(adapter_cls, case: dict, judge: bool) -> dict:
                                      turns[-1]["answer"])
         except Exception as e:  # noqa: BLE001
             error = f"judge {type(e).__name__}: {e}"
-    grounded_ok = claims is None or all(c["supported"] for c in claims)
     return {
         "id": case["id"], "category": case["category"], "expect": case["expect"],
         "turns": turns, "checks": checks, "claims": claims, "cost_usd": cost, "error": error,
-        "passed": not error and all(v for v in checks.values() if v is not None) and grounded_ok,
+        "passed": case_passed(error, checks, claims),
     }
 
 
@@ -133,9 +132,8 @@ def _judge_result(r: dict, case: dict) -> dict:
     if last and last["answer"] and not r["error"]:
         claims = judge_grounding(last["message"], context_from_turns(r["turns"], case.get("memories", [])),
                                  last["answer"])
-    grounded_ok = claims is None or all(c["supported"] for c in claims)
-    return {**r, "claims": claims,
-            "passed": not r["error"] and all(v for v in r["checks"].values() if v is not None) and grounded_ok}
+    # 裁判之外的检查也按当前的题目预期和 check_case 重算，不调用 API
+    return rescore({**r, "claims": claims}, case)
 
 
 def rejudge(path: Path, concurrency: int):
@@ -157,7 +155,7 @@ def main():
     p.add_argument("--concurrency", type=int, default=5)
     p.add_argument("--no-judge", action="store_true")
     p.add_argument("--langsmith", action="store_true", help="保留 LangSmith 追踪")
-    p.add_argument("--rejudge", type=Path, help="对已有结果只重跑回答依据检查")
+    p.add_argument("--rejudge", type=Path, help="对已有结果重跑回答依据检查，其他检查按当前题目预期重算")
     args = p.parse_args()
 
     if args.rejudge:

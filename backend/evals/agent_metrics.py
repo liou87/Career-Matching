@@ -28,6 +28,10 @@ def check_case(case: dict, last: dict, all_turns: list[dict]) -> dict:
         checks["tools"] = not called
     if exp.get("no_write"):
         checks["tools"] = not (set(called) & WRITE_TOOLS)
+    # 写操作题只写了 interrupt 时，工具选对没有也要计入工具准确率：
+    # 被确认机制拦下的调用仍在模型发出的 tool_calls 里
+    if "interrupt" in exp and not {"tools", "tools_one_of", "no_tools", "no_write"} & set(exp):
+        checks["tools"] = exp["interrupt"] in called
 
     def matches(tool, want):
         calls = [c for c in all_calls if c["name"] == tool]
@@ -56,6 +60,22 @@ def check_case(case: dict, last: dict, all_turns: list[dict]) -> dict:
     return checks
 
 
+def case_passed(error: str | None, checks: dict, claims: list[dict] | None) -> bool:
+    """没出错、各项检查都通过（None 表示不适用）、回答里的说法都有依据。"""
+    grounded_ok = claims is None or all(c["supported"] for c in claims)
+    return not error and all(v for v in checks.values() if v is not None) and grounded_ok
+
+
+def rescore(result: dict, case: dict) -> dict:
+    """用当前的题目预期和判分逻辑重算一条已有结果的 checks 和 passed，不调用 API。
+    题目预期或 check_case 改过之后，旧结果不用重跑助手也能按新口径比较。"""
+    checks = result["checks"]
+    if result["turns"] and not result["error"]:
+        checks = check_case(case, result["turns"][-1], result["turns"])
+    return {**result, "expect": case["expect"], "checks": checks,
+            "passed": case_passed(result["error"], checks, result["claims"])}
+
+
 def summarize(results: list[dict]) -> dict:
     passed = [r for r in results if r["passed"]]
     by_cat = defaultdict(list)
@@ -77,6 +97,8 @@ def summarize(results: list[dict]) -> dict:
         "pass_rate": round(len(passed) / len(results), 3),
         "by_category": {k: f"{sum(v)}/{len(v)}" for k, v in by_cat.items()},
         "tool_accuracy": rate("tools"),
+        # 参与工具检查的题数：准确率要和分母一起看
+        "tool_checked": sum(1 for r in results if r["checks"].get("tools") is not None),
         "arg_accuracy": rate("args"),
         "mention_accuracy": rate("mention"),
         "write_confirmed": f"{sum(bool(r['checks'].get('confirm')) for r in write_cases)}/{len(write_cases)}",
@@ -92,9 +114,11 @@ def summarize(results: list[dict]) -> dict:
 
 
 def to_markdown(meta: dict, s: dict) -> str:
+    tool_accuracy = (None if s["tool_accuracy"] is None
+                     else f"{s['tool_accuracy']}（{s['tool_checked']}/{s['cases']} 题参与）")
     rows = [
         ("通过率", s["pass_rate"]),
-        ("工具选择准确率", s["tool_accuracy"]),
+        ("工具选择准确率", tool_accuracy),
         ("参数准确率", s["arg_accuracy"]),
         ("必须内容命中率", s["mention_accuracy"]),
         ("写操作先确认", s["write_confirmed"]),
