@@ -22,8 +22,7 @@
   {"id": "search_golang", "category": "岗位搜索", "turns": ["有要求 Golang 的岗位吗？"],
    "expect": {"tools": ["search_jobs"], "mention_any": ["字节跳动", "番茄"]}},
   {"id": "search_count", "category": "岗位搜索", "turns": ["岗位库里一共有多少个岗位？"],
-   "expect": {"mention": ["15"]},
-   "note": "没有能列出全部岗位的工具，用来暴露工具能力缺口"},
+   "expect": {"tools_one_of": ["search_jobs", "list_job_scores"], "mention": ["15"]}},
 
   {"id": "ranking_top", "category": "技能排行", "turns": ["我现在最该学什么？"],
    "expect": {"tools": ["get_skill_ranking"], "mention": ["RAG"]}},
@@ -65,7 +64,7 @@
    "expect": {"interrupt": "manage_memory"}},
   {"id": "memory_recall", "category": "偏好记忆", "turns": ["我之前说过的求职偏好是什么？"],
    "memories": ["不考虑外包岗位"],
-   "expect": {"mention": ["外包"]},
+   "expect": {"no_tools": true, "mention": ["外包"]},
    "note": "偏好必须是画像里没有的内容，否则读画像也能答对"},
 
   {"id": "chitchat_hello", "category": "闲聊与超出范围", "turns": ["你好，你能帮我做什么？"],
@@ -77,12 +76,11 @@
    "expect": {"tools_one_of": ["get_job_analysis", "list_job_scores"], "args_if_called": {"get_job_analysis": {"job_id": 13}}, "mention": ["59"]},
    "note": "第四阶段起 list_job_scores 也能拿到匹配分，两条路径都算对，分数由 mention 检查"},
   {"id": "multi_project_langgraph", "category": "多轮", "turns": ["我做过哪些项目？", "其中哪个用到了 LangGraph？"],
-   "expect": {"mention": ["CareerMatch"]}},
+   "expect": {"tools": ["get_profile"], "mention": ["CareerMatch"]}},
   {"id": "multi_learn_then_save", "category": "多轮", "turns": ["我现在最该学什么？", "把排第一的那个加进提升清单"],
    "expect": {"interrupt": "add_to_checklist"}},
   {"id": "multi_rag_then_city", "category": "多轮", "turns": ["帮我找要求 RAG 的岗位", "这些岗位里哪些在上海？"],
-   "expect": {"mention_any": ["去哪儿", "聚水潭"]}},
+   "expect": {"tools": ["search_jobs"], "mention_any": ["去哪儿", "聚水潭"]}},
   {"id": "multi_best_match", "category": "多轮", "turns": ["我匹配分最高的岗位是哪个？", "这个岗位我主要缺什么？"],
-   "expect": {"tools": ["get_job_analysis"], "args": {"get_job_analysis": {"job_id": 1}}},
-   "note": "没有能列出全部分析结果的工具，用来暴露工具能力缺口"}
+   "expect": {"tools": ["get_job_analysis"], "args": {"get_job_analysis": {"job_id": 1}}}}
 ]
